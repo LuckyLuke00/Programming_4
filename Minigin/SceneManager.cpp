@@ -3,7 +3,7 @@
 
 void dae::SceneManager::Update()
 {
-	for(auto& scene : m_scenes)
+	for (auto& scene : m_scenes)
 	{
 		scene->Update();
 	}

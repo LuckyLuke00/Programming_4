@@ -26,7 +26,7 @@ void Scene::RemoveAll()
 
 void Scene::Update()
 {
-	for(auto& object : m_objects)
+	for (auto& object : m_objects)
 	{
 		object->Update();
 	}
@@ -39,4 +39,3 @@ void Scene::Render() const
 		object->Render();
 	}
 }
-
