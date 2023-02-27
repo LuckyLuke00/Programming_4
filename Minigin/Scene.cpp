@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "GameObject.h"
+#include "RenderComponent.h"
 
 using namespace dae;
 
@@ -36,6 +37,10 @@ void Scene::Render() const
 {
 	for (const auto& object : m_objects)
 	{
-		object->Render();
+		const auto& renderComponent{ object->GetComponent<RenderComponent>() };
+		if (renderComponent)
+		{
+			renderComponent->Render();
+		}
 	}
 }

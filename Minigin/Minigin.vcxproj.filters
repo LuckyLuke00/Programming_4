@@ -12,6 +12,9 @@
     <Filter Include="Core">
       <UniqueIdentifier>{490cb770-4cbf-4899-8b93-774b757449b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Components">
+      <UniqueIdentifier>{4df30999-d9db-4171-ab27-895bd7ab6035}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -53,6 +56,15 @@
     <ClInclude Include="Time.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Core\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformComponent.h">
+      <Filter>Core\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderComponent.h">
+      <Filter>Core\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -93,6 +105,15 @@
     </ClCompile>
     <ClCompile Include="Time.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Core\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformComponent.cpp">
+      <Filter>Core\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderComponent.cpp">
+      <Filter>Core\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
