@@ -19,7 +19,7 @@ namespace dae
 
 		const GameObject* GetOwner() const { return m_pOwner; }
 	
-	protected:
+	private:
 		const GameObject* m_pOwner{ nullptr };
 	};
 }

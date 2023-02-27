@@ -29,7 +29,7 @@ dae::TextObject::TextObject(const std::string& text, std::shared_ptr<Font> font)
 //		m_needsUpdate = false;
 //	}
 //}
-//
+
 //void dae::TextObject::Render() const
 //{
 //	if (m_textTexture != nullptr)

@@ -65,6 +65,9 @@
     <ClInclude Include="RenderComponent.h">
       <Filter>Core\Components</Filter>
     </ClInclude>
+    <ClInclude Include="TextComponent.h">
+      <Filter>Core\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -113,6 +116,9 @@
       <Filter>Core\Components</Filter>
     </ClCompile>
     <ClCompile Include="RenderComponent.cpp">
+      <Filter>Core\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="TextComponent.cpp">
       <Filter>Core\Components</Filter>
     </ClCompile>
   </ItemGroup>

@@ -37,10 +37,8 @@ void Scene::Render() const
 {
 	for (const auto& object : m_objects)
 	{
-		const auto& renderComponent{ object->GetComponent<RenderComponent>() };
-		if (renderComponent)
-		{
-			renderComponent->Render();
-		}
+		// Get the render component
+		if (!object->HasComponent<RenderComponent>()) continue;
+		object->GetComponent<RenderComponent>()->Render();
 	}
 }

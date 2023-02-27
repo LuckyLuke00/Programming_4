@@ -2,6 +2,10 @@
 #include "ResourceManager.h"
 #include "Renderer.h"
 
-dae::GameObject::~GameObject() = default;
-
-void dae::GameObject::Update() {}
+void dae::GameObject::Update()
+{
+	for (const auto& [key, component] : m_Components)
+	{
+		component->Update();
+	}
+}

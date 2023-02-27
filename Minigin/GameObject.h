@@ -14,14 +14,15 @@ namespace dae
 	class GameObject final
 	{
 	public:
-		virtual void Update();
+		void Update();
 
 		template <typename T> T* GetComponent() const;
 		template <typename T> T* AddComponent();
 		template <typename T> void RemoveComponent();
+		template <typename T> bool HasComponent() const;
 
 		GameObject() = default;
-		virtual ~GameObject();
+		~GameObject() = default;
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) noexcept = delete;
 		GameObject& operator=(const GameObject& other) = delete;
@@ -57,5 +58,11 @@ namespace dae
 	inline void GameObject::RemoveComponent()
 	{
 		m_Components.erase(typeid(T));
+	}
+
+	template<typename T>
+	inline bool GameObject::HasComponent() const
+	{
+		return m_Components.contains(typeid(T));
 	}
 }
