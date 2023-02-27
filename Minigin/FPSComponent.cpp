@@ -18,14 +18,16 @@ namespace dae
 
 		if (m_FPSTimer < m_FPSUpdateInterval) return;
 
-		m_FPS = m_FPSCount;
+		m_FPS = static_cast<int>(static_cast<float>(m_FPSCount) / m_FPSTimer);
 		m_FPSTimer = .0f;
 		m_FPSCount = 0;
 
-		// Check if the owner has a text component
-		if (!GetOwner()->HasComponent<TextComponent>()) return;
+		if (!m_pTextComponent || !GetOwner()->HasComponent<TextComponent>())
+		{
+			if (!GetOwner()->HasComponent<TextComponent>()) return;
+			m_pTextComponent = GetOwner()->GetComponent<TextComponent>();
+		}
 
-		// Update the text component
-		GetOwner()->GetComponent<TextComponent>()->SetText(std::format("{} FPS", m_FPS) );
+		m_pTextComponent->SetText(std::format("{} FPS", m_FPS));
 	}
 }

@@ -41,10 +41,7 @@ namespace dae
 		{
 			return dynamic_cast<T*>(iter->second.get());
 		}
-		else
-		{
-			return nullptr;
-		}
+		return nullptr;
 	}
 
 	template<typename T>
