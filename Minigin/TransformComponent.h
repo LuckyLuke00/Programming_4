@@ -1,6 +1,6 @@
 #pragma once
 #include "Component.h"
-#include "Transform.h"
+#include <glm/glm.hpp>
 
 namespace dae
 {
@@ -17,7 +17,9 @@ namespace dae
 		TransformComponent& operator=(const TransformComponent& other) = delete;
 		TransformComponent& operator=(TransformComponent&& other) noexcept = delete;
 
-		void Update() override;
+		void Update() override {};
+		void FixedUpdate() override {};
+		void LateUpdate() override {};
 
 		const glm::vec3& GetPosition() const { return m_Position; }
 		void SetPosition(float x = .0f, float y = .0f, float z = .0f);
@@ -26,4 +28,3 @@ namespace dae
 		glm::vec3 m_Position{ .0f, .0f, .0f };
 	};
 }
-

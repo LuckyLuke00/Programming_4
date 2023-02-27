@@ -95,32 +95,16 @@ void dae::Minigin::Run(const std::function<void()>& load)
 		lag += Time::GetDeltaTime();
 
 		doContinue = input.ProcessInput();
+		sceneManager.Update();
 
 		// Fixed Update
 		while (lag >= m_FixedTimeStep)
 		{
-			FixedUpdate();
 			lag -= m_FixedTimeStep;
+			sceneManager.FixedUpdate();
 		}
 
-		// Regular Update
-		sceneManager.Update();
+		sceneManager.LateUpdate();
 		renderer.Render();
-		Update();
-
-		// Late Update
-		LateUpdate();
 	}
-}
-
-void dae::Minigin::FixedUpdate()
-{
-}
-
-void dae::Minigin::LateUpdate()
-{
-}
-
-void dae::Minigin::Update()
-{
 }

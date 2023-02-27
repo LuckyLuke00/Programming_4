@@ -9,3 +9,19 @@ void dae::GameObject::Update()
 		component->Update();
 	}
 }
+
+void dae::GameObject::FixedUpdate()
+{
+	for (const auto& [key, component] : m_Components)
+	{
+		component->FixedUpdate();
+	}
+}
+
+void dae::GameObject::LateUpdate()
+{
+	for (const auto& [key, component] : m_Components)
+	{
+		component->LateUpdate();
+	}
+}

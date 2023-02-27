@@ -1,5 +1,4 @@
 #pragma once
-#include "Transform.h"
 #include <memory>
 #include <string>
 #include "TransformComponent.h"
@@ -15,6 +14,8 @@ namespace dae
 	{
 	public:
 		void Update();
+		void FixedUpdate();
+		void LateUpdate();
 
 		template <typename T> T* GetComponent() const;
 		template <typename T> T* AddComponent();

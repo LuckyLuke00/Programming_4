@@ -16,11 +16,12 @@ namespace dae
 		Component& operator=(Component&& other) noexcept = delete;
 
 		virtual void Update() = 0;
+		virtual void FixedUpdate() = 0;
+		virtual void LateUpdate() = 0;
 
 		const GameObject* GetOwner() const { return m_pOwner; }
-	
+
 	private:
 		const GameObject* m_pOwner{ nullptr };
 	};
 }
-

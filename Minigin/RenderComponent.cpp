@@ -8,13 +8,8 @@
 namespace dae
 {
 	RenderComponent::RenderComponent(const GameObject* pOwner)
-		: Component(pOwner)
+		: Component{ pOwner }
 	{
-	}
-
-	void RenderComponent::Update()
-	{
-		// Nothing to do here
 	}
 
 	void RenderComponent::Render() const

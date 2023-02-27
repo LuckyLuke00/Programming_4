@@ -27,9 +27,25 @@ void Scene::RemoveAll()
 
 void Scene::Update()
 {
-	for (auto& object : m_objects)
+	for (const auto& object : m_objects)
 	{
 		object->Update();
+	}
+}
+
+void dae::Scene::FixedUpdate()
+{
+	for (const auto& object : m_objects)
+	{
+		object->FixedUpdate();
+	}
+}
+
+void dae::Scene::LateUpdate()
+{
+	for (const auto& object : m_objects)
+	{
+		object->LateUpdate();
 	}
 }
 

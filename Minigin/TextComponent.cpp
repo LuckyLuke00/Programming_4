@@ -9,7 +9,7 @@
 namespace dae
 {
 	TextComponent::TextComponent(const GameObject* pOwner)
-		: Component(pOwner)
+		: Component{ pOwner }
 	{
 	}
 

@@ -4,7 +4,6 @@
 #include <memory>
 #include <string>
 
-
 namespace dae
 {
 	class Font;
@@ -21,6 +20,8 @@ namespace dae
 		TextComponent& operator=(TextComponent&& other) noexcept = delete;
 
 		void Update() override;
+		void FixedUpdate() override {};
+		void LateUpdate() override {};
 
 		void SetColor(const SDL_Color& color) { m_Color = color; }
 		void SetFont(const std::string& file, unsigned int size);
@@ -32,4 +33,3 @@ namespace dae
 		std::shared_ptr<Font> m_Font{ nullptr };
 	};
 }
-
