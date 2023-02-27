@@ -14,10 +14,15 @@ namespace dae
 		FPSComponent& operator=(const FPSComponent& other) = delete;
 		FPSComponent& operator=(FPSComponent&& other) noexcept = delete;
 
-		void Update() override {};
+		void Update() override;
 		void FixedUpdate() override {};
 		void LateUpdate() override {};
 
+		unsigned int GetFPS() const { return m_FPS; }
 	private:
+		float m_FPSTimer{ .0f };
+		float m_FPSUpdateInterval{ .25f }; // A lower value tanks performance
+		unsigned int m_FPS{ 0 };
+		unsigned int m_FPSCount{ 0 };
 	};
 }

@@ -88,7 +88,6 @@ void dae::Minigin::Run(const std::function<void()>& load)
 
 	bool doContinue{ true };
 	float lag{ .0f };
-	Time::ToggleFPS();
 	while (doContinue)
 	{
 		Time::GetInstance().Tick();
