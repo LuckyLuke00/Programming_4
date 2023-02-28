@@ -22,9 +22,13 @@ namespace dae
 		m_FPSTimer = .0f;
 		m_FPSCount = 0;
 
-		if (!m_pTextComponent || !GetOwner()->HasComponent<TextComponent>())
+		// Check if text component is already set
+		if (!m_pTextComponent)
 		{
+			// Check if owner has text component, if not return
 			if (!GetOwner()->HasComponent<TextComponent>()) return;
+
+			// If owner has a text component, set it, this will only happen once
 			m_pTextComponent = GetOwner()->GetComponent<TextComponent>();
 		}
 
