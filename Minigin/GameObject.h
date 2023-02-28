@@ -36,7 +36,7 @@ namespace dae
 	template<typename T>
 	inline T* GameObject::GetComponent() const
 	{
-		auto iter = m_Components.find(typeid(T));
+		auto iter{ m_Components.find(typeid(T)) };
 		if (iter != m_Components.end())
 		{
 			return dynamic_cast<T*>(iter->second.get());
@@ -47,7 +47,7 @@ namespace dae
 	template<typename T>
 	inline T* GameObject::AddComponent()
 	{
-		auto component = std::make_shared<T>(this);
+		auto component{ std::make_shared<T>(this) };
 		m_Components[typeid(T)] = component;
 		return component.get();
 	}
