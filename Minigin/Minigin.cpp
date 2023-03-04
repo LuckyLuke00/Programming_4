@@ -10,7 +10,6 @@
 #include "ResourceManager.h"
 #include "SceneManager.h"
 #include "Time.h"
-#include <iostream>
 
 SDL_Window* g_window{};
 
