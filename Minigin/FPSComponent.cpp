@@ -13,7 +13,7 @@ namespace dae
 
 	void FPSComponent::Update()
 	{
-		m_FPSTimer += Time::GetDeltaTime();
+		m_FPSTimer += Time::GetDeltaSeconds();
 
 		if (m_FPSTimer < m_FPSUpdateInterval) return;
 		m_FPSTimer = .0f;
@@ -30,6 +30,6 @@ namespace dae
 
 	void FPSComponent::CalculateFPS()
 	{
-		m_FPS = static_cast<int>(1.f / Time::GetDeltaTime() + .5f);
+		m_FPS = static_cast<int>(1.f / Time::GetDeltaSeconds() + .5f);
 	}
 }

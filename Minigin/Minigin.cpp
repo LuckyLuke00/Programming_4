@@ -10,6 +10,7 @@
 #include "ResourceManager.h"
 #include "SceneManager.h"
 #include "Time.h"
+#include <iostream>
 
 SDL_Window* g_window{};
 
@@ -84,25 +85,33 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	auto& sceneManager{ SceneManager::GetInstance() };
 	auto& input{ InputManager::GetInstance() };
 
-	bool doContinue{ true };
 	float lag{ .0f };
+	bool doContinue{ true };
 	while (doContinue)
 	{
 		Time::GetInstance().Tick();
-		lag += Time::GetDeltaTime();
+		lag += Time::GetDeltaSeconds();
 
 		doContinue = input.ProcessInput();
 
 		// Fixed Update
 		while (lag >= m_FixedTimeStep)
 		{
-			lag -= m_FixedTimeStep;
 			sceneManager.FixedUpdate();
+			lag -= m_FixedTimeStep;
 		}
 
 		sceneManager.Update();
 		sceneManager.LateUpdate();
 
 		renderer.Render();
+
+		// Calculate the time to sleep, we add .5f to round the float to the nearest int
+		if (!m_LimitFPS) continue;
+
+		SDL_DisplayMode mode;
+		SDL_GetCurrentDisplayMode(0, &mode);
+		const auto sleepTime{ Time::GetLastTime() + std::chrono::milliseconds{ 1000 / mode.refresh_rate } - std::chrono::high_resolution_clock::now() };
+		std::this_thread::sleep_for(sleepTime);
 	}
 }

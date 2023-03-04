@@ -22,7 +22,7 @@ namespace dae
 		unsigned int GetFPS() const { return m_FPS; }
 	private:
 		float m_FPSTimer{ .0f };
-		float m_FPSUpdateInterval{ .25f };
+		float m_FPSUpdateInterval{ .5f };
 		unsigned int m_FPS{ 0 };
 		unsigned int m_FPSCount{ 0 };
 
