@@ -4,13 +4,11 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-#include "InputManager.h"
 #include "Minigin.h"
+#include "InputManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include "SceneManager.h"
-
-#include <iostream>
 #include "Time.h"
 
 SDL_Window* g_window{};

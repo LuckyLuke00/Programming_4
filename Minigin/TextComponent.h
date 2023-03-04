@@ -1,7 +1,7 @@
 #pragma once
 #include "Component.h"
-#include <SDL_ttf.h>
 #include <memory>
+#include <SDL_ttf.h>
 #include <string>
 
 namespace dae

@@ -1,8 +1,7 @@
 #include "FPSComponent.h"
 #include "GameObject.h"
-#include "Time.h"
 #include "TextComponent.h"
-#include <format>
+#include "Time.h"
 
 namespace dae
 {

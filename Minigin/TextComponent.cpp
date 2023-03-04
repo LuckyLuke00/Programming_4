@@ -1,9 +1,9 @@
+#include "TextComponent.h"
 #include "Font.h"
 #include "GameObject.h"
 #include "RenderComponent.h"
-#include "ResourceManager.h"
-#include "TextComponent.h"
 #include "Renderer.h"
+#include "ResourceManager.h"
 #include <stdexcept>
 
 namespace dae

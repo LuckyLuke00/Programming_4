@@ -1,8 +1,7 @@
-#include "GameObject.h"
 #include "RenderComponent.h"
+#include "GameObject.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
-#include "TransformComponent.h"
 #include <stdexcept>
 
 namespace dae

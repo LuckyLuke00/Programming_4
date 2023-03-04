@@ -1,6 +1,5 @@
 #include "Scene.h"
 #include "GameObject.h"
-#include "RenderComponent.h"
 
 using namespace dae;
 
