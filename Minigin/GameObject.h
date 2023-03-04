@@ -9,6 +9,7 @@ namespace dae
 {
 	class Texture2D;
 	class Component;
+	class RenderComponent;
 
 	class GameObject final
 	{
@@ -16,6 +17,8 @@ namespace dae
 		void Update();
 		void FixedUpdate();
 		void LateUpdate();
+
+		void Render() const;
 
 		template <typename T> T* GetComponent() const;
 		template <typename T> T* AddComponent();
@@ -31,12 +34,13 @@ namespace dae
 
 	private:
 		std::unordered_map<std::type_index, std::shared_ptr<Component>> m_Components{};
+		RenderComponent* m_pRenderComponent{ nullptr };
 	};
 
 	template<typename T>
 	inline T* GameObject::GetComponent() const
 	{
-		auto iter{ m_Components.find(typeid(T)) };
+		const auto iter{ m_Components.find(typeid(T)) };
 		if (iter != m_Components.end())
 		{
 			return dynamic_cast<T*>(iter->second.get());
@@ -47,8 +51,15 @@ namespace dae
 	template<typename T>
 	inline T* GameObject::AddComponent()
 	{
-		auto component{ std::make_shared<T>(this) };
+		const auto component{ std::make_shared<T>(this) };
 		m_Components[typeid(T)] = component;
+
+		// Store pointer to the RenderComponent if it's added
+		if (typeid(T) == typeid(RenderComponent))
+		{
+			m_pRenderComponent = dynamic_cast<RenderComponent*>(component.get());
+		}
+
 		return component.get();
 	}
 

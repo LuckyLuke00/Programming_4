@@ -26,6 +26,7 @@ namespace dae
 		void SetTexture(const std::string& filename);
 		void SetTexture(std::shared_ptr<Texture2D> texture) { m_Texture = texture; }
 	private:
+		TransformComponent* m_pTransformComponent{ nullptr };
 		std::shared_ptr<Texture2D> m_Texture{};
 	};
 }

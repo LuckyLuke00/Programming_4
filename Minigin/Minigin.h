@@ -18,9 +18,5 @@ namespace dae
 
 	private:
 		const float m_FixedTimeStep{ 1.f / 60.f };
-
-		void FixedUpdate();
-		void LateUpdate();
-		void Update();
 	};
 }

@@ -7,7 +7,6 @@ namespace dae
 	class Component
 	{
 	public:
-		explicit Component(const GameObject* pOwner);
 		virtual ~Component() = default;
 
 		Component(const Component& other) = delete;
@@ -19,6 +18,8 @@ namespace dae
 		virtual void FixedUpdate() = 0;
 		virtual void LateUpdate() = 0;
 
+	protected:
+		explicit Component(const GameObject* pOwner);
 		const GameObject* GetOwner() const { return m_pOwner; }
 
 	private:

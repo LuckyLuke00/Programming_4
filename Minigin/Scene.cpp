@@ -53,8 +53,6 @@ void Scene::Render() const
 {
 	for (const auto& object : m_objects)
 	{
-		// Get the render component
-		if (!object->HasComponent<RenderComponent>()) continue;
-		object->GetComponent<RenderComponent>()->Render();
+		object->Render();
 	}
 }

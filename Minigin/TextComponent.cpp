@@ -11,13 +11,14 @@ namespace dae
 	TextComponent::TextComponent(const GameObject* pOwner)
 		: Component{ pOwner }
 	{
+		m_pRenderComponent = GetOwner()->GetComponent<RenderComponent>();
 	}
 
 	void TextComponent::Update()
 	{
 		if (!m_NeedsUpdate) return;
 
-		if (!GetOwner()->HasComponent<RenderComponent>())
+		if (!m_pRenderComponent)
 		{
 			throw std::runtime_error(std::string("TextComponent::Update() > GameObject does not have a RenderComponent!"));
 		}
@@ -33,7 +34,7 @@ namespace dae
 			throw std::runtime_error(std::string("Create text texture from surface failed: ") + SDL_GetError());
 		}
 		SDL_FreeSurface(surf);
-		GetOwner()->GetComponent<RenderComponent>()->SetTexture(std::make_shared<Texture2D>(texture));
+		m_pRenderComponent->SetTexture(std::make_shared<Texture2D>(texture));
 		m_NeedsUpdate = false;
 	}
 

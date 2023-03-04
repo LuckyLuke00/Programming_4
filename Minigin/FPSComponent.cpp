@@ -9,29 +9,28 @@ namespace dae
 	FPSComponent::FPSComponent(const GameObject* pOwner)
 		: Component{ pOwner }
 	{
+		m_pTextComponent = GetOwner()->GetComponent<TextComponent>();
 	}
 
 	void FPSComponent::Update()
 	{
 		m_FPSTimer += Time::GetDeltaTime();
-		++m_FPSCount;
 
 		if (m_FPSTimer < m_FPSUpdateInterval) return;
-
-		m_FPS = static_cast<int>(static_cast<float>(m_FPSCount) / m_FPSTimer);
 		m_FPSTimer = .0f;
-		m_FPSCount = 0;
 
-		// Check if text component is already set
+		CalculateFPS();
+
 		if (!m_pTextComponent)
 		{
-			// Check if owner has text component, if not return
-			if (!GetOwner()->HasComponent<TextComponent>()) return;
-
-			// If owner has a text component, set it, this will only happen once
-			m_pTextComponent = GetOwner()->GetComponent<TextComponent>();
+			throw std::runtime_error(std::string("FPSComponent::Update() > GameObject does not have a TextComponent!"));
 		}
 
 		m_pTextComponent->SetText(std::format("{} FPS", m_FPS));
+	}
+
+	void FPSComponent::CalculateFPS()
+	{
+		m_FPS = static_cast<int>(1.f / Time::GetDeltaTime() + .5f);
 	}
 }

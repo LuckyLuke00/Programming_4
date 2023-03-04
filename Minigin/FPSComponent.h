@@ -27,5 +27,7 @@ namespace dae
 		unsigned int m_FPSCount{ 0 };
 
 		TextComponent* m_pTextComponent{ nullptr };
+
+		void CalculateFPS();
 	};
 }

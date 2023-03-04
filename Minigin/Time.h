@@ -1,5 +1,6 @@
 #pragma once
 #include "Singleton.h"
+#include <chrono>
 
 namespace dae
 {
@@ -7,13 +8,12 @@ namespace dae
 	{
 	public:
 		static float GetDeltaTime();
-		static float GetTime();
 
 		void Tick();
 
 	private:
 		float m_DeltaTime{ .01f };
-		float m_LastTime{ .0f };
+		std::chrono::time_point<std::chrono::high_resolution_clock> m_LastTime{ std::chrono::high_resolution_clock::now() };
 
 		Time() = default;
 		friend class Singleton<Time>;

@@ -1,6 +1,5 @@
 #include "GameObject.h"
-#include "ResourceManager.h"
-#include "Renderer.h"
+#include "RenderComponent.h"
 
 void dae::GameObject::Update()
 {
@@ -24,4 +23,10 @@ void dae::GameObject::LateUpdate()
 	{
 		component->LateUpdate();
 	}
+}
+
+void dae::GameObject::Render() const
+{
+	if (!m_pRenderComponent) return;
+	m_pRenderComponent->Render();
 }
