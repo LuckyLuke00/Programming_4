@@ -65,6 +65,9 @@
     <ClInclude Include="FPSComponent.h">
       <Filter>Core\Components</Filter>
     </ClInclude>
+    <ClInclude Include="OrbitComponent.h">
+      <Filter>Core\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -113,6 +116,9 @@
       <Filter>Core\Components</Filter>
     </ClCompile>
     <ClCompile Include="FPSComponent.cpp">
+      <Filter>Core\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="OrbitComponent.cpp">
       <Filter>Core\Components</Filter>
     </ClCompile>
   </ItemGroup>
