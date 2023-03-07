@@ -19,10 +19,10 @@ namespace dae
 		virtual void LateUpdate() = 0;
 
 	protected:
-		explicit Component(const GameObject* pOwner);
-		const GameObject* GetOwner() const { return m_pOwner; }
+		explicit Component(GameObject* pOwner);
+		GameObject* GetOwner() const { return m_pOwner; }
 
 	private:
-		const GameObject* m_pOwner{ nullptr };
+		GameObject* m_pOwner{ nullptr };
 	};
 }

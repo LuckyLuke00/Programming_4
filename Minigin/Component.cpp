@@ -2,7 +2,7 @@
 
 namespace dae
 {
-	Component::Component(const GameObject* pOwner)
+	Component::Component(GameObject* pOwner)
 		: m_pOwner{ pOwner }
 	{
 	}

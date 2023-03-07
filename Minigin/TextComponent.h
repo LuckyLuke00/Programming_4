@@ -12,7 +12,7 @@ namespace dae
 	class TextComponent final : public Component
 	{
 	public:
-		explicit TextComponent(const GameObject* pOwner);
+		explicit TextComponent(GameObject* pOwner);
 		~TextComponent() override = default;
 
 		TextComponent(const TextComponent& other) = delete;

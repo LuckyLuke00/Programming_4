@@ -8,7 +8,7 @@
 
 namespace dae
 {
-	TextComponent::TextComponent(const GameObject* pOwner)
+	TextComponent::TextComponent(GameObject* pOwner)
 		: Component{ pOwner }
 	{
 		m_pRenderComponent = GetOwner()->GetComponent<RenderComponent>();

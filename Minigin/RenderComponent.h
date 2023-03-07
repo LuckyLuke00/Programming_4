@@ -11,7 +11,7 @@ namespace dae
 	class RenderComponent final : public Component
 	{
 	public:
-		explicit RenderComponent(const GameObject* pOwner);
+		explicit RenderComponent(GameObject* pOwner);
 		~RenderComponent() override = default;
 
 		RenderComponent(const RenderComponent& other) = delete;

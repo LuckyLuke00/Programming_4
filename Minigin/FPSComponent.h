@@ -7,7 +7,7 @@ namespace dae
 	class FPSComponent final : public Component
 	{
 	public:
-		explicit FPSComponent(const GameObject* pOwner);
+		explicit FPSComponent(GameObject* pOwner);
 		~FPSComponent() override = default;
 
 		FPSComponent(const FPSComponent& other) = delete;

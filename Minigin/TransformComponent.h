@@ -9,7 +9,7 @@ namespace dae
 	class TransformComponent final : public Component
 	{
 	public:
-		explicit TransformComponent(const GameObject* pOwner);
+		explicit TransformComponent(GameObject* pOwner);
 		~TransformComponent() override = default;
 
 		TransformComponent(const TransformComponent& other) = delete;
@@ -21,10 +21,17 @@ namespace dae
 		void FixedUpdate() override {};
 		void LateUpdate() override {};
 
-		const glm::vec3& GetPosition() const { return m_Position; }
+		const glm::vec3& GetLocalPosition() const { return m_LocalPosition; }
+		const glm::vec3& GetWorldPosition();
+		void SetPosition(const glm::vec3& position) { SetPosition(position.x, position.y, position.z); }
 		void SetPosition(float x = .0f, float y = .0f, float z = .0f);
 
+		void SetDirty();
 	private:
-		glm::vec3 m_Position{ .0f, .0f, .0f };
+		bool m_IsDirty{ true };
+		glm::vec3 m_LocalPosition{ .0f, .0f, .0f };
+		glm::vec3 m_WorldPosition{ .0f, .0f, .0f };
+
+		void UpdateTransform();
 	};
 }

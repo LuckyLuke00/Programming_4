@@ -14,17 +14,6 @@ namespace dae
 	class GameObject final
 	{
 	public:
-		void Update();
-		void FixedUpdate();
-		void LateUpdate();
-
-		void Render() const;
-
-		template <typename T> T* GetComponent() const;
-		template <typename T> T* AddComponent();
-		template <typename T> void RemoveComponent();
-		template <typename T> bool HasComponent() const;
-
 		GameObject() = default;
 		~GameObject() = default;
 		GameObject(const GameObject& other) = delete;
@@ -32,9 +21,33 @@ namespace dae
 		GameObject& operator=(const GameObject& other) = delete;
 		GameObject& operator=(GameObject&& other) noexcept = delete;
 
+		void Update();
+		void FixedUpdate();
+		void LateUpdate();
+
+		void Render() const;
+
+		void SetParent(GameObject* parent);
+		void AddChild(GameObject* child);
+		void RemoveChild(GameObject* child);
+
+		// Getters
+		const std::vector<GameObject*>& GetChildren() const { return m_Children; }
+		GameObject* GetParent() const { return m_pParent; }
+		TransformComponent* GetTransformComponent() const { return m_pTransformComponent; }
+
+		template <typename T> T* GetComponent() const;
+		template <typename T> T* AddComponent();
+		template <typename T> void RemoveComponent();
+		template <typename T> bool HasComponent() const;
+
 	private:
+		GameObject* m_pParent{ nullptr };
+		std::vector<GameObject*> m_Children{};
+
 		std::unordered_map<std::type_index, std::shared_ptr<Component>> m_Components{};
 		RenderComponent* m_pRenderComponent{ nullptr };
+		TransformComponent* m_pTransformComponent{ nullptr };
 	};
 
 	template<typename T>
@@ -58,6 +71,10 @@ namespace dae
 		if (typeid(T) == typeid(RenderComponent))
 		{
 			m_pRenderComponent = dynamic_cast<RenderComponent*>(component.get());
+		}
+		else if (typeid(T) == typeid(TransformComponent))
+		{
+			m_pTransformComponent = dynamic_cast<TransformComponent*>(component.get());
 		}
 
 		return component.get();
