@@ -3,6 +3,7 @@
 
 void dae::GameObject::Update()
 {
+	// TODO: Update children
 	for (const auto& [key, component] : m_Components)
 	{
 		component->Update();
@@ -35,17 +36,6 @@ void dae::GameObject::SetParent(GameObject* parent)
 {
 	// Check if the parent is not the same as the current parent and if the parent is not nullptr
 	if (parent == m_pParent) return;
-
-	//if (!parent)
-	//{
-	//	// Set the world position to the local position
-	//	m_pTransformComponent->SetPosition(m_pTransformComponent->GetLocalPosition());
-	//	// Remove this from the parent's children
-	//	m_pParent->RemoveChild(this);
-	//	// Set the parent to nullptr
-	//	m_pParent = nullptr;
-	//	return;
-	//}
 
 	// If a parent is already set, remove this from the parent's children
 	if (m_pParent) m_pParent->RemoveChild(this);
@@ -81,19 +71,6 @@ void dae::GameObject::AddChild(GameObject* child)
 
 void dae::GameObject::RemoveChild(GameObject* child)
 {
-	//auto iter = std::find_if(m_Children.begin(), m_Children.end(), [child](GameObject* obj) {
-	//	return obj == child;
-	//	});
-	//if (iter != m_Children.end())
-	//{
-	//	m_Children.erase(iter);
-	//	child->m_pParent = nullptr;
-	//}
-
-	//// Get the child's transform component
-	//auto childTransform{ child->GetTransformComponent() };
-	//if (!childTransform) return;
-
 	auto iter{ std::find(m_Children.begin(), m_Children.end(), child) };
 	if (iter != m_Children.end())
 	{
