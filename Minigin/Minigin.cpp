@@ -80,7 +80,7 @@ void dae::Minigin::Run(const std::function<void()>& load)
 {
 	load();
 
-	const auto& renderer{ Renderer::GetInstance() };
+	auto& renderer{ Renderer::GetInstance() };
 	auto& sceneManager{ SceneManager::GetInstance() };
 	auto& input{ InputManager::GetInstance() };
 
