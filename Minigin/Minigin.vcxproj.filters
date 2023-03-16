@@ -98,6 +98,9 @@
     <ClInclude Include="..\3rdParty\imgui\backends\imgui_impl_sdl2.h">
       <Filter>Header Files\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui\imgui_plot.h">
+      <Filter>Header Files\imgui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -170,6 +173,9 @@
       <Filter>Source Files\imgui</Filter>
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui\backends\imgui_impl_sdl2.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui\imgui_plot.cpp">
       <Filter>Source Files\imgui</Filter>
     </ClCompile>
   </ItemGroup>
