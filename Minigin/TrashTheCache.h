@@ -25,6 +25,7 @@ namespace dae
 		bool m_EX1Running{ false };
 		bool m_EX2Running{ false };
 		bool m_EX2AltRunning{ false };
+		bool m_RecalculateCombined{ true };
 
 		int m_SamplesEX1{ 10 };
 		int m_SamplesEX2{ 100 };
@@ -34,6 +35,7 @@ namespace dae
 		std::vector<float> m_YValuesEX1{};
 		std::vector<float> m_YValuesEX2{};
 		std::vector<float> m_YValuesEX2Alt{};
+		std::vector<const float*> m_YValuesEX2Combined{};
 
 		ImGui::PlotConfig m_PlotConfigEX1{};
 		ImGui::PlotConfig m_PlotConfigEX2{};
@@ -43,7 +45,9 @@ namespace dae
 		void EX1();
 		void EX2();
 		void EX2Alt();
+		void EX2Combined();
 
-		void GeneratePlot(ImGui::PlotConfig& plot, const std::vector<float>& data, std::vector<ImU32> colors = {});
+		void GeneratePlot(ImGui::PlotConfig& plot, const std::vector<float>& data, const ImU32& color = ImColor(253, 126, 20));
+		void GeneratePlot(ImGui::PlotConfig& plot, std::vector<const float*>& data, const ImU32* colors, const int lineAmount = 2);
 	};
 }

@@ -63,6 +63,12 @@ namespace dae
 			EX2Alt();
 			m_EX2AltRunning = false;
 		}
+
+		if (m_RecalculateCombined && !m_YValuesEX2.empty() && !m_YValuesEX2Alt.empty())
+		{
+			EX2Combined();
+			m_RecalculateCombined = false;
+		}
 	}
 
 	void TrashTheCache::Render()
@@ -89,6 +95,7 @@ namespace dae
 		{
 			m_EX2Running = true;
 			ImGui::Text("Wait for it...");
+			m_RecalculateCombined = true;
 		}
 
 		ImGui::Plot("plotEX2", m_PlotConfigEX2);
@@ -97,9 +104,16 @@ namespace dae
 		{
 			m_EX2AltRunning = true;
 			ImGui::Text("Wait for it...");
+			m_RecalculateCombined = true;
 		}
 
 		ImGui::Plot("plotEX2Alt", m_PlotConfigEX2Alt);
+
+		if (!m_YValuesEX2.empty() && !m_YValuesEX2Alt.empty())
+		{
+			ImGui::Text("Combined:");
+			ImGui::Plot("plotEX2Combined", m_PlotConfigEX2Combined);
+		}
 
 		ImGui::End();
 	}
@@ -202,7 +216,7 @@ namespace dae
 		arr = nullptr;
 
 		// Generate the plot
-		GeneratePlot(m_PlotConfigEX2, m_YValuesEX2, { ImColor(130, 201, 30) });
+		GeneratePlot(m_PlotConfigEX2, m_YValuesEX2, ImColor(130, 201, 30));
 	}
 
 	void TrashTheCache::EX2Alt()
@@ -252,10 +266,25 @@ namespace dae
 		arr = nullptr;
 
 		// Generate the plot
-		GeneratePlot(m_PlotConfigEX2Alt, m_YValuesEX2Alt, { ImColor(21, 170, 191) });
+		GeneratePlot(m_PlotConfigEX2Alt, m_YValuesEX2Alt, ImColor(21, 170, 191));
 	}
 
-	void TrashTheCache::GeneratePlot(ImGui::PlotConfig& plot, const std::vector<float>& data, std::vector<ImU32> colors)
+	void TrashTheCache::EX2Combined()
+	{
+		// Clear the vector
+		m_YValuesEX2Combined.clear();
+
+		// Combine the vectors
+		m_YValuesEX2Combined.emplace_back(m_YValuesEX2.data());
+		m_YValuesEX2Combined.emplace_back(m_YValuesEX2Alt.data());
+
+		std::vector<ImU32> colors{ ImColor(130, 201, 30), ImColor(21, 170, 191) };
+
+		// Generate the plot
+		GeneratePlot(m_PlotConfigEX2Combined, m_YValuesEX2Combined, new ImU32[]{ ImColor(130, 201, 30), ImColor(21, 170, 191) });
+	}
+
+	void TrashTheCache::GeneratePlot(ImGui::PlotConfig& plot, const std::vector<float>& data, const ImU32& color)
 	{
 		// Plot defaults
 		plot.grid_y.show = true;
@@ -273,13 +302,28 @@ namespace dae
 		plot.scale.max = std::ranges::max(data);
 		plot.frame_size = ImVec2(150, 75);
 
-		if (colors.empty())
-		{
-			plot.values.color = ImColor(253, 126, 20);
-		}
-		else
-		{
-			plot.values.color = colors.front();
-		}
+		plot.values.color = color;
+	}
+
+	void TrashTheCache::GeneratePlot(ImGui::PlotConfig& plot, std::vector<const float*>& data, const ImU32* colors, const int lineAmount)
+	{
+		// Plot defaults
+		plot.grid_y.show = true;
+		plot.grid_y.size = 5.f;
+		plot.grid_y.subticks = 1;
+		plot.line_thickness = 2.f;
+		plot.scale.min = .0f;
+		plot.tooltip.format = "x%.2f, y%.2f";
+		plot.tooltip.show = true;
+
+		// Generated plot values
+		plot.values.count = static_cast<int>(m_XValues.size());
+		plot.values.xs = m_XValues.data();
+		plot.scale.max = *std::ranges::max(data);
+		plot.frame_size = ImVec2(150, 75);
+		plot.values.ys_list = data.data();
+		plot.values.ys_count = lineAmount;
+
+		plot.values.colors = colors;
 	}
 }
