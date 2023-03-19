@@ -14,9 +14,9 @@ namespace dae
 		Component& operator=(const Component& other) = delete;
 		Component& operator=(Component&& other) noexcept = delete;
 
-		virtual void Update() = 0;
-		virtual void FixedUpdate() = 0;
-		virtual void LateUpdate() = 0;
+		virtual void Update() { /*Intentionally empty because this is a base class */ }
+		virtual void FixedUpdate() { /*Intentionally empty because this is a base class */ };
+		virtual void LateUpdate() { /*Intentionally empty because this is a base class */ };
 
 	protected:
 		explicit Component(GameObject* pOwner);

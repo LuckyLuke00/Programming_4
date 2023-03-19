@@ -21,6 +21,9 @@
     <Filter Include="Source Files\imgui">
       <UniqueIdentifier>{5f12992f-812d-43f2-bf33-168b5d19d2bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TrashTheCache">
+      <UniqueIdentifier>{9e6eaa08-eaec-4c0a-a379-240cba3685a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -101,6 +104,12 @@
     <ClInclude Include="..\3rdParty\imgui\imgui_plot.h">
       <Filter>Header Files\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="TrashTheCache.h">
+      <Filter>TrashTheCache</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTextureComponent.h">
+      <Filter>Core\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -177,6 +186,12 @@
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui\imgui_plot.cpp">
       <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="TrashTheCache.cpp">
+      <Filter>TrashTheCache</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTextureComponent.cpp">
+      <Filter>Core\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

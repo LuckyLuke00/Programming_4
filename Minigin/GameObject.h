@@ -64,20 +64,20 @@ namespace dae
 	template<typename T>
 	inline T* GameObject::AddComponent()
 	{
-		const auto component{ std::make_shared<T>(this) };
-		m_Components[typeid(T)] = component;
+		auto component = std::make_unique<T>(this);
+		auto componentPtr = component.get();
+		m_Components[typeid(T)] = std::move(component);
 
-		// Store pointer to the RenderComponent if it's added
-		if (typeid(T) == typeid(RenderComponent))
+		if (auto renderComponent = dynamic_cast<RenderComponent*>(componentPtr))
 		{
-			m_pRenderComponent = dynamic_cast<RenderComponent*>(component.get());
+			m_pRenderComponent = renderComponent;
 		}
-		else if (typeid(T) == typeid(TransformComponent))
+		else if (auto transformComponent = dynamic_cast<TransformComponent*>(componentPtr))
 		{
-			m_pTransformComponent = dynamic_cast<TransformComponent*>(component.get());
+			m_pTransformComponent = transformComponent;
 		}
 
-		return component.get();
+		return componentPtr;
 	}
 
 	template<typename T>

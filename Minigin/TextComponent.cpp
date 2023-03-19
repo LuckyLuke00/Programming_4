@@ -1,7 +1,7 @@
 #include "TextComponent.h"
 #include "Font.h"
 #include "GameObject.h"
-#include "RenderComponent.h"
+#include "RenderTextureComponent.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include <stdexcept>
@@ -11,7 +11,7 @@ namespace dae
 	TextComponent::TextComponent(GameObject* pOwner)
 		: Component{ pOwner }
 	{
-		m_pRenderComponent = GetOwner()->GetComponent<RenderComponent>();
+		m_pRenderComponent = GetOwner()->GetComponent<RenderTextureComponent>();
 	}
 
 	void TextComponent::Update()
@@ -20,7 +20,7 @@ namespace dae
 
 		if (!m_pRenderComponent)
 		{
-			throw std::runtime_error(std::string("TextComponent::Update() > GameObject does not have a RenderComponent!"));
+			throw std::runtime_error(std::string("TextComponent::Update() > GameObject does not have a RenderTextureComponent!"));
 		}
 
 		const auto surf{ TTF_RenderText_Blended(m_Font->GetFont(), m_Text.c_str(), m_Color) };
