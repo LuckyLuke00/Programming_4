@@ -57,6 +57,12 @@ namespace dae
 			EX2();
 			m_EX2Running = false;
 		}
+
+		if (m_EX2AltRunning)
+		{
+			EX2Alt();
+			m_EX2AltRunning = false;
+		}
 	}
 
 	void TrashTheCache::Render()
@@ -86,6 +92,14 @@ namespace dae
 		}
 
 		ImGui::Plot("plotEX2", m_PlotConfigEX2);
+
+		if (ImGui::Button("Trash the cache with GameObject3DAlt"))
+		{
+			m_EX2AltRunning = true;
+			ImGui::Text("Wait for it...");
+		}
+
+		ImGui::Plot("plotEX2Alt", m_PlotConfigEX2Alt);
 
 		ImGui::End();
 	}
@@ -197,7 +211,7 @@ namespace dae
 		m_YValuesEX2Alt.clear();
 		m_YValuesEX2Alt.reserve(m_XValues.size());
 
-		auto* arr{ new GameObject3DAlt[arraySize] };
+		auto* arr{ new GameObject3DAlt[arraySize]{} };
 
 		// Fill the array
 		for (int i{ 0 }; i < arraySize; ++i) arr[i].ID = 1;
@@ -238,7 +252,7 @@ namespace dae
 		arr = nullptr;
 
 		// Generate the plot
-		GeneratePlot(m_PlotConfigEX2, m_YValuesEX2Alt, { ImColor(130, 201, 30) });
+		GeneratePlot(m_PlotConfigEX2Alt, m_YValuesEX2Alt, { ImColor(21, 170, 191) });
 	}
 
 	void TrashTheCache::GeneratePlot(ImGui::PlotConfig& plot, const std::vector<float>& data, std::vector<ImU32> colors)
