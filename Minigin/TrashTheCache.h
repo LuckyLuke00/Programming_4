@@ -20,7 +20,7 @@ namespace dae
 		void Update() override;
 		void Render() override;
 	private:
-		const int arraySize{ 1 << 25 };
+		const int m_ArraySize{ 1 << 25 };
 
 		bool m_EX1Running{ false };
 		bool m_EX2Running{ false };

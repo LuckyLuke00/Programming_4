@@ -124,10 +124,10 @@ namespace dae
 		m_YValuesEX1.clear();
 		m_YValuesEX1.reserve(m_XValues.size());
 
-		auto* arr{ new int[arraySize] };
+		auto* arr{ new int[m_ArraySize] };
 
 		// Fill the array
-		for (int i{ 0 }; i < arraySize; ++i) arr[i] = 1;
+		for (int i{ 0 }; i < m_ArraySize; ++i) arr[i] = 1;
 
 		// Iterate over the buffer in steps of 1, 2, 4, 8 and so on till m_MaxStep
 		for (int step{ 1 }; step <= m_MaxStep; step *= 2)
@@ -140,9 +140,9 @@ namespace dae
 			{
 				const auto start{ std::chrono::high_resolution_clock::now() };
 
-				for (int j{ 0 }; j < arraySize; j += step)
+				for (int j{ 0 }; j < m_ArraySize; j += step)
 				{
-					arr[step] *= 2;
+					arr[j] *= 2;
 				}
 
 				const auto end{ std::chrono::high_resolution_clock::now() };
@@ -175,10 +175,10 @@ namespace dae
 		m_YValuesEX2.clear();
 		m_YValuesEX2.reserve(m_XValues.size());
 
-		auto* arr{ new GameObject3D[arraySize] };
+		auto* arr{ new GameObject3D[m_ArraySize] };
 
 		// Fill the array
-		for (int i{ 0 }; i < arraySize; ++i) arr[i].ID = 1;
+		for (int i{ 0 }; i < m_ArraySize; ++i) arr[i].ID = 1;
 
 		// Iterate over the buffer in steps of 1, 2, 4, 8 and so on till m_MaxStep
 		for (int step{ 1 }; step <= m_MaxStep; step *= 2)
@@ -191,7 +191,7 @@ namespace dae
 			{
 				const auto start{ std::chrono::high_resolution_clock::now() };
 
-				for (int j{ 0 }; j < arraySize; j += step)
+				for (int j{ 0 }; j < m_ArraySize; j += step)
 				{
 					arr[j].ID *= 2;
 				}
@@ -225,10 +225,10 @@ namespace dae
 		m_YValuesEX2Alt.clear();
 		m_YValuesEX2Alt.reserve(m_XValues.size());
 
-		auto* arr{ new GameObject3DAlt[arraySize]{} };
+		auto* arr{ new GameObject3DAlt[m_ArraySize] };
 
 		// Fill the array
-		for (int i{ 0 }; i < arraySize; ++i) arr[i].ID = 1;
+		for (int i{ 0 }; i < m_ArraySize; ++i) arr[i].ID = 1;
 
 		// Iterate over the buffer in steps of 1, 2, 4, 8 and so on till m_MaxStep
 		for (int step{ 1 }; step <= m_MaxStep; step *= 2)
@@ -241,7 +241,7 @@ namespace dae
 			{
 				const auto start{ std::chrono::high_resolution_clock::now() };
 
-				for (int j{ 0 }; j < arraySize; j += step)
+				for (int j{ 0 }; j < m_ArraySize; j += step)
 				{
 					arr[j].ID *= 2;
 				}
@@ -281,7 +281,11 @@ namespace dae
 		std::vector<ImU32> colors{ ImColor(130, 201, 30), ImColor(21, 170, 191) };
 
 		// Generate the plot
-		GeneratePlot(m_PlotConfigEX2Combined, m_YValuesEX2Combined, new ImU32[]{ ImColor(130, 201, 30), ImColor(21, 170, 191) });
+		ImU32* pColors{ new ImU32[]{ ImColor(130, 201, 30), ImColor(21, 170, 191) } };
+		GeneratePlot(m_PlotConfigEX2Combined, m_YValuesEX2Combined, pColors);
+
+		delete[] pColors;
+		pColors = nullptr;
 	}
 
 	void TrashTheCache::GeneratePlot(ImGui::PlotConfig& plot, const std::vector<float>& data, const ImU32& color)
