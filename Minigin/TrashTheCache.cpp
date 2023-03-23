@@ -193,7 +193,7 @@ namespace dae
 
 				for (int j{ 0 }; j < arraySize; j += step)
 				{
-					arr[step].ID *= 2;
+					arr[j].ID *= 2;
 				}
 
 				const auto end{ std::chrono::high_resolution_clock::now() };
@@ -243,7 +243,7 @@ namespace dae
 
 				for (int j{ 0 }; j < arraySize; j += step)
 				{
-					arr[step].ID *= 2;
+					arr[j].ID *= 2;
 				}
 
 				const auto end{ std::chrono::high_resolution_clock::now() };

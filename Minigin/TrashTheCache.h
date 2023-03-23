@@ -6,7 +6,7 @@
 
 namespace dae
 {
-	class TrashTheCache final : public RenderComponent
+	class TrashTheCache final : public RenderComponent // Maybe make a render ui function
 	{
 	public:
 		explicit TrashTheCache(GameObject* pOwner);
