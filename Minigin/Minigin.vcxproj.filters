@@ -110,6 +110,9 @@
     <ClInclude Include="RenderTextureComponent.h">
       <Filter>Core\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -192,6 +195,9 @@
     </ClCompile>
     <ClCompile Include="RenderTextureComponent.cpp">
       <Filter>Core\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
