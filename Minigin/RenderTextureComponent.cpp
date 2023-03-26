@@ -8,10 +8,9 @@
 namespace dae
 {
 	RenderTextureComponent::RenderTextureComponent(GameObject* pOwner) :
-		RenderComponent{ pOwner }
-	{
-		m_pTransformComponent = GetOwner()->GetComponent<TransformComponent>();
-	}
+		RenderComponent{ pOwner },
+		m_pTransformComponent{ pOwner->GetComponent<TransformComponent>() }
+	{}
 
 	void RenderTextureComponent::Render()
 	{

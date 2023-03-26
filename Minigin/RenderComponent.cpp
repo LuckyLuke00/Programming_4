@@ -2,7 +2,7 @@
 
 namespace dae
 {
-	RenderComponent::RenderComponent(GameObject* pOwner)
-		: Component{ pOwner }
+	RenderComponent::RenderComponent(GameObject* pOwner) :
+		Component{ pOwner }
 	{}
 }

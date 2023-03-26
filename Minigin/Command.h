@@ -9,6 +9,7 @@ namespace dae
 	public:
 		explicit Command(GameObject* gameObject);
 		virtual ~Command() = default;
+
 		Command(const Command& other) = delete;
 		Command(Command&& other) noexcept = delete;
 		Command& operator=(const Command& other) = delete;

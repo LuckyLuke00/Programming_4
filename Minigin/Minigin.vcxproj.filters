@@ -24,6 +24,9 @@
     <Filter Include="TrashTheCache">
       <UniqueIdentifier>{9e6eaa08-eaec-4c0a-a379-240cba3685a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Commands">
+      <UniqueIdentifier>{6cb77654-586a-4fc9-a0d7-7d680521d919}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -111,7 +114,10 @@
       <Filter>Core\Components</Filter>
     </ClInclude>
     <ClInclude Include="Command.h">
-      <Filter>Header Files</Filter>
+      <Filter>Core\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveCommand.h">
+      <Filter>Core\Commands</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -197,7 +203,10 @@
       <Filter>Core\Components</Filter>
     </ClCompile>
     <ClCompile Include="Command.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Core\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveCommand.cpp">
+      <Filter>Core\Commands</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -193,6 +193,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Minigin.h" />
+    <ClInclude Include="MoveCommand.h" />
     <ClInclude Include="RenderTextureComponent.h" />
     <ClInclude Include="RotatorComponent.h" />
     <ClInclude Include="RenderComponent.h" />
@@ -224,6 +225,7 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Minigin.cpp" />
+    <ClCompile Include="MoveCommand.cpp" />
     <ClCompile Include="RenderTextureComponent.cpp" />
     <ClCompile Include="RotatorComponent.cpp" />
     <ClCompile Include="RenderComponent.cpp" />

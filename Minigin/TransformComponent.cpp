@@ -3,10 +3,9 @@
 
 namespace dae
 {
-	TransformComponent::TransformComponent(GameObject* pOwner)
-		: Component{ pOwner }
-	{
-	}
+	TransformComponent::TransformComponent(GameObject* pOwner) :
+		Component{ pOwner }
+	{}
 
 	const glm::vec3& TransformComponent::GetWorldPosition()
 	{

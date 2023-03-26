@@ -4,6 +4,7 @@
 namespace dae
 {
 	class TextComponent;
+
 	class FPSComponent final : public Component
 	{
 	public:

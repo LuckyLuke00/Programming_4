@@ -5,11 +5,10 @@
 
 namespace dae
 {
-	FPSComponent::FPSComponent(GameObject* pOwner)
-		: Component{ pOwner }
-	{
-		m_pTextComponent = GetOwner()->GetComponent<TextComponent>();
-	}
+	FPSComponent::FPSComponent(GameObject* pOwner) :
+		Component{ pOwner },
+		m_pTextComponent{ pOwner->GetComponent<TextComponent>() }
+	{}
 
 	void FPSComponent::Update()
 	{

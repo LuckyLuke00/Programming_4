@@ -2,8 +2,7 @@
 
 namespace dae
 {
-	Component::Component(GameObject* pOwner)
-		: m_pOwner{ pOwner }
-	{
-	}
+	Component::Component(GameObject* pOwner) :
+		m_pOwner{ pOwner }
+	{}
 }
