@@ -22,6 +22,7 @@ namespace dae
 	private:
 		const float m_MoveSpeed{ .0f };
 		const glm::vec3 m_Direction{ .0f, .0f, .0f };
+		glm::vec3 m_LastPosition{ .0f, .0f, .0f };
 
 		TransformComponent* m_pTransformComponent{ nullptr };
 	};

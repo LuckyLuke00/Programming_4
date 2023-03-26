@@ -27,6 +27,9 @@
     <Filter Include="Core\Commands">
       <UniqueIdentifier>{6cb77654-586a-4fc9-a0d7-7d680521d919}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Input">
+      <UniqueIdentifier>{b3213836-236a-4cb2-aef0-686cb22388aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -39,9 +42,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Texture2D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="InputManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
@@ -119,6 +119,18 @@
     <ClInclude Include="MoveCommand.h">
       <Filter>Core\Commands</Filter>
     </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Core\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>Core\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="XboxController.h">
+      <Filter>Core\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Move2DCommand.h">
+      <Filter>Core\Commands</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -128,9 +140,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Texture2D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
@@ -206,6 +215,18 @@
       <Filter>Core\Commands</Filter>
     </ClCompile>
     <ClCompile Include="MoveCommand.cpp">
+      <Filter>Core\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Core\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Keyboard.cpp">
+      <Filter>Core\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="XboxController.cpp">
+      <Filter>Core\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Move2DCommand.cpp">
       <Filter>Core\Commands</Filter>
     </ClCompile>
   </ItemGroup>

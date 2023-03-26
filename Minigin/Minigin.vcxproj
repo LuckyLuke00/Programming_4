@@ -192,7 +192,9 @@
     <ClInclude Include="FPSComponent.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Minigin.h" />
+    <ClInclude Include="Move2DCommand.h" />
     <ClInclude Include="MoveCommand.h" />
     <ClInclude Include="RenderTextureComponent.h" />
     <ClInclude Include="RotatorComponent.h" />
@@ -207,6 +209,7 @@
     <ClInclude Include="Time.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="TrashTheCache.h" />
+    <ClInclude Include="XboxController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\3rdParty\imgui\backends\imgui_impl_opengl2.cpp" />
@@ -223,8 +226,10 @@
     <ClCompile Include="FPSComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Minigin.cpp" />
+    <ClCompile Include="Move2DCommand.cpp" />
     <ClCompile Include="MoveCommand.cpp" />
     <ClCompile Include="RenderTextureComponent.cpp" />
     <ClCompile Include="RotatorComponent.cpp" />
@@ -238,6 +243,7 @@
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="TrashTheCache.cpp" />
+    <ClCompile Include="XboxController.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
