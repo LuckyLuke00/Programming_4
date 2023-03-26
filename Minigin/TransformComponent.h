@@ -25,6 +25,8 @@ namespace dae
 		const glm::vec3& GetWorldPosition();
 		void SetPosition(const glm::vec3& position) { SetPosition(position.x, position.y, position.z); }
 		void SetPosition(float x = .0f, float y = .0f, float z = .0f);
+		void Translate(const glm::vec3& translation) { Translate(translation.x, translation.y, translation.z); }
+		void Translate(float x = .0f, float y = .0f, float z = .0f);
 
 		void SetDirty();
 	private:

@@ -25,6 +25,15 @@ namespace dae
 		SetDirty();
 	}
 
+	void TransformComponent::Translate(float x, float y, float z)
+	{
+		m_LocalPosition.x += x;
+		m_LocalPosition.y += y;
+		m_LocalPosition.z += z;
+
+		SetDirty();
+	}
+
 	void TransformComponent::UpdateTransform()
 	{
 		// If there is no parent, the world position is the local position

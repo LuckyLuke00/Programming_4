@@ -1,5 +1,6 @@
 #include "MoveCommand.h"
 #include "GameObject.h"
+#include "Time.h"
 
 namespace dae
 {
