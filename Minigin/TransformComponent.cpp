@@ -7,7 +7,7 @@ namespace dae
 		Component{ pOwner }
 	{}
 
-	const glm::vec3& TransformComponent::GetWorldPosition()
+	const glm::vec2& TransformComponent::GetWorldPosition()
 	{
 		if (m_IsDirty)
 		{
@@ -16,20 +16,18 @@ namespace dae
 		return m_WorldPosition;
 	}
 
-	void TransformComponent::SetPosition(float x, float y, float z)
+	void TransformComponent::SetPosition(float x, float y)
 	{
 		m_LocalPosition.x = x;
 		m_LocalPosition.y = y;
-		m_LocalPosition.z = z;
 
 		SetDirty();
 	}
 
-	void TransformComponent::Translate(float x, float y, float z)
+	void TransformComponent::Translate(float x, float y)
 	{
 		m_LocalPosition.x += x;
 		m_LocalPosition.y += y;
-		m_LocalPosition.z += z;
 
 		SetDirty();
 	}

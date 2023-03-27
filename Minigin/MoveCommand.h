@@ -9,7 +9,7 @@ namespace dae
 	class MoveCommand final : public Command
 	{
 	public:
-		explicit MoveCommand(GameObject* gameObject, const glm::vec3& direction, float moveSpeed);
+		explicit MoveCommand(GameObject* gameObject, const glm::vec2& direction, float moveSpeed);
 		~MoveCommand() override = default;
 
 		MoveCommand(const MoveCommand& other) = delete;
@@ -21,8 +21,8 @@ namespace dae
 		void Undo() override;
 	private:
 		const float m_MoveSpeed{ .0f };
-		const glm::vec3 m_Direction{ .0f, .0f, .0f };
-		glm::vec3 m_LastPosition{ .0f, .0f, .0f };
+		const glm::vec2 m_Direction{ .0f, .0f };
+		glm::vec2 m_LastPosition{ .0f, .0f };
 
 		TransformComponent* m_pTransformComponent{ nullptr };
 	};

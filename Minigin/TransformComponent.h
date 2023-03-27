@@ -21,18 +21,18 @@ namespace dae
 		void FixedUpdate() override {};
 		void LateUpdate() override {};
 
-		const glm::vec3& GetLocalPosition() const { return m_LocalPosition; }
-		const glm::vec3& GetWorldPosition();
-		void SetPosition(const glm::vec3& position) { SetPosition(position.x, position.y, position.z); }
-		void SetPosition(float x = .0f, float y = .0f, float z = .0f);
-		void Translate(const glm::vec3& translation) { Translate(translation.x, translation.y, translation.z); }
-		void Translate(float x = .0f, float y = .0f, float z = .0f);
+		const glm::vec2& GetLocalPosition() const { return m_LocalPosition; }
+		const glm::vec2& GetWorldPosition();
+		void SetPosition(const glm::vec2& position) { SetPosition(position.x, position.y); }
+		void SetPosition(float x = .0f, float y = .0f);
+		void Translate(const glm::vec2& translation) { Translate(translation.x, translation.y); }
+		void Translate(float x = .0f, float y = .0f);
 
 		void SetDirty();
 	private:
 		bool m_IsDirty{ true };
-		glm::vec3 m_LocalPosition{ .0f, .0f, .0f };
-		glm::vec3 m_WorldPosition{ .0f, .0f, .0f };
+		glm::vec2 m_LocalPosition{ .0f, .0f };
+		glm::vec2 m_WorldPosition{ .0f, .0f };
 
 		void UpdateTransform();
 	};

@@ -13,7 +13,6 @@ namespace dae
 		CopyMemory(&m_PreviousState, &m_CurrentState, sizeof(XINPUT_STATE));
 		ZeroMemory(&m_CurrentState, sizeof(XINPUT_STATE));
 		XInputGetState(m_ControllerIndex, &m_CurrentState);
-		std::cout << "Controller " << m_ControllerIndex << " connected: " << (m_CurrentState.dwPacketNumber != 0) << '\n';
 
 		auto buttonChanges{ m_CurrentState.Gamepad.wButtons ^ m_PreviousState.Gamepad.wButtons };
 		m_ButtonPressedThisFrame = buttonChanges & m_CurrentState.Gamepad.wButtons;

@@ -21,7 +21,7 @@ namespace dae
 		void FixedUpdate() override {};
 		void LateUpdate() override {};
 
-		void SetRotationCenter(const glm::vec3& center) { m_OrbitCenter = center; }
+		void SetRotationCenter(const glm::vec2& center) { m_OrbitCenter = center; }
 		void SetRotationSpeed(float speed) { m_OrbitSpeed = speed; }
 		void SetRotationRadius(float radius) { m_OrbitRadius = radius; }
 
@@ -30,6 +30,6 @@ namespace dae
 		float m_OrbitRadius{ 5.f };
 		float m_OrbitSpeed{ 5.f };
 		float m_Rotation{ .0f };
-		glm::vec3 m_OrbitCenter{ .0f, .0f, .0f };
+		glm::vec2 m_OrbitCenter{ .0f, .0f };
 	};
 }

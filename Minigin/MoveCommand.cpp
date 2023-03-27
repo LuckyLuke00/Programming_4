@@ -4,7 +4,7 @@
 
 namespace dae
 {
-	MoveCommand::MoveCommand(GameObject* gameObject, const glm::vec3& direction, float moveSpeed) :
+	MoveCommand::MoveCommand(GameObject* gameObject, const glm::vec2& direction, float moveSpeed) :
 		Command{ gameObject },
 		m_MoveSpeed{ moveSpeed },
 		m_Direction{ glm::normalize(direction) },
