@@ -128,9 +128,6 @@
     <ClInclude Include="XboxController.h">
       <Filter>Core\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Move2DCommand.h">
-      <Filter>Core\Commands</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -225,9 +222,6 @@
     </ClCompile>
     <ClCompile Include="XboxController.cpp">
       <Filter>Core\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Move2DCommand.cpp">
-      <Filter>Core\Commands</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

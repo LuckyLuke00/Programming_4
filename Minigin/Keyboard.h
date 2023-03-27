@@ -6,15 +6,10 @@
 
 namespace dae
 {
+	enum class InputState;
 	class Keyboard final
 	{
 	public:
-		enum class InputState
-		{
-			Down,
-			Up
-		};
-
 		explicit Keyboard() = default;
 		~Keyboard() = default;
 

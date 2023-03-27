@@ -15,12 +15,19 @@ bool dae::InputManager::ProcessInput()
 		ImGui_ImplSDL2_ProcessEvent(&e);
 	}
 
+	for (const auto& controller : m_Controllers)
+	{
+		controller->Update();
+	}
+
 	m_Keyboard.Update(e);
 
 	return true;
 }
 
-void dae::InputManager::AddCommand(std::unique_ptr<Command> command, dae::Keyboard::InputState inputState, SDL_Scancode keyCode)
+dae::XboxController* dae::InputManager::AddXboxController()
 {
-	m_Keyboard.AddCommand(std::move(command), inputState, keyCode);
+	const unsigned int index{ static_cast<unsigned int>(m_Controllers.size()) };
+	m_Controllers.emplace_back(std::make_unique<XboxController>(index));
+	return m_Controllers.back().get();
 }
