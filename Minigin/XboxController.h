@@ -1,9 +1,7 @@
 #pragma once
-#include <Windows.h>
-#include <Xinput.h>
-#include <memory>
 #include "Command.h"
-#include <map>
+#include <memory>
+
 namespace dae
 {
 	enum class InputState;
@@ -11,7 +9,7 @@ namespace dae
 	{
 	public:
 		explicit XboxController(unsigned int controllerIndex);
-		~XboxController() = default;
+		~XboxController();
 
 		XboxController(const XboxController& other) = delete;
 		XboxController(XboxController&& other) noexcept = delete;
@@ -48,20 +46,7 @@ namespace dae
 		void Update();
 		void AddCommand(std::unique_ptr<Command> command, InputState inputstate, XboxButton button);
 	private:
-		using ControllerKey = std::pair<InputState, XboxController::XboxButton>;
-		using ControllerCommandsMap = std::map<ControllerKey, std::unique_ptr<Command>>;
-		ControllerCommandsMap m_ControllerCommands{};
-
-		const unsigned int m_ControllerIndex{ 0 };
-
-		unsigned int m_ButtonPressedThisFrame{ 0 };
-		unsigned int m_ButtonReleasedThisFrame{ 0 };
-
-		XINPUT_STATE m_CurrentState{ 0 };
-		XINPUT_STATE m_PreviousState{ 0 };
-
-		bool IsDownThisFrame(XboxButton button) const;
-		bool IsUpThisFrame(XboxButton button) const;
-		bool IsPressed(XboxButton button) const;
+		class Impl;
+		Impl* m_pImpl;
 	};
 }
