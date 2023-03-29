@@ -19,7 +19,7 @@ bool dae::InputManager::ProcessInput()
 		controller->Update();
 	}
 
-	m_Keyboard.Update(e);
+	m_Keyboard.Update();
 
 	return true;
 }

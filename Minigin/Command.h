@@ -1,5 +1,7 @@
 #pragma once
 
+// TODO: No gameobject is needed
+// TODO: Don't make undo pure virtual, make it optional
 namespace dae
 {
 	class GameObject;

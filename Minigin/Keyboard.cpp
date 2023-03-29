@@ -3,20 +3,10 @@
 
 namespace dae
 {
-	void Keyboard::Update(const SDL_Event& event)
+	void Keyboard::Update()
 	{
-		// Check if the event is a key event
-		if (event.type == SDL_KEYDOWN || event.type == SDL_KEYUP)
-		{
-			// Check if the key is in the map
-			const auto it{ m_Commands.find(std::make_pair(event.type == SDL_KEYDOWN ? dae::InputState::Down : dae::InputState::Up, event.key.keysym.scancode)) };
-			if (it != m_Commands.end())
-			{
-				// Execute the command
-				it->second->Execute();
-				return;
-			}
-		}
+		// TODO: maybe fix this by checking for a KEY_UP event. This way we can also check for holding keys, This wont work when unfocussed
+		// Don't use events
 
 		// For holding keys
 		const Uint8* state{ SDL_GetKeyboardState(nullptr) };

@@ -18,7 +18,7 @@ namespace dae
 		Keyboard& operator=(const Keyboard& other) = delete;
 		Keyboard& operator=(Keyboard&& other) noexcept = delete;
 
-		void Update(const SDL_Event& event);
+		void Update();
 
 		void AddCommand(std::unique_ptr<Command> command, InputState inputState, SDL_Scancode keyCode);
 	private:
