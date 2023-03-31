@@ -27,7 +27,6 @@ namespace dae
 		const std::vector<std::unique_ptr<XboxController>>& GetControllers() const { return m_Controllers; }
 	private:
 		Keyboard m_Keyboard{};
-
 		std::vector<std::unique_ptr<XboxController>> m_Controllers{};
 	};
 }

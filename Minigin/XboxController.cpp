@@ -24,27 +24,26 @@ namespace dae
 			m_ButtonPressedThisFrame = buttonChanges & m_CurrentState.Gamepad.wButtons;
 			m_ButtonReleasedThisFrame = buttonChanges & ~(m_PreviousState.Gamepad.wButtons);
 
-			for (const auto& command : m_ControllerCommands)
+			for (const auto& [key, command] : m_ControllerCommands)
 			{
-				switch (command.first.first)
+				switch (key.first)
 				{
 				case dae::InputState::Up:
-					if (IsUpThisFrame(command.first.second))
+					if (IsUpThisFrame(key.second))
 					{
-						command.second->Execute();
+						command->Execute();
 					}
 					break;
 				case dae::InputState::Down:
-					if (IsDownThisFrame(command.first.second))
+					if (IsDownThisFrame(key.second))
 					{
-						command.second->Execute();
+						command->Execute();
 					}
 					break;
-
 				case dae::InputState::Pressed:
-					if (IsPressed(command.first.second))
+					if (IsPressed(key.second))
 					{
-						command.second->Execute();
+						command->Execute();
 					}
 					break;
 				}
