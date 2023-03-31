@@ -1,15 +1,16 @@
-#include <stdexcept>
-#define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_ttf.h>
 #include "Minigin.h"
 #include "InputManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include "SceneManager.h"
 #include "Time.h"
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_ttf.h>
+#include <stdexcept>
+#include <steam_api.h>
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
 
 SDL_Window* g_window{};
 
@@ -88,6 +89,8 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	bool doContinue{ true };
 	while (doContinue)
 	{
+		SteamAPI_RunCallbacks();
+
 		Time::GetInstance().Tick();
 		lag += Time::GetDeltaSeconds();
 
