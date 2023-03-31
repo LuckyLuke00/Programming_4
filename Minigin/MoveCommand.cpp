@@ -2,14 +2,12 @@
 #include "GameObject.h"
 #include "Time.h"
 
-// TODO: Maybe replace gameobject with just the transform
 namespace dae
 {
-	MoveCommand::MoveCommand(GameObject* gameObject, const glm::vec2& direction, float moveSpeed) :
-		Command{ gameObject },
+	MoveCommand::MoveCommand(TransformComponent* transform, const glm::vec2& direction, float moveSpeed) :
 		m_MoveSpeed{ moveSpeed },
 		m_Direction{ glm::normalize(direction) },
-		m_pTransformComponent{ gameObject->GetComponent<TransformComponent>() }
+		m_pTransformComponent{ transform }
 	{}
 
 	void MoveCommand::Execute()

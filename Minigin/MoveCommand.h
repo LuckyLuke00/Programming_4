@@ -9,7 +9,7 @@ namespace dae
 	class MoveCommand final : public Command
 	{
 	public:
-		explicit MoveCommand(GameObject* gameObject, const glm::vec2& direction, float moveSpeed);
+		explicit MoveCommand(TransformComponent* transform, const glm::vec2& direction, float moveSpeed);
 		~MoveCommand() override = default;
 
 		MoveCommand(const MoveCommand& other) = delete;
