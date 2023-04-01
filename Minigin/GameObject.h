@@ -53,8 +53,7 @@ namespace dae
 	template<typename T>
 	inline T* GameObject::GetComponent() const
 	{
-		const auto iter{ m_Components.find(typeid(T)) };
-		if (iter != m_Components.end())
+		if (const auto iter{ m_Components.find(typeid(T)) }; iter != m_Components.end())
 		{
 			return dynamic_cast<T*>(iter->second.get());
 		}
