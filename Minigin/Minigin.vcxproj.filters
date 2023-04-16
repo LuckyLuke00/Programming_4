@@ -152,6 +152,9 @@
     <ClInclude Include="PointsComponent.h">
       <Filter>Core\Components</Filter>
     </ClInclude>
+    <ClInclude Include="KillCommand.h">
+      <Filter>Core\Commands</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -255,6 +258,9 @@
     </ClCompile>
     <ClCompile Include="PointsComponent.cpp">
       <Filter>Core\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="KillCommand.cpp">
+      <Filter>Core\Commands</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

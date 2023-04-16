@@ -5,17 +5,43 @@ namespace dae
 {
 	void Keyboard::Update()
 	{
-		// TODO: maybe fix this by checking for a KEY_UP event. This way we can also check for holding keys, This wont work when unfocussed
-		// Don't use events
-
 		// For holding keys
 		const Uint8* state{ SDL_GetKeyboardState(nullptr) };
 		for (const auto& [key, command] : m_Commands)
 		{
-			if (state[key.second] == (key.first == dae::InputState::Down))
+			switch (key.first)
 			{
-				command->Execute();
+			case InputState::Down:
+				if (state[key.second])
+				{
+					command->Execute();
+				}
+				break;
+			case InputState::Up:
+				if (!state[key.second])
+				{
+					command->Execute();
+				}
+				break;
+			case InputState::Pressed:
+				if (state[key.second] && !m_KeysDown[key.second])
+				{
+					command->Execute();
+				}
+				break;
+			case InputState::Released:
+				if (!state[key.second] && m_KeysDown[key.second])
+				{
+					command->Execute();
+				}
+				break;
 			}
+		}
+
+		// Update keys down state
+		for (int i = 0; i < SDL_NUM_SCANCODES; ++i)
+		{
+			m_KeysDown[i] = state[i];
 		}
 	}
 

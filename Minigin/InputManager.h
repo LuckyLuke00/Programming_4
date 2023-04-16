@@ -10,7 +10,8 @@ namespace dae
 	{
 		Down,
 		Up,
-		Pressed
+		Pressed,
+		Released
 	};
 
 	class InputManager final : public Singleton<InputManager>

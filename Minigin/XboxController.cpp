@@ -22,7 +22,7 @@ namespace dae
 
 			auto buttonChanges{ m_CurrentState.Gamepad.wButtons ^ m_PreviousState.Gamepad.wButtons };
 			m_ButtonPressedThisFrame = buttonChanges & m_CurrentState.Gamepad.wButtons;
-			m_ButtonReleasedThisFrame = buttonChanges & ~(m_PreviousState.Gamepad.wButtons);
+			m_ButtonReleasedThisFrame = buttonChanges & m_PreviousState.Gamepad.wButtons;
 
 			for (const auto& [key, command] : m_ControllerCommands)
 			{
@@ -46,6 +46,11 @@ namespace dae
 						command->Execute();
 					}
 					break;
+				case dae::InputState::Released:
+					if (IsReleased(key.second))
+					{
+						command->Execute();
+					}
 				}
 			}
 		}
@@ -70,17 +75,22 @@ namespace dae
 
 		bool IsDownThisFrame(XboxButton button) const
 		{
-			return m_ButtonPressedThisFrame & static_cast<unsigned int>(button);
+			return m_CurrentState.Gamepad.wButtons & static_cast<unsigned int>(button);
 		}
 
 		bool IsUpThisFrame(XboxButton button) const
 		{
-			return m_ButtonReleasedThisFrame & static_cast<unsigned int>(button);
+			return ~m_CurrentState.Gamepad.wButtons & static_cast<unsigned int>(button);
 		}
 
 		bool IsPressed(XboxButton button) const
 		{
-			return m_CurrentState.Gamepad.wButtons & static_cast<unsigned int>(button);
+			return m_ButtonPressedThisFrame & static_cast<unsigned int>(button);
+		}
+
+		bool IsReleased(XboxButton button) const
+		{
+			return m_ButtonReleasedThisFrame & static_cast<unsigned int>(button);
 		}
 	};
 

@@ -3,6 +3,7 @@
 #include <map>
 #include <memory>
 #include <SDL.h>
+#include <array>
 
 namespace dae
 {
@@ -25,5 +26,8 @@ namespace dae
 
 		// Store the commands in a map
 		std::map<std::pair<InputState, SDL_Scancode>, std::unique_ptr<Command>> m_Commands{};
+
+		// Keep track of the state of each key
+		std::array<bool, SDL_NUM_SCANCODES> m_KeysDown{};
 	};
 }
