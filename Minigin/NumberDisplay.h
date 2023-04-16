@@ -19,7 +19,7 @@ namespace dae
 
 		void OnNotify(const T& value) override;
 
-		void SetPrefix(const char* text) { m_Text = text; OnNotify(m_Value); }
+		void SetPrefix(const char* text) { m_Text = text; UpdateText(); }
 		void SetNumber(const T& value) { OnNotify(value); }
 
 		// Getter for the observer
@@ -49,6 +49,6 @@ namespace dae
 	template<typename T>
 	inline void NumberDisplay<T>::UpdateText()
 	{
-			m_pTextComponent->SetText(m_Text + std::to_string(m_Value));
+		m_pTextComponent->SetText(m_Text + std::to_string(m_Value));
 	}
 }

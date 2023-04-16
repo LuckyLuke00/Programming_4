@@ -36,6 +36,9 @@
     <Filter Include="Core\Events">
       <UniqueIdentifier>{be50bbbc-7d07-479d-8ade-55e6806e4b22}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Achievements">
+      <UniqueIdentifier>{4671c83f-8c3f-4282-a29c-66b3ae46a371}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -158,6 +161,18 @@
     <ClInclude Include="AddPointsCommand.h">
       <Filter>Core\Commands</Filter>
     </ClInclude>
+    <ClInclude Include="Achievement.h">
+      <Filter>Core\Achievements</Filter>
+    </ClInclude>
+    <ClInclude Include="CSteamAchievements.h">
+      <Filter>Core\Achievements</Filter>
+    </ClInclude>
+    <ClInclude Include="SteamAchievements.h">
+      <Filter>Core\Achievements</Filter>
+    </ClInclude>
+    <ClInclude Include="AchievementManager.h">
+      <Filter>Core\Achievements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -267,6 +282,9 @@
     </ClCompile>
     <ClCompile Include="AddPointsCommand.cpp">
       <Filter>Core\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="CSteamAchievements.cpp">
+      <Filter>Core\Achievements</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

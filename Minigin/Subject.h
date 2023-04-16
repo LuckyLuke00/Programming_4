@@ -20,11 +20,11 @@ namespace dae
 			m_pObservers.erase(std::ranges::remove(m_pObservers, pObserver), m_pObservers.end());
 		}
 
-		void Notify(T event) const
+		void Notify(T data) const
 		{
 			for (Observer<T>* pObserver : m_pObservers)
 			{
-				pObserver->OnNotify(event);
+				pObserver->OnNotify(data);
 			}
 		}
 

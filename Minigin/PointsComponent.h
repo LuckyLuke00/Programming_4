@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "Subject.h"
+#include "EventManager.h"
 
 namespace dae
 {
@@ -15,14 +16,15 @@ namespace dae
 		PointsComponent& operator=(const PointsComponent& other) = delete;
 		PointsComponent& operator=(PointsComponent&& other) noexcept = delete;
 
-		void AddPoints(int points) { m_CurrentPoints += points; ClampPoints(); Notify(m_CurrentPoints); }
-		void RemovePoints(int points) { m_CurrentPoints -= points; ClampPoints(); Notify(m_CurrentPoints); }
+		void AddPoints(int points);
+		void RemovePoints(int points);
 
-		void SetPoints(int points) { m_CurrentPoints = points; ClampPoints(); Notify(m_CurrentPoints); }
+		void SetPoints(int points);
 
 		int GetPoints() const { return m_CurrentPoints; }
 	private:
 		int m_CurrentPoints{ 0 };
+		Event m_PointsUpdatedEvent{ "PointsUpdated" };
 
 		void ClampPoints();
 	};

@@ -2,12 +2,12 @@
 
 namespace dae
 {
-	template <class T>
+	template <typename T>
 	class Observer
 	{
 	public:
 		virtual ~Observer() = default;
-		virtual void OnNotify(const T& event) = 0;
+		virtual void OnNotify(const T& data) = 0;
 
 		Observer(const Observer& other) = delete;
 		Observer(Observer&& other) noexcept = delete;
