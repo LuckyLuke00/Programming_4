@@ -19,5 +19,7 @@ namespace dae
 	private:
 		bool m_LimitFPS{ true };
 		const float m_FixedTimeStep{ .02f };
+
+		void PrintHowToPlay() const;
 	};
 }
