@@ -17,10 +17,6 @@ namespace dae
 		TransformComponent& operator=(const TransformComponent& other) = delete;
 		TransformComponent& operator=(TransformComponent&& other) noexcept = delete;
 
-		void Update() override {};
-		void FixedUpdate() override {};
-		void LateUpdate() override {};
-
 		const glm::vec2& GetLocalPosition() const { return m_LocalPosition; }
 		const glm::vec2& GetWorldPosition();
 		void SetPosition(const glm::vec2& position) { SetPosition(position.x, position.y); }

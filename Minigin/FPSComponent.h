@@ -17,8 +17,6 @@ namespace dae
 		FPSComponent& operator=(FPSComponent&& other) noexcept = delete;
 
 		void Update() override;
-		void FixedUpdate() override {};
-		void LateUpdate() override {};
 
 		unsigned int GetFPS() const { return m_FPS; }
 	private:

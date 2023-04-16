@@ -30,6 +30,12 @@
     <Filter Include="Core\Input">
       <UniqueIdentifier>{b3213836-236a-4cb2-aef0-686cb22388aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Components\UI">
+      <UniqueIdentifier>{6b6dce45-fea9-4a10-874c-5d178ce7a696}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Events">
+      <UniqueIdentifier>{be50bbbc-7d07-479d-8ade-55e6806e4b22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -69,12 +75,6 @@
       <Filter>Core\Components</Filter>
     </ClInclude>
     <ClInclude Include="RenderComponent.h">
-      <Filter>Core\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="TextComponent.h">
-      <Filter>Core\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="FPSComponent.h">
       <Filter>Core\Components</Filter>
     </ClInclude>
     <ClInclude Include="RotatorComponent.h">
@@ -128,6 +128,27 @@
     <ClInclude Include="XboxController.h">
       <Filter>Core\Input</Filter>
     </ClInclude>
+    <ClInclude Include="HealthComponent.h">
+      <Filter>Core\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSComponent.h">
+      <Filter>Core\Components\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="TextComponent.h">
+      <Filter>Core\Components\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Core\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Core\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="EventManager.h">
+      <Filter>Core\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="NumberDisplay.h">
+      <Filter>Core\Components\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -167,12 +188,6 @@
       <Filter>Core\Components</Filter>
     </ClCompile>
     <ClCompile Include="RenderComponent.cpp">
-      <Filter>Core\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="TextComponent.cpp">
-      <Filter>Core\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="FPSComponent.cpp">
       <Filter>Core\Components</Filter>
     </ClCompile>
     <ClCompile Include="RotatorComponent.cpp">
@@ -222,6 +237,18 @@
     </ClCompile>
     <ClCompile Include="XboxController.cpp">
       <Filter>Core\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthComponent.cpp">
+      <Filter>Core\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSComponent.cpp">
+      <Filter>Core\Components\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="TextComponent.cpp">
+      <Filter>Core\Components\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="NumberDisplay.cpp">
+      <Filter>Core\Components\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

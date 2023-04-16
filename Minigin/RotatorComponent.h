@@ -18,8 +18,6 @@ namespace dae
 		RotatorComponent& operator=(RotatorComponent&& other) noexcept = delete;
 
 		void Update() override;
-		void FixedUpdate() override {};
-		void LateUpdate() override {};
 
 		void SetRotationCenter(const glm::vec2& center) { m_OrbitCenter = center; }
 		void SetRotationSpeed(float speed) { m_OrbitSpeed = speed; }
