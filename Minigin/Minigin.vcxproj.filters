@@ -149,6 +149,9 @@
     <ClInclude Include="NumberDisplay.h">
       <Filter>Core\Components\UI</Filter>
     </ClInclude>
+    <ClInclude Include="PointsComponent.h">
+      <Filter>Core\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -249,6 +252,9 @@
     </ClCompile>
     <ClCompile Include="NumberDisplay.cpp">
       <Filter>Core\Components\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="PointsComponent.cpp">
+      <Filter>Core\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

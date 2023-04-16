@@ -4,7 +4,7 @@
 
 namespace dae
 {
-	class HealthComponent final : public Component, public Subject<unsigned int>
+	class HealthComponent final : public Component, public Subject<int>
 	{
 	public:
 		explicit HealthComponent(GameObject* pOwner);
@@ -15,25 +15,28 @@ namespace dae
 		HealthComponent& operator=(const HealthComponent& other) = delete;
 		HealthComponent& operator=(HealthComponent&& other) noexcept = delete;
 
-		void AddHealth(unsigned int health) { m_CurrentHealth += health; Notify(m_CurrentHealth); }
-		void RemoveHealth(unsigned int health) { m_CurrentHealth -= health; Notify(m_CurrentHealth); }
+		void AddHealth(int health) { m_CurrentHealth += health; ClampHealth(); Notify(m_CurrentHealth); }
+		void RemoveHealth(int health) { m_CurrentHealth -= health; ClampHealth();  Notify(m_CurrentHealth); }
 
-		void AddLives(unsigned int lives) { m_CurrentLives += lives; Notify(m_CurrentLives); }
-		void RemoveLives(unsigned int lives) { m_CurrentLives -= lives; Notify(m_CurrentLives); }
+		void AddLives(int lives) { m_CurrentLives += lives; ClampLives(); Notify(m_CurrentLives); }
+		void RemoveLives(int lives) { m_CurrentLives -= lives; ClampLives(); Notify(m_CurrentLives); }
 
-		void SetMaxHealth(unsigned int maxHealth) { m_MaxHealth = maxHealth; }
-		void SetMaxLives(unsigned int maxLives) { m_MaxLives = maxLives; }
+		void SetMaxHealth(int maxHealth) { m_MaxHealth = maxHealth; }
+		void SetMaxLives(int maxLives) { m_MaxLives = maxLives; }
 
-		unsigned int GetHealth() const { return m_CurrentHealth; }
-		unsigned int GetMaxHealth() const { return m_MaxHealth; }
+		int GetHealth() const { return m_CurrentHealth; }
+		int GetMaxHealth() const { return m_MaxHealth; }
 
-		unsigned int GetLives() const { return m_CurrentLives; }
-		unsigned int GetMaxLives() const { return m_MaxLives; }
+		int GetLives() const { return m_CurrentLives; }
+		int GetMaxLives() const { return m_MaxLives; }
 	private:
-		unsigned int m_MaxHealth{ 100 };
-		unsigned int m_CurrentHealth{ m_MaxHealth };
+		int m_MaxHealth{ 100 };
+		int m_CurrentHealth{ m_MaxHealth };
 
-		unsigned int m_MaxLives{ 3 };
-		unsigned int m_CurrentLives{ m_MaxLives };
+		int m_MaxLives{ 3 };
+		int m_CurrentLives{ m_MaxLives };
+
+		void ClampLives();
+		void ClampHealth();
 	};
 }
