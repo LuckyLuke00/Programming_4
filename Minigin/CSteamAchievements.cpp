@@ -47,6 +47,18 @@ namespace dae
 		return false;
 	}
 
+	bool CSteamAchievements::ClearAchievement(const char* ID) const
+	{
+		// Have we received a call back from Steam yet?
+		if (m_bInitialized)
+		{
+			SteamUserStats()->ClearAchievement(ID);
+			return SteamUserStats()->StoreStats();
+		}
+		// If not then we can't set achievements yet
+		return false;
+	}
+
 	void CSteamAchievements::OnUserStatsReceived(UserStatsReceived_t* pCallback)
 	{
 		// we may get callbacks for other games' stats arriving, ignore them

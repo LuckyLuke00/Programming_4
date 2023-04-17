@@ -12,6 +12,7 @@ namespace dae
 
 		bool RequestStats() const;
 		bool SetAchievement(const char* ID) const;
+		bool ClearAchievement(const char* ID) const;
 
 		STEAM_CALLBACK(CSteamAchievements, OnUserStatsReceived, UserStatsReceived_t,
 			m_CallbackUserStatsReceived);
