@@ -3,6 +3,9 @@
 
 namespace dae
 {
+	// Only the points display should be able to add point
+	// This command should not be used it should be
+	// (I picked something up, and the points display should give the points based on that)
 	AddPointsCommand::AddPointsCommand(PointsComponent* pointsComponent, int pointsToAdd) :
 		m_pPointsComponent{ pointsComponent },
 		m_PointsToAdd{ pointsToAdd }

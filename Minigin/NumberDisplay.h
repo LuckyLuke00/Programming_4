@@ -22,9 +22,6 @@ namespace dae
 		void SetPrefix(const char* text) { m_Text = text; UpdateText(); }
 		void SetNumber(const T& value) { OnNotify(value); }
 
-		// Getter for the observer
-		Observer<T>* GetObserver() override { return this; }
-
 	private:
 		TextComponent* m_pTextComponent{ nullptr };
 

@@ -45,7 +45,7 @@ namespace dae
 		}
 
 	private:
-		explicit EventManager() = default;
+		EventManager() = default;
 		friend class Singleton<EventManager>;
 
 		std::unordered_map<const char*, std::function<void(Event*, std::any)>> m_EventMap;

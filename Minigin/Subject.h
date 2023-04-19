@@ -34,7 +34,7 @@ namespace dae
 		Subject& operator=(Subject&& other) noexcept = delete;
 
 	protected:
-		explicit Subject() = default;
+		Subject() = default;
 
 	private:
 		std::vector<Observer<T>*> m_pObservers;

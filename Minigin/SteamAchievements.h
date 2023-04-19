@@ -16,7 +16,7 @@ namespace dae
 	};
 
 	// Achievement array which will hold data about the achievements and their state
-	Achievement_t g_Achievements[] =
+	Achievement_t g_Achievements[]
 	{
 		_ACH_ID(ACH_WIN_ONE_GAME, "Winner"),
 		_ACH_ID(ACH_WIN_100_GAMES, "Champion"),
@@ -26,5 +26,5 @@ namespace dae
 	};
 
 	// Global access to Achievements object
-	CSteamAchievements* g_SteamAchievements = nullptr;
+	CSteamAchievements* g_SteamAchievements{ nullptr };
 }

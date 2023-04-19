@@ -3,6 +3,7 @@
 #include "Subject.h"
 #include "EventManager.h"
 
+// TODO: Remove the need for this component, the points should be stored on the display
 namespace dae
 {
 	class PointsComponent final : public Component, public Subject<int>
