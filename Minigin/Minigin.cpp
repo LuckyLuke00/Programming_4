@@ -8,7 +8,6 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <stdexcept>
-#include <steam_api.h>
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 #include <iostream>
@@ -86,14 +85,10 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	auto& sceneManager{ SceneManager::GetInstance() };
 	auto& input{ InputManager::GetInstance() };
 
-	PrintHowToPlay();
-
 	float lag{ .0f };
 	bool doContinue{ true };
 	while (doContinue)
 	{
-		SteamAPI_RunCallbacks();
-
 		Time::GetInstance().Tick();
 		lag += Time::GetDeltaSeconds();
 
@@ -119,15 +114,4 @@ void dae::Minigin::Run(const std::function<void()>& load)
 		const auto sleepTime{ Time::GetLastTime() + std::chrono::milliseconds{ 1000 / mode.refresh_rate } - std::chrono::high_resolution_clock::now() };
 		std::this_thread::sleep_for(sleepTime);
 	}
-}
-
-void dae::Minigin::PrintHowToPlay() const
-{
-	std::cout << "\n==== How to Play ====\n";
-	std::cout << "Player 1:\n";
-	std::cout << "    Remove life: Q\n";
-	std::cout << "    Add 100 points: E\n";
-	std::cout << "Player 2:\n";
-	std::cout << "    Remove life: Xbox Y\n";
-	std::cout << "    Add 100 points: Xbox A\n";
 }
