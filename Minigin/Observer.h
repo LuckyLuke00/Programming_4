@@ -2,15 +2,12 @@
 
 namespace dae
 {
-	template <typename T>
+	template<typename... Args>
 	class Observer
 	{
 	public:
 		virtual ~Observer() = default;
-		virtual void OnNotify(const T& data) = 0;
-
-	protected:
-		// When using a default constructor, the explicit keyword is not needed
-		Observer() = default;
+		virtual void OnNotify(Args... args) = 0;
+		virtual void OnSubjectDestroy() = 0;
 	};
 }

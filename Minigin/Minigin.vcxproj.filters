@@ -128,13 +128,13 @@
     <ClInclude Include="TextComponent.h">
       <Filter>Core\Components\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Observer.h">
+    <ClInclude Include="EventManager.h">
       <Filter>Core\Events</Filter>
     </ClInclude>
     <ClInclude Include="Subject.h">
       <Filter>Core\Events</Filter>
     </ClInclude>
-    <ClInclude Include="EventManager.h">
+    <ClInclude Include="Observer.h">
       <Filter>Core\Events</Filter>
     </ClInclude>
   </ItemGroup>

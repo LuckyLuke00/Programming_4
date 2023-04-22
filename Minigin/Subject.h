@@ -1,42 +1,41 @@
 #pragma once
-#include "Observer.h"
 #include <vector>
-#include <algorithm>
 
 namespace dae
 {
-	template <class T>
-	class Subject
+	class Observer;
+
+	template<typename... Args>
+	class Subject final
 	{
 	public:
-		virtual ~Subject() = default;
-		void AddObserver(Observer<T>* pObserver)
+		~Subject()
 		{
-			m_pObservers.push_back(pObserver);
-		}
-
-		void RemoveObserver(Observer<T>* pObserver)
-		{
-			m_pObservers.erase(std::ranges::remove(m_pObservers, pObserver), m_pObservers.end());
-		}
-
-		void Notify(T data) const
-		{
-			for (Observer<T>* pObserver : m_pObservers)
+			for (auto& observer : m_Observers)
 			{
-				pObserver->OnNotify(data);
+				observer->OnSubjectDestroy();
 			}
 		}
 
-		Subject(const Subject& other) = delete;
-		Subject(Subject&& other) noexcept = delete;
-		Subject& operator=(const Subject& other) = delete;
-		Subject& operator=(Subject&& other) noexcept = delete;
+		void AddObserver(Observer<Args...>* observer)
+		{
+			m_Observers.emplace_back(observer);
+		}
 
-	protected:
-		Subject() = default;
+		void RemoveObserver(Observer<Args...>* observer)
+		{
+			m_Observers.erase(std::remove(m_Observers.begin(), m_Observers.end(), observer), m_Observers.end());
+		}
+
+		void Notify(Args... args)
+		{
+			for (auto& observer : m_Observers)
+			{
+				observer->OnNotify(args...);
+			}
+		}
 
 	private:
-		std::vector<Observer<T>*> m_pObservers;
+		std::vector<Observer<Args...>*> m_Observers;
 	};
 }
