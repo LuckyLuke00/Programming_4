@@ -1,6 +1,6 @@
 #include "MoveCommand.h"
 #include "GameObject.h"
-#include "Time.h"
+#include "Timer.h"
 
 namespace dae
 {
@@ -15,7 +15,7 @@ namespace dae
 		if (!m_pTransformComponent) return;
 
 		m_LastPosition = m_pTransformComponent->GetLocalPosition();
-		m_pTransformComponent->Translate(m_Direction * m_MoveSpeed * Time::GetDeltaSeconds());
+		m_pTransformComponent->Translate(m_Direction * m_MoveSpeed * Timer::GetDeltaSeconds());
 	}
 
 	void MoveCommand::Undo()

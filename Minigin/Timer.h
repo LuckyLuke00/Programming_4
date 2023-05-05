@@ -4,7 +4,7 @@
 
 namespace dae
 {
-	class Time final : public Singleton<Time>
+	class Timer final : public Singleton<Timer>
 	{
 	public:
 		static float GetDeltaSeconds() { return GetInstance().m_DeltaTime; }
@@ -16,7 +16,7 @@ namespace dae
 		float m_DeltaTime{ .0f };
 		std::chrono::time_point<std::chrono::high_resolution_clock> m_LastTime{ std::chrono::high_resolution_clock::now() };
 
-		Time() = default;
-		friend class Singleton<Time>;
+		Timer() = default;
+		friend class Singleton<Timer>;
 	};
 }

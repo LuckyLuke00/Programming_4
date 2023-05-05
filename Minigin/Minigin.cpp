@@ -3,7 +3,7 @@
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include "SceneManager.h"
-#include "Time.h"
+#include "Timer.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
@@ -89,8 +89,8 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	bool doContinue{ true };
 	while (doContinue)
 	{
-		Time::GetInstance().Tick();
-		lag += Time::GetDeltaSeconds();
+		Timer::GetInstance().Tick();
+		lag += Timer::GetDeltaSeconds();
 
 		doContinue = input.ProcessInput();
 
@@ -111,7 +111,7 @@ void dae::Minigin::Run(const std::function<void()>& load)
 
 		SDL_DisplayMode mode;
 		SDL_GetCurrentDisplayMode(0, &mode);
-		const auto sleepTime{ Time::GetLastTime() + std::chrono::milliseconds{ 1000 / mode.refresh_rate } - std::chrono::high_resolution_clock::now() };
+		const auto sleepTime{ Timer::GetLastTime() + std::chrono::milliseconds{ 1000 / mode.refresh_rate } - std::chrono::high_resolution_clock::now() };
 		std::this_thread::sleep_for(sleepTime);
 	}
 }
