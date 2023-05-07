@@ -37,7 +37,7 @@ namespace dae
 		std::vector<std::pair<int, std::string>> tilePaths{};
 
 		// Container that stores the indices and positions of the tiles
-		std::vector<std::vector<std::pair<int, std::pair<int, int>>>> tileIndices{};
+		std::vector<std::pair<int, std::pair<int, int>>> tileIndices{};
 
 		// Go over every line in the file
 		std::string line;
@@ -83,41 +83,36 @@ namespace dae
 					// Split the token into the index and the position
 					std::istringstream ss{ token };
 					int index{};
-					int x{}, y{};
+					int x{};
+					int y{};
 					char c{};
 					ss >> index >> c >> c >> x >> c >> y;
 
 					// Add the index and position to the indices container
-					indices.emplace_back(index, std::make_pair(x, y));
+					tileIndices.emplace_back(index, std::make_pair(x, y));
 				}
-
-				// Add the indices and positions to the tileIndices container
-				tileIndices.emplace_back(indices);
 			}
 		}
 
 		// Add the tiles to the level, get the index and position from the tileIndices container, and get the texturePath from the tilePaths container
 		// To get the texturePath, we need to find the index in the tilePaths container that matches the index in the tileIndices container
-		for (size_t i{}; i < tileIndices.size(); ++i)
+		for (const auto& [iindex, position] : tileIndices)
 		{
-			for (size_t j{}; j < tileIndices[i].size(); ++j)
+			// Get the index and position from the tileIndices container
+			const int x{ position.first };
+			const int y{ position.second };
+
+			// Get the texturePath from the tilePaths container
+			std::string texturePath{};
+			for (const auto& [tindex, path] : tilePaths)
 			{
-				// Get the index and position from the tileIndices container
-				const int index{ tileIndices[i][j].first };
-				const int x{ tileIndices[i][j].second.first };
-				const int y{ tileIndices[i][j].second.second };
-				// Get the texturePath from the tilePaths container
-				std::string texturePath{};
-				for (size_t k{}; k < tilePaths.size(); ++k)
+				if (tindex == iindex)
 				{
-					if (tilePaths[k].first == index)
-					{
-						texturePath = tilePaths[k].second;
-						break;
-					}
+					texturePath = path;
+					break;
 				}
-				level.AddLevelTile({ x, y }, texturePath);
 			}
+			level.AddLevelTile({ x, y }, texturePath);
 		}
 
 		return true;
