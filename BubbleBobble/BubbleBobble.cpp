@@ -54,7 +54,7 @@ void load()
 	//demoScene.Add(std::move(demoText));
 
 	dae::Level level{ demoScene };
-	dae::LevelLoader::LoadLevel("../Assets/Levels/level2.txt", level);
+	dae::LevelLoader::LoadLevel("../Assets/Levels/level3.txt", level);
 
 #endif // DEMO_SCENE
 
