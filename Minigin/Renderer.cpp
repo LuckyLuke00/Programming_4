@@ -69,6 +69,11 @@ void dae::Renderer::Destroy()
 	}
 }
 
+void dae::Renderer::GetWindowSize(int& width, int& height) const
+{
+	SDL_GetWindowSize(m_window, &width, &height);
+}
+
 void dae::Renderer::RenderTexture(const Texture2D& texture, const float x, const float y) const
 {
 	SDL_Rect dst{};

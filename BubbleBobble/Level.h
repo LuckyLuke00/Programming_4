@@ -22,9 +22,11 @@ namespace dae
 
 		// Getters and Setters
 		void AddLevelTile(const glm::ivec2& position, const std::string& texturePath);
-	
+		void ScaleToWindowSize();
+		float GetLevelScale() const { return m_Scale; }
 	private:
 		Scene& m_Scene;
+		float m_Scale{ 1.f };
 
 		std::vector<RenderTextureComponent*> m_pRenderComponents;
 		std::vector<TransformComponent*> m_pTransformComponents;

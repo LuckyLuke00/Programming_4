@@ -115,6 +115,10 @@ namespace dae
 			level.AddLevelTile({ x, y }, texturePath);
 		}
 
+		// Scale the level to the size of the window
+		level.ScaleToWindowSize();
+
+
 		return true;
 	}
 }

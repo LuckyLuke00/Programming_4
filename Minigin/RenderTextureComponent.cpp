@@ -22,7 +22,10 @@ namespace dae
 		}
 
 		const auto& pos{ m_pTransformComponent->GetWorldPosition() };
-		Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y);
+		// Calulate the width and height of the texture based on the scale of the transform
+		const auto width{ m_Texture.get()->GetSize().x * m_pTransformComponent->GetScale() };
+		const auto height{ m_Texture.get()->GetSize().y * m_pTransformComponent->GetScale() };
+		Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y, width, height);
 	}
 
 	void RenderTextureComponent::SetTexture(const std::string& filename)

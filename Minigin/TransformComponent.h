@@ -17,10 +17,12 @@ namespace dae
 		TransformComponent& operator=(const TransformComponent& other) = delete;
 		TransformComponent& operator=(TransformComponent&& other) noexcept = delete;
 
+		float GetScale() const { return m_Scale; }
 		const glm::vec2& GetLocalPosition() const { return m_LocalPosition; }
 		const glm::vec2& GetWorldPosition();
 		void SetPosition(const glm::vec2& position) { SetPosition(position.x, position.y); }
 		void SetPosition(float x = .0f, float y = .0f);
+		void SetScale(float scale) { m_Scale = scale; SetDirty(); }
 		void Translate(const glm::vec2& translation) { Translate(translation.x, translation.y); }
 		void Translate(float x = .0f, float y = .0f);
 
@@ -29,6 +31,7 @@ namespace dae
 		bool m_IsDirty{ true };
 		glm::vec2 m_LocalPosition{ .0f, .0f };
 		glm::vec2 m_WorldPosition{ .0f, .0f };
+		float m_Scale{ 1.f };
 
 		void UpdateTransform();
 	};

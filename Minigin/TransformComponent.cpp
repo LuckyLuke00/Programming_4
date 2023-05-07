@@ -18,16 +18,17 @@ namespace dae
 
 	void TransformComponent::SetPosition(float x, float y)
 	{
-		m_LocalPosition.x = x;
-		m_LocalPosition.y = y;
+		// Scale the position with the scale of the transform
+		m_LocalPosition.x = x * m_Scale;
+		m_LocalPosition.y = y * m_Scale;
 
 		SetDirty();
 	}
 
 	void TransformComponent::Translate(float x, float y)
 	{
-		m_LocalPosition.x += x;
-		m_LocalPosition.y += y;
+		m_LocalPosition.x += x * m_Scale;
+		m_LocalPosition.y += y * m_Scale;
 
 		SetDirty();
 	}
@@ -37,7 +38,7 @@ namespace dae
 		// If there is no parent, the world position is the local position
 		if (!GetOwner()->GetParent())
 		{
-			m_WorldPosition = m_LocalPosition;
+			m_WorldPosition = m_LocalPosition * m_Scale;
 			return;
 		}
 
@@ -46,7 +47,7 @@ namespace dae
 		if (!pParentTransform) return;
 
 		// Set the world position
-		m_WorldPosition = m_LocalPosition + pParentTransform->GetWorldPosition();
+		m_WorldPosition = m_LocalPosition + pParentTransform->GetWorldPosition() * m_Scale;
 
 		m_IsDirty = false;
 	}
