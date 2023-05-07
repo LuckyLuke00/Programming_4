@@ -17,6 +17,8 @@
 #include "InputManager.h"
 #include "MoveCommand.h"
 #include "SceneManager.h"
+#include "LevelLoader.h"
+#include "Level.h"
 
 #define DEMO_SCENE
 #define FPS_COUNTER
@@ -28,28 +30,31 @@ void load()
 #ifdef DEMO_SCENE
 	auto& demoScene{ dae::SceneManager::GetInstance().CreateScene("Demo Scene") };
 
-	// Add background
-	auto demoBackground{ std::make_unique<dae::GameObject>() };
-	demoBackground->AddComponent<dae::TransformComponent>();
-	demoBackground->AddComponent<dae::RenderTextureComponent>()->SetTexture("Images/background.tga");
-	demoScene.Add(std::move(demoBackground));
+	//// Add background
+	//auto demoBackground{ std::make_unique<dae::GameObject>() };
+	//demoBackground->AddComponent<dae::TransformComponent>();
+	//demoBackground->AddComponent<dae::RenderTextureComponent>()->SetTexture("Images/background.tga");
+	//demoScene.Add(std::move(demoBackground));
 
-	// Add logo
-	auto demoLogo{ std::make_unique<dae::GameObject>() };
-	demoLogo->AddComponent<dae::TransformComponent>()->SetPosition(216.f, 180.f);
-	demoLogo->AddComponent<dae::RenderTextureComponent>()->SetTexture("Images/logo.tga");
-	demoScene.Add(std::move(demoLogo));
+	//// Add logo
+	//auto demoLogo{ std::make_unique<dae::GameObject>() };
+	//demoLogo->AddComponent<dae::TransformComponent>()->SetPosition(216.f, 180.f);
+	//demoLogo->AddComponent<dae::RenderTextureComponent>()->SetTexture("Images/logo.tga");
+	//demoScene.Add(std::move(demoLogo));
 
-	// Add text
-	auto demoText{ std::make_unique<dae::GameObject>() };
-	demoText->AddComponent<dae::TransformComponent>()->SetPosition(80.f, 20.f);
-	demoText->AddComponent<dae::RenderTextureComponent>();
+	//// Add text
+	//auto demoText{ std::make_unique<dae::GameObject>() };
+	//demoText->AddComponent<dae::TransformComponent>()->SetPosition(80.f, 20.f);
+	//demoText->AddComponent<dae::RenderTextureComponent>();
 
-	auto* demoTextComponent{ demoText->AddComponent<dae::TextComponent>() };
-	demoTextComponent->SetFont("Fonts/Lingua.otf", 36);
-	demoTextComponent->SetText("Programming 4 Assignment");
+	//auto* demoTextComponent{ demoText->AddComponent<dae::TextComponent>() };
+	//demoTextComponent->SetFont("Fonts/Lingua.otf", 36);
+	//demoTextComponent->SetText("Programming 4 Assignment");
 
-	demoScene.Add(std::move(demoText));
+	//demoScene.Add(std::move(demoText));
+
+	dae::Level level1{ demoScene };
+	dae::LevelLoader::LoadLevel("../Assets/Levels/level1.txt", level1);
 
 #endif // DEMO_SCENE
 
