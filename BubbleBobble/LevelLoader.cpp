@@ -118,7 +118,6 @@ namespace dae
 		// Scale the level to the size of the window
 		level.ScaleToWindowSize();
 
-
 		return true;
 	}
 }

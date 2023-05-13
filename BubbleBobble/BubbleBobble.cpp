@@ -19,6 +19,9 @@
 #include "SceneManager.h"
 #include "LevelLoader.h"
 #include "Level.h"
+#include <LoggingSoundSystem.h>
+#include <SDLSoundSystem.h>
+#include <ServiceLocator.h>
 
 #define DEMO_SCENE
 #define FPS_COUNTER

@@ -33,6 +33,9 @@
     <Filter Include="Core\Events">
       <UniqueIdentifier>{be50bbbc-7d07-479d-8ade-55e6806e4b22}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Sound">
+      <UniqueIdentifier>{4ef27073-704d-4e7a-9540-4c97a7f0b482}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -137,6 +140,18 @@
     <ClInclude Include="Observer.h">
       <Filter>Core\Events</Filter>
     </ClInclude>
+    <ClInclude Include="SoundSystem.h">
+      <Filter>Core\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="ServiceLocator.h">
+      <Filter>Core\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLSoundSystem.h">
+      <Filter>Core\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="LoggingSoundSystem.h">
+      <Filter>Core\Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -152,9 +167,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Font.cpp">
@@ -225,6 +237,12 @@
     </ClCompile>
     <ClCompile Include="TextComponent.cpp">
       <Filter>Core\Components\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDLSoundSystem.cpp">
+      <Filter>Core\Sound</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
