@@ -113,9 +113,6 @@
     <ClInclude Include="Command.h">
       <Filter>Core\Commands</Filter>
     </ClInclude>
-    <ClInclude Include="MoveCommand.h">
-      <Filter>Core\Commands</Filter>
-    </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>Core\Input</Filter>
     </ClInclude>
@@ -218,9 +215,6 @@
       <Filter>Core\Components</Filter>
     </ClCompile>
     <ClCompile Include="Command.cpp">
-      <Filter>Core\Commands</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveCommand.cpp">
       <Filter>Core\Commands</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">

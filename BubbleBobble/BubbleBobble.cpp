@@ -22,6 +22,7 @@
 #include <LoggingSoundSystem.h>
 #include <SDLSoundSystem.h>
 #include <ServiceLocator.h>
+#include "PlaySoundCommand.h"
 
 #define DEMO_SCENE
 #define FPS_COUNTER
@@ -58,6 +59,16 @@ void load()
 
 	dae::Level level{ demoScene };
 	dae::LevelLoader::LoadLevel("../Assets/Levels/level3.txt", level);
+
+	const unsigned short soundId{ 0 };
+	dae::ServiceLocator<dae::SoundSystem>::RegisterService(std::make_unique<dae::LoggingSoundSystem>(std::make_unique<dae::SDLSoundSystem>()));
+	dae::ServiceLocator<dae::SoundSystem>::GetService().LoadSound(soundId, "../Assets/Sounds/test.wav");
+
+	auto playSoundCommand{ std::make_unique<dae::PlaySoundCommand>(soundId, 1.f) };
+	dae::InputManager::GetInstance().GetKeyboard().AddCommand(std::move(playSoundCommand), dae::InputState::Pressed, SDL_SCANCODE_E);
+
+	// Green text
+	std::cout << "\033[32m" << "Press E to play sound" << "\033[0m" << '\n';
 
 #endif // DEMO_SCENE
 

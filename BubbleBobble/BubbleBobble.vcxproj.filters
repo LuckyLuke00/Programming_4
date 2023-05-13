@@ -19,6 +19,9 @@
     <Filter Include="Core\Levels">
       <UniqueIdentifier>{386324e4-ce07-4b61-841a-1c8f1aab9d04}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Commands">
+      <UniqueIdentifier>{2999c49e-8616-4772-804b-14477399c5b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BubbleBobble.cpp">
@@ -30,6 +33,12 @@
     <ClCompile Include="Level.cpp">
       <Filter>Core\Levels</Filter>
     </ClCompile>
+    <ClCompile Include="..\Minigin\MoveCommand.cpp">
+      <Filter>Core\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaySoundCommand.cpp">
+      <Filter>Core\Commands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LevelLoader.h">
@@ -37,6 +46,12 @@
     </ClInclude>
     <ClInclude Include="Level.h">
       <Filter>Core\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\MoveCommand.h">
+      <Filter>Core\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaySoundCommand.h">
+      <Filter>Core\Commands</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
