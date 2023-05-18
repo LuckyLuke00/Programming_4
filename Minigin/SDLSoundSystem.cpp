@@ -145,9 +145,8 @@ namespace dae
 		{
 			while (!m_IsQuit)
 			{
-				std::unique_lock<std::mutex> lock{ m_SoundMutex };
+				std::unique_lock lock{ m_SoundMutex };
 				m_SoundConditionVariable.wait(lock, [this] { return !m_SoundQueue.empty() || m_IsQuit; });
-				if (m_IsQuit) return;
 
 				while (!m_SoundQueue.empty())
 				{
@@ -171,6 +170,8 @@ namespace dae
 						StopSound(soundId);
 						break;
 					}
+
+					if (m_IsQuit) return;
 
 					m_SoundQueue.pop();
 				}
