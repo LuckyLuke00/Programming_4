@@ -222,6 +222,9 @@
     <ClInclude Include="..\3rdParty\imgui\imstb_rectpack.h" />
     <ClInclude Include="..\3rdParty\imgui\imstb_textedit.h" />
     <ClInclude Include="..\3rdParty\imgui\imstb_truetype.h" />
+    <ClInclude Include="ColliderComponent.h" />
+    <ClInclude Include="CollisionEvent.h" />
+    <ClInclude Include="CollisionSystem.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="EventManager.h" />
@@ -234,6 +237,7 @@
     <ClInclude Include="Minigin.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="RenderTextureComponent.h" />
+    <ClInclude Include="RigidbodyComponent.h" />
     <ClInclude Include="RotatorComponent.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="Renderer.h" />
@@ -260,6 +264,8 @@
     <ClCompile Include="..\3rdParty\imgui\imgui_plot.cpp" />
     <ClCompile Include="..\3rdParty\imgui\imgui_tables.cpp" />
     <ClCompile Include="..\3rdParty\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="ColliderComponent.cpp" />
+    <ClCompile Include="CollisionEvent.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Font.cpp" />
@@ -269,6 +275,7 @@
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Minigin.cpp" />
     <ClCompile Include="RenderTextureComponent.cpp" />
+    <ClCompile Include="RigidbodyComponent.cpp" />
     <ClCompile Include="RotatorComponent.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="Renderer.cpp" />

@@ -5,10 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -21,6 +17,13 @@
     </Filter>
     <Filter Include="Core\Commands">
       <UniqueIdentifier>{2999c49e-8616-4772-804b-14477399c5b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Components">
+      <UniqueIdentifier>{38725e03-a4bf-4c23-aaea-bd3385abeced}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -39,6 +42,15 @@
     <ClCompile Include="PlaySoundCommand.cpp">
       <Filter>Core\Commands</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerComponent.cpp">
+      <Filter>Core\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Minigin\RigidbodyMoveCommand.cpp">
+      <Filter>Core\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidbodyJumpCommand.cpp">
+      <Filter>Core\Commands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LevelLoader.h">
@@ -51,6 +63,15 @@
       <Filter>Core\Commands</Filter>
     </ClInclude>
     <ClInclude Include="PlaySoundCommand.h">
+      <Filter>Core\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerComponent.h">
+      <Filter>Core\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Minigin\RigidbodyMoveCommand.h">
+      <Filter>Core\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidbodyJumpCommand.h">
       <Filter>Core\Commands</Filter>
     </ClInclude>
   </ItemGroup>

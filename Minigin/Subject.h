@@ -1,15 +1,14 @@
 #pragma once
 #include <vector>
+#include "Observer.h"
 
 namespace dae
 {
-	class Observer;
-
 	template<typename... Args>
-	class Subject final
+	class Subject
 	{
 	public:
-		~Subject()
+		virtual ~Subject()
 		{
 			for (auto& observer : m_Observers)
 			{

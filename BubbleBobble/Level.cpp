@@ -5,6 +5,7 @@
 #include "RenderTextureComponent.h"
 #include "Scene.h"
 #include "Renderer.h"
+#include "ColliderComponent.h"
 
 namespace dae
 {
@@ -22,6 +23,8 @@ namespace dae
 
 		m_pRenderComponents.emplace_back(pTile->AddComponent<RenderTextureComponent>());
 		m_pRenderComponents.back()->SetTexture(texturePath);
+
+		pTile->AddComponent<ColliderComponent>()->SetDimensions(m_pRenderComponents.back()->GetTextureSize());
 
 		// Add the GameObject to the scene
 		m_Scene.Add(pTile);

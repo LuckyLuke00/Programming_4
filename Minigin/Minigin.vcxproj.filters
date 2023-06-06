@@ -36,6 +36,9 @@
     <Filter Include="Core\Sound">
       <UniqueIdentifier>{4ef27073-704d-4e7a-9540-4c97a7f0b482}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Components\Physics">
+      <UniqueIdentifier>{84642696-c1e8-4822-b4d5-df3eed970575}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -149,6 +152,18 @@
     <ClInclude Include="LoggingSoundSystem.h">
       <Filter>Core\Sound</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionEvent.h">
+      <Filter>Core\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderComponent.h">
+      <Filter>Core\Components\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidbodyComponent.h">
+      <Filter>Core\Components\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionSystem.h">
+      <Filter>Core\Components\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -237,6 +252,15 @@
     </ClCompile>
     <ClCompile Include="SDLSoundSystem.cpp">
       <Filter>Core\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionEvent.cpp">
+      <Filter>Core\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="ColliderComponent.cpp">
+      <Filter>Core\Components\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidbodyComponent.cpp">
+      <Filter>Core\Components\Physics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

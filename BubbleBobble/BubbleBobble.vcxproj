@@ -160,16 +160,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Minigin\MoveCommand.cpp" />
+    <ClCompile Include="..\Minigin\RigidbodyMoveCommand.cpp" />
     <ClCompile Include="BubbleBobble.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
+    <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="PlaySoundCommand.cpp" />
+    <ClCompile Include="RigidbodyJumpCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Minigin\MoveCommand.h" />
+    <ClInclude Include="..\Minigin\RigidbodyMoveCommand.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelLoader.h" />
+    <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="PlaySoundCommand.h" />
+    <ClInclude Include="RigidbodyJumpCommand.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
