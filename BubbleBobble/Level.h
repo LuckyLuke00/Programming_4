@@ -21,7 +21,7 @@ namespace dae
 		Level& operator=(Level&& other) noexcept = delete;
 
 		// Getters and Setters
-		void AddLevelTile(const glm::ivec2& position, const std::string& texturePath);
+		void AddLevelTile(const glm::ivec2& position, const std::string& texturePath, bool smallTile = false);
 		void ScaleToWindowSize();
 		float GetLevelScale() const { return m_Scale; }
 	private:

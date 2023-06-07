@@ -104,13 +104,13 @@ void load()
 	PlayerOneComponent->SetPosition({ 300.f, 360.f });
 	demoScene.Add(playerOne);
 
-	// Add Player 2
-	auto playerTwo{ std::make_shared<dae::GameObject>() };
-	auto playerTwoComponent{ playerTwo->AddComponent<dae::PlayerComponent>() };
+	//// Add Player 2
+	//auto playerTwo{ std::make_shared<dae::GameObject>() };
+	//auto playerTwoComponent{ playerTwo->AddComponent<dae::PlayerComponent>() };
 
-	playerTwoComponent->SetTexturePath("Images/bubblun.png");
-	playerTwoComponent->SetPosition({ 360.f, 360.f });
-	demoScene.Add(playerTwo);
+	//playerTwoComponent->SetTexturePath("Images/bubblun.png");
+	//playerTwoComponent->SetPosition({ 360.f, 360.f });
+	//demoScene.Add(playerTwo);
 
 #endif // COMMANDS
 }

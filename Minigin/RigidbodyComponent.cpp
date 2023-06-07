@@ -24,11 +24,7 @@ namespace dae
 
 	void RigidbodyComponent::Update()
 	{
-		m_IsGrounded = false;
-
 		const float dt{ Timer::GetDeltaSeconds() };
-
-		// Apply gravity
 		m_Velocity.y += m_Gravity * dt;
 
 		m_pTransformComponent->Translate(m_Velocity * dt);
@@ -50,24 +46,29 @@ namespace dae
 	{
 		m_IsGrounded = false;
 
-		if (event.GetCollisionDirection().y > .0f)
-		{
-			m_IsGrounded = true;
-			m_Velocity.y = .0f;
-		}
-		else if (event.GetCollisionDirection().y < .0f)
-		{
-			m_Velocity.y = .0f;
-		}
-		else if (event.GetCollisionDirection().x > .0f)
+		if (event.GetCollisionDirection().x > .0f)
 		{
 			m_Velocity.x = .0f;
+			std::cout << "Collided with right wall\n";
 		}
 		else if (event.GetCollisionDirection().x < .0f)
 		{
 			m_Velocity.x = .0f;
+			std::cout << "Collided with left wall\n";
+		}
+		else if (event.GetCollisionDirection().y > .0f)
+		{
+			m_IsGrounded = true;
+			m_Velocity.y = .0f;
+			std::cout << "Collided with ground\n";
+		}
+		else if (event.GetCollisionDirection().y < .0f)
+		{
+			m_Velocity.y = .0f;
+			std::cout << "Collided with ceiling\n";
 		}
 
+		// Translate the object out of the collision
 		m_pTransformComponent->Translate(-event.GetCollisionDirection());
 	}
 

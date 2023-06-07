@@ -43,10 +43,10 @@ namespace dae
 		const auto& thisPos{ thisTransform->GetWorldPosition() };
 		const auto& thisDim{ GetDimensions() * thisTransform->GetScale() };
 
-		if (otherPos.x + otherDim.x >= thisPos.x &&
-			otherPos.x <= thisPos.x + thisDim.x &&
-			otherPos.y + otherDim.y >= thisPos.y &&
-			otherPos.y <= thisPos.y + thisDim.y)
+		if (otherPos.x + otherDim.x > thisPos.x &&
+			otherPos.x < thisPos.x + thisDim.x &&
+			otherPos.y + otherDim.y > thisPos.y &&
+			otherPos.y < thisPos.y + thisDim.y)
 		{
 			const auto overlapX{ std::min(otherPos.x + otherDim.x - thisPos.x, thisPos.x + thisDim.x - otherPos.x) };
 			const auto overlapY{ std::min(otherPos.y + otherDim.y - thisPos.y, thisPos.y + thisDim.y - otherPos.y) };
@@ -58,6 +58,14 @@ namespace dae
 			else
 			{
 				dir.y = otherPos.y > thisPos.y ? 1.f : -1.f;
+			}
+
+			if (other->GetColliderType() == ColliderType::OneWay)
+			{
+				if (thisPos.y > otherPos.y)
+				{
+					return false;
+				}
 			}
 
 			return true;

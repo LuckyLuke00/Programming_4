@@ -103,16 +103,19 @@ namespace dae
 			const int y{ position.second };
 
 			// Get the texturePath from the tilePaths container
+			bool smallTile{ false };
 			std::string texturePath{};
 			for (const auto& [tindex, path] : tilePaths)
 			{
 				if (tindex == iindex)
 				{
 					texturePath = path;
+					// If the index is not one, it is a small tile
+					if (tindex != 1) smallTile = true;
 					break;
 				}
 			}
-			level.AddLevelTile({ x, y }, texturePath);
+			level.AddLevelTile({ x, y }, texturePath, smallTile);
 		}
 
 		// Scale the level to the size of the window

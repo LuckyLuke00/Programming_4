@@ -13,7 +13,7 @@ namespace dae
 		m_Scene{ scene }
 	{}
 
-	void Level::AddLevelTile(const glm::ivec2& position, const std::string& texturePath)
+	void Level::AddLevelTile(const glm::ivec2& position, const std::string& texturePath, bool smallTile)
 	{
 		// Create a new GameObject
 		auto pTile{ std::make_shared<GameObject>() };
@@ -24,7 +24,9 @@ namespace dae
 		m_pRenderComponents.emplace_back(pTile->AddComponent<RenderTextureComponent>());
 		m_pRenderComponents.back()->SetTexture(texturePath);
 
-		pTile->AddComponent<ColliderComponent>()->SetDimensions(m_pRenderComponents.back()->GetTextureSize());
+		auto pCollider{ pTile->AddComponent<ColliderComponent>() };
+		pCollider->SetDimensions(m_pRenderComponents.back()->GetTextureSize());
+		pCollider->SetColliderType(smallTile ? ColliderType::OneWay : ColliderType::Normal);
 
 		// Add the GameObject to the scene
 		m_Scene.Add(pTile);
