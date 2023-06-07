@@ -23,7 +23,8 @@ namespace dae
 
 		void RemoveObserver(Observer<Args...>* observer)
 		{
-			m_Observers.erase(std::remove(m_Observers.begin(), m_Observers.end(), observer), m_Observers.end());
+			auto it{ std::ranges::find(m_Observers, observer) };
+			if (it != m_Observers.end()) m_Observers.erase(it);
 		}
 
 		void Notify(Args... args)

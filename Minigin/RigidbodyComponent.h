@@ -9,7 +9,7 @@ namespace dae
 	class TransformComponent;
 	class CollisionEvent;
 
-	class RigidbodyComponent : public Component, public Observer<CollisionEvent>
+	class RigidbodyComponent final : public Component, public Observer<CollisionEvent>
 	{
 	public:
 		explicit RigidbodyComponent(GameObject* pOwner);
@@ -23,7 +23,7 @@ namespace dae
 		void Update() override;
 
 		void OnNotify(CollisionEvent event) override;
-		void OnSubjectDestroy() override;
+		void OnSubjectDestroy() override {};
 
 		bool IsGrounded() const { return m_IsGrounded; }
 

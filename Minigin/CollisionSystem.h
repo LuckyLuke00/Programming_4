@@ -10,7 +10,11 @@ namespace dae
 	{
 	public:
 		void AddCollider(ColliderComponent* pCollider) { m_pColliders.emplace_back(pCollider); }
-		void RemoveCollider(ColliderComponent* pCollider) { m_pColliders.erase(std::remove(m_pColliders.begin(), m_pColliders.end(), pCollider), m_pColliders.end()); }
+		void RemoveCollider(ColliderComponent* pCollider)
+		{
+			auto it{ std::ranges::find(m_pColliders, pCollider) };
+			if (it != m_pColliders.end()) m_pColliders.erase(it);
+		}
 
 		std::span<ColliderComponent* const> GetColliders() const { return m_pColliders; }
 	private:
