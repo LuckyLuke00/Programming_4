@@ -7,6 +7,26 @@ namespace dae
 		Component{ pOwner }
 	{}
 
+	float TransformComponent::GetScale()
+	{
+		if (m_IsDirty)
+		{
+			UpdateTransform();
+		}
+
+		return m_Scale;
+	}
+
+	const glm::vec2& TransformComponent::GetLocalPosition()
+	{
+		if (m_IsDirty)
+		{
+			UpdateTransform();
+		}
+
+		return m_LocalPosition;
+	}
+
 	const glm::vec2& TransformComponent::GetWorldPosition()
 	{
 		if (m_IsDirty)
@@ -18,17 +38,16 @@ namespace dae
 
 	void TransformComponent::SetPosition(float x, float y)
 	{
-		// Scale the position with the scale of the transform
-		m_LocalPosition.x = x * m_Scale;
-		m_LocalPosition.y = y * m_Scale;
+		m_LocalPosition.x = x;
+		m_LocalPosition.y = y;
 
 		SetDirty();
 	}
 
 	void TransformComponent::Translate(float x, float y)
 	{
-		m_LocalPosition.x += x * m_Scale;
-		m_LocalPosition.y += y * m_Scale;
+		m_LocalPosition.x += x;
+		m_LocalPosition.y += y;
 
 		SetDirty();
 	}
@@ -38,7 +57,7 @@ namespace dae
 		// If there is no parent, the world position is the local position
 		if (!GetOwner()->GetParent())
 		{
-			m_WorldPosition = m_LocalPosition * m_Scale;
+			m_WorldPosition = m_LocalPosition;
 			return;
 		}
 
@@ -47,7 +66,7 @@ namespace dae
 		if (!pParentTransform) return;
 
 		// Set the world position
-		m_WorldPosition = m_LocalPosition + pParentTransform->GetWorldPosition() * m_Scale;
+		m_WorldPosition = m_LocalPosition + pParentTransform->GetWorldPosition();
 
 		m_IsDirty = false;
 	}

@@ -3,6 +3,8 @@
 
 void dae::GameObject::Update()
 {
+	if (!m_IsActive) return;
+
 	// TODO: Update children
 	for (const auto& [key, component] : m_Components)
 	{
@@ -12,6 +14,8 @@ void dae::GameObject::Update()
 
 void dae::GameObject::FixedUpdate()
 {
+	if (!m_IsActive) return;
+
 	for (const auto& [key, component] : m_Components)
 	{
 		component->FixedUpdate();
@@ -20,6 +24,8 @@ void dae::GameObject::FixedUpdate()
 
 void dae::GameObject::LateUpdate()
 {
+	if (!m_IsActive) return;
+
 	for (const auto& [key, component] : m_Components)
 	{
 		component->LateUpdate();
@@ -28,6 +34,8 @@ void dae::GameObject::LateUpdate()
 
 void dae::GameObject::Render() const
 {
+	if (!m_IsActive) return;
+
 	if (!m_pRenderComponent) return;
 	m_pRenderComponent->Render();
 }

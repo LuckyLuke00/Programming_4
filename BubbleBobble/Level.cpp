@@ -6,6 +6,10 @@
 #include "Scene.h"
 #include "Renderer.h"
 #include "ColliderComponent.h"
+#include "CollisionSystem.h"
+#include "LevelLoader.h"
+
+#include <iostream>
 
 namespace dae
 {
@@ -16,20 +20,18 @@ namespace dae
 	void Level::AddLevelTile(const glm::ivec2& position, const std::string& texturePath, bool smallTile)
 	{
 		// Create a new GameObject
-		auto pTile{ std::make_shared<GameObject>() };
+		m_pLevelTiles.emplace_back(std::make_shared<GameObject>());
+		m_pLevelTiles.back()->SetActive(false);
 
-		m_pTransformComponents.emplace_back(pTile->AddComponent<TransformComponent>());
+		m_pTransformComponents.emplace_back(m_pLevelTiles.back()->AddComponent<TransformComponent>());
 		m_pTransformComponents.back()->SetPosition(position);
 
-		m_pRenderComponents.emplace_back(pTile->AddComponent<RenderTextureComponent>());
+		m_pRenderComponents.emplace_back(m_pLevelTiles.back()->AddComponent<RenderTextureComponent>());
 		m_pRenderComponents.back()->SetTexture(texturePath);
 
-		auto pCollider{ pTile->AddComponent<ColliderComponent>() };
-		pCollider->SetDimensions(m_pRenderComponents.back()->GetTextureSize());
-		pCollider->SetColliderType(smallTile ? ColliderType::OneWay : ColliderType::Normal);
-
-		// Add the GameObject to the scene
-		m_Scene.Add(pTile);
+		m_pColliderComponents.emplace_back(m_pLevelTiles.back()->AddComponent<ColliderComponent>());
+		m_pColliderComponents.back()->SetDimensions(m_pRenderComponents.back()->GetTextureSize());
+		m_pColliderComponents.back()->SetColliderType(smallTile ? ColliderType::OneWay : ColliderType::Normal);
 	}
 
 	void Level::ScaleToWindowSize()
@@ -44,7 +46,7 @@ namespace dae
 
 		for (size_t i{}; i < m_pTransformComponents.size(); ++i)
 		{
-			const auto& pos{ m_pTransformComponents.at(i)->GetWorldPosition() };
+			const auto& pos{ m_pTransformComponents.at(i)->GetLocalPosition() };
 			biggestPosition = std::max(std::max(pos.x, pos.y), biggestPosition);
 
 			// Get the size of the texture
@@ -61,6 +63,33 @@ namespace dae
 			// Round the scale to the nearest integer
 			m_Scale = glm::round(scale);
 			pTransformComponent->SetScale(m_Scale);
+			pTransformComponent->SetPosition(pTransformComponent->GetLocalPosition() * m_Scale);
+		}
+	}
+
+	void Level::Load()
+	{
+		// Load the level into memory if it isn't already loaded
+		if (m_pLevelTiles.empty())
+		{
+			LevelLoader::LoadLevel(*this);
+		}
+
+		for (size_t i{}; i < m_pLevelTiles.size(); ++i)
+		{
+			CollisionSystem::GetInstance().AddCollider(m_pColliderComponents.at(i));
+			m_pLevelTiles.at(i)->SetActive(true);
+			m_Scene.Add(m_pLevelTiles.at(i));
+		}
+	}
+
+	void Level::Unload()
+	{
+		for (size_t i{}; i < m_pLevelTiles.size(); ++i)
+		{
+			CollisionSystem::GetInstance().RemoveCollider(m_pColliderComponents.at(i));
+			m_pLevelTiles.at(i)->SetActive(false);
+			m_Scene.Remove(m_pLevelTiles.at(i));
 		}
 	}
 }

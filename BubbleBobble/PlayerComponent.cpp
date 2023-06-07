@@ -3,6 +3,7 @@
 #include "RenderTextureComponent.h"
 #include "ColliderComponent.h"
 #include "InputManager.h"
+#include "GameManager.h"
 
 namespace dae
 {
@@ -19,6 +20,14 @@ namespace dae
 		// Only the first player will use keyboard input
 		SetupKeyBoardInput();
 		SetupControllerInput();
+
+		const float levelScale{ GameManager::GetInstance().GetCurrentLevel().GetLevelScale() };
+
+		// Subtract a quarter of the scale, so the player is centered
+		const float scale{ levelScale - (levelScale / 4.f) };
+		m_pTransformComponent->SetScale(scale);
+
+		pOwner->SetRenderOrder(1);
 	}
 
 	PlayerComponent::~PlayerComponent()
@@ -27,6 +36,7 @@ namespace dae
 
 	void PlayerComponent::Update()
 	{
+		Component::Update();
 	}
 
 	void PlayerComponent::SetSpeed(float speed)

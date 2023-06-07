@@ -5,17 +5,17 @@
 
 namespace dae
 {
-	bool LevelLoader::LoadLevel(const std::string& levelPath, Level& level)
+	bool LevelLoader::LoadLevel(Level& level)
 	{
 		// Check if the levelPath is valid and if the file exists
-		if (levelPath.empty())
+		if (level.GetLevelFilePath().empty())
 		{
 			std::cerr << "LevelLoader::LoadLevel() - levelPath is empty\n";
 			return false;
 		}
 
 		// Check if the file exists
-		std::ifstream file{ levelPath };
+		std::ifstream file{ level.GetLevelFilePath() };
 		if (!file.is_open())
 		{
 			std::cerr << "LevelLoader::LoadLevel() - file could not be opened\n";
@@ -118,7 +118,6 @@ namespace dae
 			level.AddLevelTile({ x, y }, texturePath, smallTile);
 		}
 
-		// Scale the level to the size of the window
 		level.ScaleToWindowSize();
 
 		return true;

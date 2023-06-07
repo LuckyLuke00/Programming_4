@@ -1,5 +1,3 @@
-#include <iostream>
-
 #if _DEBUG
 // ReSharper disable once CppUnusedIncludeDirective
 #if __has_include(<vld.h>)
@@ -13,21 +11,14 @@
 #include "RenderTextureComponent.h"
 #include "Scene.h"
 #include "TextComponent.h"
-#include "TransformComponent.h"
 #include "InputManager.h"
-#include "MoveCommand.h"
-#include "SceneManager.h"
 #include "LevelLoader.h"
-#include "Level.h"
 #include <LoggingSoundSystem.h>
 #include <SDLSoundSystem.h>
-#include <ServiceLocator.h>
 #include "PlaySoundCommand.h"
-#include "ColliderComponent.h"
 #include "PlayerComponent.h"
-#include "RigidbodyComponent.h"
-#include "RigidbodyMoveCommand.h"
-#include "RigidbodyJumpCommand.h"
+#include "GameManager.h"
+#include "LoadNextLevelCommand.h"
 
 #define DEMO_SCENE
 #define FPS_COUNTER
@@ -62,8 +53,26 @@ void load()
 
 	//demoScene.Add(std::move(demoText));
 
-	dae::Level level{ demoScene };
-	dae::LevelLoader::LoadLevel("../Assets/Levels/level1.txt", level);
+	// Create a uniqe pointer to a level
+	auto level{ std::make_unique<dae::Level>(demoScene) };
+	level->SetLevelName("Level 1");
+	level->SetLevelFilePath("../Assets/Levels/level1.txt");
+	dae::GameManager::GetInstance().AddLevel(std::move(level));
+
+	level = std::make_unique<dae::Level>(demoScene);
+	level->SetLevelName("Level 2");
+	level->SetLevelFilePath("../Assets/Levels/level2.txt");
+
+	dae::GameManager::GetInstance().AddLevel(std::move(level));
+
+	level = std::make_unique<dae::Level>(demoScene);
+	level->SetLevelName("Level 3");
+	level->SetLevelFilePath("../Assets/Levels/level3.txt");
+
+	dae::GameManager::GetInstance().AddLevel(std::move(level));
+	dae::GameManager::GetInstance().LoadNextLevel();
+
+	dae::InputManager::GetInstance().GetKeyboard().AddCommand(std::make_unique<dae::LoadNextLevelCommand>(), dae::InputState::Pressed, SDL_SCANCODE_F1);
 
 	const unsigned short soundId{ 0 };
 	dae::ServiceLocator<dae::SoundSystem>::RegisterService(std::make_unique<dae::LoggingSoundSystem>(std::make_unique<dae::SDLSoundSystem>()));
@@ -104,13 +113,13 @@ void load()
 	PlayerOneComponent->SetPosition({ 300.f, 360.f });
 	demoScene.Add(playerOne);
 
-	//// Add Player 2
-	//auto playerTwo{ std::make_shared<dae::GameObject>() };
-	//auto playerTwoComponent{ playerTwo->AddComponent<dae::PlayerComponent>() };
+	// Add Player 2
+	auto playerTwo{ std::make_shared<dae::GameObject>() };
+	auto playerTwoComponent{ playerTwo->AddComponent<dae::PlayerComponent>() };
 
-	//playerTwoComponent->SetTexturePath("Images/bubblun.png");
-	//playerTwoComponent->SetPosition({ 360.f, 360.f });
-	//demoScene.Add(playerTwo);
+	playerTwoComponent->SetTexturePath("Images/bubblun.png");
+	playerTwoComponent->SetPosition({ 360.f, 360.f });
+	demoScene.Add(playerTwo);
 
 #endif // COMMANDS
 }

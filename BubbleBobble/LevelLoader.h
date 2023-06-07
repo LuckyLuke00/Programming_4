@@ -14,7 +14,7 @@ namespace dae
 		LevelLoader& operator=(const LevelLoader& other) = delete;
 		LevelLoader& operator=(LevelLoader&& other) noexcept = delete;
 
-		static bool LoadLevel(const std::string& levelPath, Level& level);
+		static bool LoadLevel(Level& level);
 	private:
 		LevelLoader() = default;
 

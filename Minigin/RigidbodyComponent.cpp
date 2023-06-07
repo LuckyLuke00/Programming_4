@@ -23,6 +23,8 @@ namespace dae
 
 	void RigidbodyComponent::Update()
 	{
+		m_IsGrounded = false;
+
 		const float dt{ Timer::GetDeltaSeconds() };
 		m_Velocity.y += m_Gravity * dt;
 

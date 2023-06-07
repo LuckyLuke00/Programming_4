@@ -162,8 +162,10 @@
     <ClCompile Include="..\Minigin\MoveCommand.cpp" />
     <ClCompile Include="..\Minigin\RigidbodyMoveCommand.cpp" />
     <ClCompile Include="BubbleBobble.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
+    <ClCompile Include="LoadNextLevelCommand.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="PlaySoundCommand.cpp" />
     <ClCompile Include="RigidbodyJumpCommand.cpp" />
@@ -171,8 +173,10 @@
   <ItemGroup>
     <ClInclude Include="..\Minigin\MoveCommand.h" />
     <ClInclude Include="..\Minigin\RigidbodyMoveCommand.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelLoader.h" />
+    <ClInclude Include="LoadNextLevelCommand.h" />
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="PlaySoundCommand.h" />
     <ClInclude Include="RigidbodyJumpCommand.h" />

@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "GameObject.h"
+#include <algorithm>
 
 using namespace dae;
 
@@ -7,16 +8,27 @@ unsigned int Scene::m_idCounter = 0;
 
 Scene::Scene(const std::string& name) : m_name(name) {}
 
+void dae::Scene::SortObjects()
+{
+	// Move the objects with a lower render order to the front of the vector
+	std::ranges::sort(m_objects, [](const std::shared_ptr<GameObject>& a, const std::shared_ptr<GameObject>& b)
+		{
+			return a->GetRenderOrder() < b->GetRenderOrder();
+		});
+}
+
 Scene::~Scene() = default;
 
 void Scene::Add(std::shared_ptr<GameObject> object)
 {
 	m_objects.emplace_back(std::move(object));
+	SortObjects();
 }
 
 void Scene::Remove(std::shared_ptr<GameObject> object)
 {
-	m_objects.erase(std::remove(m_objects.begin(), m_objects.end(), object), m_objects.end());
+	auto it{ std::ranges::find(m_objects, object) };
+	if (it != m_objects.end()) m_objects.erase(it);
 }
 
 void Scene::RemoveAll()

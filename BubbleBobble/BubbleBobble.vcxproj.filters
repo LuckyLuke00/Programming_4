@@ -25,6 +25,9 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="Core\Managers">
+      <UniqueIdentifier>{a3985efc-be50-4da0-9013-ef983e3d1af2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BubbleBobble.cpp">
@@ -51,6 +54,12 @@
     <ClCompile Include="RigidbodyJumpCommand.cpp">
       <Filter>Core\Commands</Filter>
     </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Core\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadNextLevelCommand.cpp">
+      <Filter>Core\Commands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LevelLoader.h">
@@ -72,6 +81,12 @@
       <Filter>Core\Commands</Filter>
     </ClInclude>
     <ClInclude Include="RigidbodyJumpCommand.h">
+      <Filter>Core\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Core\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadNextLevelCommand.h">
       <Filter>Core\Commands</Filter>
     </ClInclude>
   </ItemGroup>

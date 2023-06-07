@@ -17,8 +17,8 @@ namespace dae
 		TransformComponent& operator=(const TransformComponent& other) = delete;
 		TransformComponent& operator=(TransformComponent&& other) noexcept = delete;
 
-		float GetScale() const { return m_Scale; }
-		const glm::vec2& GetLocalPosition() const { return m_LocalPosition; }
+		float GetScale();
+		const glm::vec2& GetLocalPosition();
 		const glm::vec2& GetWorldPosition();
 		void SetPosition(const glm::vec2& position) { SetPosition(position.x, position.y); }
 		void SetPosition(float x = .0f, float y = .0f);

@@ -1,6 +1,5 @@
 #pragma once
 #include <memory>
-#include <string>
 #include "TransformComponent.h"
 #include <unordered_map>
 #include <typeindex>
@@ -28,12 +27,19 @@ namespace dae
 		void Render() const;
 
 		void SetParent(GameObject* parent);
+		GameObject* GetParent() const { return m_pParent; }
+
 		void AddChild(GameObject* child);
 		void RemoveChild(GameObject* child);
 
+		void SetActive(bool isActive) { m_IsActive = isActive; }
+		bool IsActive() const { return m_IsActive; }
+
+		void SetRenderOrder(int order) { m_RenderOrder = order; }
+		int GetRenderOrder() const { return m_RenderOrder; }
+
 		// Getters
 		const std::vector<GameObject*>& GetChildren() const { return m_Children; }
-		GameObject* GetParent() const { return m_pParent; }
 		TransformComponent* GetTransformComponent() const { return m_pTransformComponent; }
 
 		template <typename T> T* GetComponent() const;
@@ -42,6 +48,8 @@ namespace dae
 		template <typename T> bool HasComponent() const;
 
 	private:
+		int m_RenderOrder{ 0 };
+		bool m_IsActive{ true };
 		GameObject* m_pParent{ nullptr };
 		std::vector<GameObject*> m_Children{};
 
@@ -63,8 +71,8 @@ namespace dae
 	template<typename T>
 	inline T* GameObject::AddComponent()
 	{
-		auto component = std::make_unique<T>(this);
-		auto componentPtr = component.get();
+		auto component{ std::make_unique<T>(this) };
+		auto componentPtr{ component.get() };
 		m_Components[typeid(T)] = std::move(component);
 
 		if (auto renderComponent = dynamic_cast<RenderComponent*>(componentPtr))
