@@ -10,7 +10,7 @@ namespace dae
 	class RigidbodyJumpCommand final : public Command
 	{
 	public:
-		explicit RigidbodyJumpCommand(RigidbodyComponent* rigidBody, float jumpForce);
+		explicit RigidbodyJumpCommand(RigidbodyComponent* rigidBody, const float& jumpForce);
 		~RigidbodyJumpCommand() override = default;
 
 		RigidbodyJumpCommand(const RigidbodyJumpCommand& other) = delete;
@@ -20,10 +20,8 @@ namespace dae
 
 		void Execute() override;
 
-		void SetJumpForce(float jumpForce) { m_JumpForce = jumpForce; }
-
 	private:
-		float m_JumpForce{ 50.f };
+		const float& m_JumpForce; // I don't know a better way te edit the force after the command is created
 
 		RigidbodyComponent* m_pRigidbodyComponent{ nullptr };
 	};

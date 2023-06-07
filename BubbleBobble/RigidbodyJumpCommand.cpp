@@ -3,7 +3,7 @@
 
 namespace dae
 {
-	RigidbodyJumpCommand::RigidbodyJumpCommand(RigidbodyComponent* rigidBody, float jumpForce) :
+	RigidbodyJumpCommand::RigidbodyJumpCommand(RigidbodyComponent* rigidBody, const float& jumpForce) :
 		m_JumpForce{ jumpForce },
 		m_pRigidbodyComponent{ rigidBody }
 	{}

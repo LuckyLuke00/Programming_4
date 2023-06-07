@@ -22,6 +22,7 @@ namespace dae
 		void Update();
 
 		void AddCommand(std::unique_ptr<Command> command, InputState inputState, SDL_Scancode keyCode);
+
 	private:
 
 		// Store the commands in a map

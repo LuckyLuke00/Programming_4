@@ -4,7 +4,7 @@
 
 namespace dae
 {
-	RigidbodyMoveCommand::RigidbodyMoveCommand(RigidbodyComponent* rigidBody, const glm::vec2& direction, float speed) :
+	RigidbodyMoveCommand::RigidbodyMoveCommand(RigidbodyComponent* rigidBody, const glm::vec2& direction, const float& speed) :
 		m_Direction{ glm::normalize(direction) },
 		m_Speed{ speed },
 		m_pRigidbodyComponent{ rigidBody }

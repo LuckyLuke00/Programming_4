@@ -96,59 +96,21 @@ void load()
 
 #ifdef COMMANDS
 
-	// Add Bubblun
-	auto bubblun{ std::make_shared<dae::GameObject>() };
-	auto transformComponent{ bubblun->AddComponent<dae::TransformComponent>() };
-	transformComponent->SetPosition(300.f, 360.f);
-	auto renderTextureComponent{ bubblun->AddComponent<dae::RenderTextureComponent>() };
-	renderTextureComponent->SetTexture("Images/bubblun.png");
-	bubblun->AddComponent<dae::ColliderComponent>()->SetDimensions(renderTextureComponent->GetTextureSize());
-	auto rb{ bubblun->AddComponent<dae::RigidbodyComponent>() };
-	demoScene.Add(bubblun);
+	// Add Player 1
+	auto playerOne{ std::make_shared<dae::GameObject>() };
+	auto PlayerOneComponent{ playerOne->AddComponent<dae::PlayerComponent>() };
 
-	// Add Eggplant
-	auto eggplant{ std::make_shared<dae::GameObject>() };
-	eggplant->AddComponent<dae::TransformComponent>()->SetPosition(324.f, 360.f);
-	eggplant->AddComponent<dae::RenderTextureComponent>()->SetTexture("Images/eggplant.png");
-	demoScene.Add(eggplant);
+	PlayerOneComponent->SetTexturePath("Images/bubblun.png");
+	PlayerOneComponent->SetPosition({ 300.f, 360.f });
+	demoScene.Add(playerOne);
 
-	constexpr float bubblunSpeed{ 100.f };
-	constexpr float jumpForce{ 130.f };
+	// Add Player 2
+	auto playerTwo{ std::make_shared<dae::GameObject>() };
+	auto playerTwoComponent{ playerTwo->AddComponent<dae::PlayerComponent>() };
 
-	rb->SetMaxVelocity({ bubblunSpeed, jumpForce });
-
-	// Player 1: Keyboard
-	// Left
-	auto moveCommand{ std::make_unique<dae::RigidbodyMoveCommand>(rb, glm::vec2{ -1.f, .0f }, bubblunSpeed) };
-	dae::InputManager::GetInstance().GetKeyboard().AddCommand(std::move(moveCommand), dae::InputState::Down, SDL_SCANCODE_A);
-
-	// Right
-	moveCommand = std::make_unique<dae::RigidbodyMoveCommand>(rb, glm::vec2{ 1.f, .0f }, bubblunSpeed);
-	dae::InputManager::GetInstance().GetKeyboard().AddCommand(std::move(moveCommand), dae::InputState::Down, SDL_SCANCODE_D);
-
-	// Jump
-	auto jumpCommand{ std::make_unique<dae::RigidbodyJumpCommand>(rb, jumpForce) };
-	dae::InputManager::GetInstance().GetKeyboard().AddCommand(std::move(jumpCommand), dae::InputState::Down, SDL_SCANCODE_SPACE);
-
-	// Player 2: Gamepad
-	// Add a controller
-	//auto controller{ dae::InputManager::GetInstance().AddXboxController() };
-
-	//// Up
-	//moveCommand = std::make_unique<dae::MoveCommand>(eggplantTransform, glm::vec2{ .0f, -1.f }, eggplantSpeed);
-	//controller->AddCommand(std::move(moveCommand), dae::InputState::Down, dae::XboxController::XboxButton::DPadUp);
-
-	//// Down
-	//moveCommand = std::make_unique<dae::MoveCommand>(eggplantTransform, glm::vec2{ .0f, 1.f }, eggplantSpeed);
-	//controller->AddCommand(std::move(moveCommand), dae::InputState::Down, dae::XboxController::XboxButton::DPadDown);
-
-	//// Left
-	//moveCommand = std::make_unique<dae::MoveCommand>(eggplantTransform, glm::vec2{ -1.f, .0f }, eggplantSpeed);
-	//controller->AddCommand(std::move(moveCommand), dae::InputState::Down, dae::XboxController::XboxButton::DPadLeft);
-
-	//// Right
-	//moveCommand = std::make_unique<dae::MoveCommand>(eggplantTransform, glm::vec2{ 1.f, .0f }, eggplantSpeed);
-	//controller->AddCommand(std::move(moveCommand), dae::InputState::Down, dae::XboxController::XboxButton::DPadRight);
+	playerTwoComponent->SetTexturePath("Images/bubblun.png");
+	playerTwoComponent->SetPosition({ 360.f, 360.f });
+	demoScene.Add(playerTwo);
 
 #endif // COMMANDS
 }
