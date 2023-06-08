@@ -1,5 +1,6 @@
 #include "RigidbodyJumpCommand.h"
 #include "RigidbodyComponent.h"
+#include <iostream>
 
 namespace dae
 {

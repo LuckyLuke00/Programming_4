@@ -55,6 +55,8 @@ namespace dae
 			// Paths to the textures are written linked to the index like this:
 			// index path
 			// 1 Sprites/Tile1.png
+			// Player spawns are written like this:
+			// PlayerSpawn (x, y)
 
 			// Check if the line is a path to a texture
 			if (line[0] != '<')

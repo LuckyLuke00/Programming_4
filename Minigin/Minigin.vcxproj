@@ -236,6 +236,7 @@
     <ClInclude Include="LoggingSoundSystem.h" />
     <ClInclude Include="Minigin.h" />
     <ClInclude Include="Observer.h" />
+    <ClInclude Include="RenderSpriteComponent.h" />
     <ClInclude Include="RenderTextureComponent.h" />
     <ClInclude Include="RigidbodyComponent.h" />
     <ClInclude Include="RotatorComponent.h" />
@@ -274,6 +275,7 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Minigin.cpp" />
+    <ClCompile Include="RenderSpriteComponent.cpp" />
     <ClCompile Include="RenderTextureComponent.cpp" />
     <ClCompile Include="RigidbodyComponent.cpp" />
     <ClCompile Include="RotatorComponent.cpp" />

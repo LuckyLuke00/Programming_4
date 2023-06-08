@@ -1,9 +1,7 @@
 #pragma once
 #include "Singleton.h"
 #include "ColliderComponent.h"
-#include <vector>
 #include <span>
-#include <algorithm>
 
 namespace dae
 {

@@ -108,18 +108,24 @@ void load()
 	// Add Player 1
 	auto playerOne{ std::make_shared<dae::GameObject>() };
 	auto PlayerOneComponent{ playerOne->AddComponent<dae::PlayerComponent>() };
-
-	PlayerOneComponent->SetTexturePath("Images/bubblun.png");
 	PlayerOneComponent->SetPosition({ 300.f, 360.f });
+	dae::SpriteAnimation walk;
+	walk.rows = 1;
+	walk.cols = 5;
+	walk.fps = 12;
+	walk.frames = 5;
+	walk.SetTexture("Sprites/Player/Bubblun/bubblun_walk.png");
+	PlayerOneComponent->AddAnimation("Walking", walk);
+
+	//PlayerOneComponent->SetTexturePath("Sprites/Player/Bubblun/bubblun_walk.png");
 	demoScene.Add(playerOne);
 
-	// Add Player 2
-	auto playerTwo{ std::make_shared<dae::GameObject>() };
-	auto playerTwoComponent{ playerTwo->AddComponent<dae::PlayerComponent>() };
+	//// Add Player 2
+	//auto playerTwo{ std::make_shared<dae::GameObject>() };
+	//auto playerTwoComponent{ playerTwo->AddComponent<dae::PlayerComponent>() };
 
-	playerTwoComponent->SetTexturePath("Images/bubblun.png");
-	playerTwoComponent->SetPosition({ 360.f, 360.f });
-	demoScene.Add(playerTwo);
+	//playerTwoComponent->SetPosition({ 360.f, 360.f });
+	//demoScene.Add(playerTwo);
 
 #endif // COMMANDS
 }

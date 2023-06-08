@@ -4,13 +4,14 @@
 #include "ColliderComponent.h"
 #include "InputManager.h"
 #include "GameManager.h"
+#include <iostream>
 
 namespace dae
 {
 	PlayerComponent::PlayerComponent(GameObject* pOwner) :
 		Component{ pOwner },
 		m_pTransformComponent{ pOwner->AddComponent<dae::TransformComponent>() },
-		m_pRenderTextureComponent{ pOwner->AddComponent<dae::RenderTextureComponent>() },
+		m_pRenderSpriteComponent{ pOwner->AddComponent<dae::RenderSpriteComponent>() },
 		m_pColliderComponent{ pOwner->AddComponent<dae::ColliderComponent>() },
 		m_pRigidBodyComponent{ pOwner->AddComponent<dae::RigidbodyComponent>() }
 
@@ -30,15 +31,6 @@ namespace dae
 		pOwner->SetRenderOrder(1);
 	}
 
-	PlayerComponent::~PlayerComponent()
-	{
-	}
-
-	void PlayerComponent::Update()
-	{
-		Component::Update();
-	}
-
 	void PlayerComponent::SetSpeed(float speed)
 	{
 		m_Speed = speed; // Automatically updates the speed in the command, since the command uses a reference to the speed
@@ -51,14 +43,13 @@ namespace dae
 		m_pRigidBodyComponent->SetMaxVelocity({ m_Speed, m_JumpForce });
 	}
 
-	void PlayerComponent::SetTexturePath(const std::string& path)
+	void PlayerComponent::AddAnimation(const std::string& name, const SpriteAnimation& animation)
 	{
-		// Safety check
-		if (!m_pRenderTextureComponent) return;
-		m_pRenderTextureComponent->SetTexture(path);
+		if (!m_pRenderSpriteComponent) return;
+		m_pRenderSpriteComponent->AddAnimation(name, animation);
 
 		if (!m_pColliderComponent) return;
-		m_pColliderComponent->SetDimensions(m_pRenderTextureComponent->GetTextureSize());
+		m_pColliderComponent->SetDimensions(m_pRenderSpriteComponent->GetFrameSize());
 	}
 
 	void PlayerComponent::SetupKeyBoardInput()

@@ -3,10 +3,11 @@
 #include "Observer.h"
 #include "Subject.h"
 #include <glm/glm.hpp>
-
+#include <iostream>
 namespace dae
 {
 	class TransformComponent;
+	class ColliderComponent;
 	class CollisionEvent;
 
 	class RigidbodyComponent final : public Component, public Observer<CollisionEvent>
@@ -23,7 +24,7 @@ namespace dae
 		void Update() override;
 
 		void OnNotify(CollisionEvent event) override;
-		void OnSubjectDestroy() override {};
+		void OnSubjectDestroy() override { };
 
 		bool IsGrounded() const { return m_IsGrounded; }
 
@@ -38,6 +39,7 @@ namespace dae
 
 	private:
 		Subject<CollisionEvent>* m_pCollisionEvent{ nullptr };
+		ColliderComponent* m_pColliderComponent{ nullptr };
 		TransformComponent* m_pTransformComponent{ nullptr };
 
 		bool m_IsGrounded{ false };

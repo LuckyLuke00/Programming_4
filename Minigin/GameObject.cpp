@@ -1,5 +1,6 @@
 #include "GameObject.h"
 #include "RenderComponent.h"
+#include "RenderSpriteComponent.h"
 
 void dae::GameObject::Update()
 {

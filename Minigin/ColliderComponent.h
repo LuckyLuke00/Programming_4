@@ -29,6 +29,7 @@ namespace dae
 		void Update() override;
 
 		bool IsColliding(const ColliderComponent* other, glm::vec2& dir) const;
+		bool IsColliding(glm::vec2& dir) const;
 
 		// Getter for the position
 		CollisionEvent* GetCollisionEvent() const { return m_pCollisionEvent.get(); }
@@ -44,7 +45,5 @@ namespace dae
 		glm::vec2 m_Dimensions{ .0f, .0f };
 
 		std::unique_ptr<CollisionEvent> m_pCollisionEvent{ nullptr };
-
-		RigidBodyComponent* m_pRigidBodyComponent{ nullptr };
 	};
 }

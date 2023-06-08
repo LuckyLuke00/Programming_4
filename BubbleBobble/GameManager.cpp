@@ -9,7 +9,7 @@ namespace dae
 		if (m_CurrentLevel != -1) m_Levels[m_CurrentLevel]->Unload();
 
 		// If we are at the last level, go back to the first
-		m_CurrentLevel = m_CurrentLevel == m_Levels.size() - 1 ? 0 : m_CurrentLevel + 1;
+		m_CurrentLevel = m_CurrentLevel == static_cast<int>(m_Levels.size() - 1) ? 0 : m_CurrentLevel + 1;
 
 		m_Levels[m_CurrentLevel]->Load();
 	}

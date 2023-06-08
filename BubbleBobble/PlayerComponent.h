@@ -3,13 +3,14 @@
 #include "RigidbodyComponent.h"
 #include "RigidbodyMoveCommand.h"
 #include "RigidbodyJumpCommand.h"
+#include "RenderSpriteComponent.h"
 #include <memory>
 #include <string>
 
 namespace dae
 {
 	class ColliderComponent;
-	class RenderTextureComponent;
+	class RenderSpriteComponent;
 	class RigidbodyComponent;
 	class TransformComponent;
 
@@ -17,19 +18,17 @@ namespace dae
 	{
 	public:
 		explicit PlayerComponent(GameObject* pOwner);
-		~PlayerComponent() override;
+		~PlayerComponent() override = default;
 
 		PlayerComponent(const PlayerComponent& other) = delete;
 		PlayerComponent(PlayerComponent&& other) noexcept = delete;
 		PlayerComponent& operator=(const PlayerComponent& other) = delete;
 		PlayerComponent& operator=(PlayerComponent&& other) noexcept = delete;
 
-		void Update() override;
-
 		void SetSpeed(float speed);
 		void SetJumpForce(float jumpForce);
 
-		void SetTexturePath(const std::string& path);
+		void AddAnimation(const std::string& name, const SpriteAnimation& animation);
 		void SetPosition(const glm::vec2& pos) { m_pTransformComponent->SetPosition(pos); }
 
 	private:
@@ -38,7 +37,7 @@ namespace dae
 		std::string m_TexturePath{ "" };
 
 		TransformComponent* m_pTransformComponent{ nullptr };
-		RenderTextureComponent* m_pRenderTextureComponent{ nullptr };
+		RenderSpriteComponent* m_pRenderSpriteComponent{ nullptr };
 		ColliderComponent* m_pColliderComponent{ nullptr };
 		RigidbodyComponent* m_pRigidBodyComponent{ nullptr };
 

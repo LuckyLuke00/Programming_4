@@ -10,6 +10,7 @@ namespace dae
 	RigidbodyComponent::RigidbodyComponent(GameObject* pOwner) :
 		Component{ pOwner },
 		m_pCollisionEvent{ pOwner->GetComponent<ColliderComponent>()->GetCollisionEvent() },
+		m_pColliderComponent{ pOwner->GetComponent<ColliderComponent>() },
 		m_pTransformComponent{ pOwner->GetTransformComponent() }
 	{
 		if (m_pCollisionEvent) m_pCollisionEvent->AddObserver(this);
@@ -23,12 +24,8 @@ namespace dae
 
 	void RigidbodyComponent::Update()
 	{
-		m_IsGrounded = false;
-
 		const float dt{ Timer::GetDeltaSeconds() };
 		m_Velocity.y += m_Gravity * dt;
-
-		m_pTransformComponent->Translate(m_Velocity * dt);
 
 		// Apply drag
 		if (m_Velocity.x > .0f)
@@ -41,32 +38,80 @@ namespace dae
 			m_Velocity.x += m_Friction * dt;
 			if (m_Velocity.x > .0f) m_Velocity.x = .0f;
 		}
+
+		m_IsGrounded = false;
+
+		// Apply vertical movement
+		m_pTransformComponent->Translate(.0f, m_Velocity.y * dt);
+
+		// Check for vertical collisions
+		glm::vec2 verticalCollisionDir{};
+		if (m_pColliderComponent->IsColliding(verticalCollisionDir))
+		{
+			if (verticalCollisionDir.y > .0f)
+			{
+				// Collision from below
+				m_pTransformComponent->Translate(.0f, -verticalCollisionDir.y);
+				m_Velocity.y = .0f;
+				m_IsGrounded = true;
+			}
+			else if (verticalCollisionDir.y < .0f)
+			{
+				// Collision from above
+				std::cout << "Collision from above\n";
+				m_pTransformComponent->Translate(.0f, -verticalCollisionDir.y);
+				m_Velocity.y = .0f;
+			}
+		}
+
+		// Apply horizontal movement
+		m_pTransformComponent->Translate(m_Velocity.x * dt, .0f);
+
+		// Check for horizontal collisions
+		glm::vec2 horizontalCollisionDir{};
+		if (m_pColliderComponent->IsColliding(horizontalCollisionDir))
+		{
+			if (horizontalCollisionDir.x > .0f)
+			{
+				// Collision from the right
+				std::cout << "Collision from the right\n";
+				m_pTransformComponent->Translate(-horizontalCollisionDir.x, .0f);
+				m_Velocity.x = .0f;
+			}
+			else if (horizontalCollisionDir.x < .0f)
+			{
+				// Collision from the left
+				std::cout << "Collision from the left\n";
+				m_pTransformComponent->Translate(-horizontalCollisionDir.x, .0f);
+				m_Velocity.x = .0f;
+			}
+		}
 	}
 
 	void RigidbodyComponent::OnNotify(CollisionEvent event)
 	{
-		m_IsGrounded = false;
+		////m_IsGrounded = false;
 
-		if (event.GetCollisionDirection().x > .0f)
-		{
-			m_Velocity.x = .0f;
-		}
-		else if (event.GetCollisionDirection().x < .0f)
-		{
-			m_Velocity.x = .0f;
-		}
-		else if (event.GetCollisionDirection().y > .0f)
-		{
-			m_IsGrounded = true;
-			m_Velocity.y = .0f;
-		}
-		else if (event.GetCollisionDirection().y < .0f)
-		{
-			m_Velocity.y = .0f;
-		}
+		//if (event.GetCollisionDirection().x > .0f)
+		//{
+		//	m_Velocity.x = .0f;
+		//}
+		//else if (event.GetCollisionDirection().x < .0f)
+		//{
+		//	m_Velocity.x = .0f;
+		//}
+		//else if (event.GetCollisionDirection().y > .0f)
+		//{
+		//	m_IsGrounded = true;
+		//	//m_Velocity.y = .0f;
+		//}
+		//else if (event.GetCollisionDirection().y < .0f)
+		//{
+		//	//m_Velocity.y = .0f;
+		//}
 
-		// Translate the object out of the collision
-		m_pTransformComponent->Translate(-event.GetCollisionDirection());
+		//// Translate the object out of the collision
+		//m_pTransformComponent->Translate(-event.GetCollisionDirection());
 	}
 
 	void RigidbodyComponent::AddForce(const glm::vec2& force)
