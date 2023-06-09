@@ -108,7 +108,6 @@ void load()
 	// Add Player 1
 	auto playerOne{ std::make_shared<dae::GameObject>() };
 	auto PlayerOneComponent{ playerOne->AddComponent<dae::PlayerComponent>() };
-	PlayerOneComponent->SetPosition({ 300.f, 360.f });
 
 	dae::SpriteAnimation walk;
 	walk.rows = 1;
@@ -143,11 +142,11 @@ void load()
 	PlayerOneComponent->AddAnimation("Fall", fall);
 
 	demoScene.Add(playerOne);
+	dae::GameManager::GetInstance().AddPlayer(PlayerOneComponent);
 
 	// Add Player 2
 	auto playerTwo{ std::make_shared<dae::GameObject>() };
 	auto playerTwoComponent{ playerTwo->AddComponent<dae::PlayerComponent>() };
-	playerTwoComponent->SetPosition({ 360.f, 360.f });
 
 	walk.SetTexture("Sprites/Player/Bob/bob_walk.png");
 	playerTwoComponent->AddAnimation("Walk", walk);
@@ -162,6 +161,7 @@ void load()
 	playerTwoComponent->AddAnimation("Fall", fall);
 
 	demoScene.Add(playerTwo);
+	dae::GameManager::GetInstance().AddPlayer(playerTwoComponent);
 
 #endif // COMMANDS
 }

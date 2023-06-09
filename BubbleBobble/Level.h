@@ -33,9 +33,11 @@ namespace dae
 		const std::string& GetLevelFilePath() const { return m_LevelFilePath; }
 		const std::string& GetLevelName() const { return m_LevelName; }
 		float GetLevelScale() const { return m_Scale; }
+		glm::ivec2 GetPlayerSpawnPosition(int index) const;
 
 		void SetLevelFilePath(const std::string_view& path) { m_LevelFilePath = path; }
 		void SetLevelName(const std::string_view& name) { m_LevelName = name; }
+		void AddPlayerSpawnPosition(const glm::ivec2& position) { m_PlayerSpawnPositions.emplace_back(position); }
 	private:
 		std::string m_LevelName;
 		std::string m_LevelFilePath;
@@ -50,5 +52,6 @@ namespace dae
 		std::vector<ColliderComponent*> m_pColliderComponents;
 
 		std::vector<std::shared_ptr<GameObject>> m_pLevelTiles;
+		std::vector<glm::ivec2> m_PlayerSpawnPositions;
 	};
 }

@@ -92,4 +92,29 @@ namespace dae
 			m_Scene.Remove(m_pLevelTiles.at(i));
 		}
 	}
+	glm::ivec2 Level::GetPlayerSpawnPosition(int index) const
+	{
+		// If the vector is empty, return a default position
+		if (m_PlayerSpawnPositions.empty())
+		{
+			return { 0,0 };
+		}
+
+		// If the index is negative return the first position
+		if (index < 0)
+		{
+			return m_PlayerSpawnPositions.front();
+		}
+
+		// If the index is bigger than the size of the vector, return the last position
+		if (index >= int(m_PlayerSpawnPositions.size()))
+		{
+			return m_PlayerSpawnPositions.back();
+		}
+
+		const auto& pos{ m_PlayerSpawnPositions.at(index) };
+
+		// Return the position at the given index scaled to the window size
+		return glm::ivec2(pos.x * m_Scale, pos.y * m_Scale);
+	}
 }

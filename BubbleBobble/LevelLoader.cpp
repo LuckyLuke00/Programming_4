@@ -58,8 +58,33 @@ namespace dae
 			// Player spawns are written like this:
 			// PlayerSpawn (x, y)
 
+			// if the line starts with <player
+			if (line.starts_with("<player"))
+			{
+				// Split the line into the position
+				std::istringstream iss{ line };
+				std::string token;
+
+				// Player spawn points are written like this:
+				// <player, (x, y)>
+				// <player, (0, 0)>
+				int x{};
+				int y{};
+				char c{};
+
+				// Remove the '<' and 'player' from the line
+				iss >> token;
+
+				// Split the line into the position
+				iss >> c >> x >> c >> y;
+
+				// Set the player spawn point
+				level.AddPlayerSpawnPosition({ x, y });
+				continue;
+			}
+
 			// Check if the line is a path to a texture
-			if (line[0] != '<')
+			if (!line.starts_with('<'))
 			{
 				// Split the line into the index and the path
 				std::istringstream iss{ line };

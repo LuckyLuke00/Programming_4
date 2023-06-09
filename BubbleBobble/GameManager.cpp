@@ -12,6 +12,8 @@ namespace dae
 		m_CurrentLevel = m_CurrentLevel == static_cast<int>(m_Levels.size() - 1) ? 0 : m_CurrentLevel + 1;
 
 		m_Levels[m_CurrentLevel]->Load();
+
+		for (const auto& pPlayer : m_pPlayers) pPlayer->Respawn();
 	}
 
 	void GameManager::LoadPreviousLevel()
@@ -24,5 +26,7 @@ namespace dae
 		m_CurrentLevel = m_CurrentLevel == 0 ? static_cast<int>(m_Levels.size() - 1) : m_CurrentLevel - 1;
 
 		m_Levels[m_CurrentLevel]->Load();
+
+		for (const auto& pPlayer : m_pPlayers) pPlayer->Respawn();
 	}
 }

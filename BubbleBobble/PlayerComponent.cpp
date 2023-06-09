@@ -3,11 +3,14 @@
 #include "RenderTextureComponent.h"
 #include "ColliderComponent.h"
 #include "InputManager.h"
+#include "Renderer.h"
 #include "GameManager.h"
 #include <iostream>
 
 namespace dae
 {
+	int PlayerComponent::m_PlayerCount{ -1 };
+
 	PlayerComponent::PlayerComponent(GameObject* pOwner) :
 		Component{ pOwner },
 		m_pTransformComponent{ pOwner->AddComponent<dae::TransformComponent>() },
@@ -16,24 +19,34 @@ namespace dae
 		m_pRigidBodyComponent{ pOwner->AddComponent<dae::RigidbodyComponent>() }
 
 	{
+		++m_PlayerCount;
+		m_PlayerId = m_PlayerCount;
+
 		m_pRigidBodyComponent->SetMaxVelocity({ m_Speed, m_JumpForce });
 
 		// Only the first player will use keyboard input
 		SetupKeyBoardInput();
 		SetupControllerInput();
 
-		const float levelScale{ GameManager::GetInstance().GetCurrentLevel().GetLevelScale() };
-
-		// Subtract a quarter of the scale, so the player is centered
-		const float scale{ levelScale - (levelScale / 4.f) };
-		m_pTransformComponent->SetScale(scale);
-
 		pOwner->SetRenderOrder(1);
+
+		Respawn();
 	}
 
 	void PlayerComponent::Update()
 	{
 		HandleState();
+
+		// Check if the player is out of the screen
+		const auto& pos{ m_pTransformComponent->GetWorldPosition() };
+
+		int width, height;
+		Renderer::GetInstance().GetWindowSize(width, height);
+
+		if (pos.y > height)
+		{
+			m_pTransformComponent->SetPosition(pos.x, .0f - m_pRenderSpriteComponent->GetFrameSize().y);
+		}
 	}
 
 	void PlayerComponent::SetSpeed(float speed)
@@ -121,6 +134,29 @@ namespace dae
 		auto jumpCommand{ std::make_unique<RigidbodyJumpCommand>(m_pRigidBodyComponent, m_JumpForce) };
 		controller->AddCommand(std::move(jumpCommand), InputState::Down, XboxController::XboxButton::A);
 	}
+
+	void PlayerComponent::Respawn()
+	{
+		const auto& level{ GameManager::GetInstance().GetCurrentLevel() };
+		const float levelScale{ level.GetLevelScale() };
+
+		// Subtract a quarter of the scale, so the player is centered
+		const float scale{ levelScale - (levelScale / 4.f) };
+		m_pTransformComponent->SetScale(scale); // Set the scale of the player based on the level scale
+
+		glm::vec2 spawnPos{ level.GetPlayerSpawnPosition(m_PlayerId) };
+		m_pTransformComponent->SetPosition(spawnPos);
+
+		// If the players position is over the half of the screen, flip the sprite
+		int width, height;
+		Renderer::GetInstance().GetWindowSize(width, height);
+
+		if (spawnPos.x < static_cast<float>(width) * .5f)
+		{
+			m_pRenderSpriteComponent->SetFlipX(true);
+		}
+	}
+
 	void PlayerComponent::HandleState()
 	{
 		const auto& velocity{ m_pRigidBodyComponent->GetVelocity() };

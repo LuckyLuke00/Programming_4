@@ -47,7 +47,10 @@ namespace dae
 		PlayerState GetState() const { return m_State; }
 		void SetState(PlayerState state);
 
+		void Respawn();
 	private:
+		static int m_PlayerCount;
+		int m_PlayerId{ -1 };
 		float m_Speed{ 50.f };
 		float m_JumpForce{ 130.f };
 		std::string m_TexturePath{ "" };
