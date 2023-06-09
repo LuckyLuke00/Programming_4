@@ -29,6 +29,10 @@ namespace dae
 		// Calculate the current frame
 		const int currentFrame{ static_cast<int>(m_pCurrentAnimation->totalTime * m_pCurrentAnimation->fps) % m_pCurrentAnimation->frames };
 
+		// Reset the timer if the animation is done
+		if (m_pCurrentAnimation->totalTime >= static_cast<float>(m_pCurrentAnimation->frames) / static_cast<float>(m_pCurrentAnimation->fps))
+			m_pCurrentAnimation->totalTime = .0f;
+
 		// Calculate the src position
 		const float srcX{ (currentFrame % m_pCurrentAnimation->cols) * srcWidth };
 		const float srcY{ (currentFrame / m_pCurrentAnimation->cols) * srcHeight };
