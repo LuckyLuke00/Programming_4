@@ -9,18 +9,9 @@ namespace dae
 {
 	RigidbodyComponent::RigidbodyComponent(GameObject* pOwner) :
 		Component{ pOwner },
-		m_pCollisionEvent{ pOwner->GetComponent<ColliderComponent>()->GetCollisionEvent() },
 		m_pColliderComponent{ pOwner->GetComponent<ColliderComponent>() },
 		m_pTransformComponent{ pOwner->GetTransformComponent() }
-	{
-		if (m_pCollisionEvent) m_pCollisionEvent->AddObserver(this);
-		else std::cout << "RigidbodyComponent::RigidbodyComponent: No collision event found!\n";
-	}
-
-	RigidbodyComponent::~RigidbodyComponent()
-	{
-		if (m_pCollisionEvent) m_pCollisionEvent->RemoveObserver(this);
-	}
+	{}
 
 	void RigidbodyComponent::Update()
 	{
@@ -58,7 +49,6 @@ namespace dae
 			else if (verticalCollisionDir.y < .0f)
 			{
 				// Collision from above
-				std::cout << "Collision from above\n";
 				m_pTransformComponent->Translate(.0f, -verticalCollisionDir.y);
 				m_Velocity.y = .0f;
 			}
@@ -74,44 +64,16 @@ namespace dae
 			if (horizontalCollisionDir.x > .0f)
 			{
 				// Collision from the right
-				std::cout << "Collision from the right\n";
 				m_pTransformComponent->Translate(-horizontalCollisionDir.x, .0f);
 				m_Velocity.x = .0f;
 			}
 			else if (horizontalCollisionDir.x < .0f)
 			{
 				// Collision from the left
-				std::cout << "Collision from the left\n";
 				m_pTransformComponent->Translate(-horizontalCollisionDir.x, .0f);
 				m_Velocity.x = .0f;
 			}
 		}
-	}
-
-	void RigidbodyComponent::OnNotify(CollisionEvent event)
-	{
-		////m_IsGrounded = false;
-
-		//if (event.GetCollisionDirection().x > .0f)
-		//{
-		//	m_Velocity.x = .0f;
-		//}
-		//else if (event.GetCollisionDirection().x < .0f)
-		//{
-		//	m_Velocity.x = .0f;
-		//}
-		//else if (event.GetCollisionDirection().y > .0f)
-		//{
-		//	m_IsGrounded = true;
-		//	//m_Velocity.y = .0f;
-		//}
-		//else if (event.GetCollisionDirection().y < .0f)
-		//{
-		//	//m_Velocity.y = .0f;
-		//}
-
-		//// Translate the object out of the collision
-		//m_pTransformComponent->Translate(-event.GetCollisionDirection());
 	}
 
 	void RigidbodyComponent::AddForce(const glm::vec2& force)

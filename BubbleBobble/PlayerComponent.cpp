@@ -31,6 +31,11 @@ namespace dae
 		pOwner->SetRenderOrder(1);
 	}
 
+	void PlayerComponent::Update()
+	{
+		HandleState();
+	}
+
 	void PlayerComponent::SetSpeed(float speed)
 	{
 		m_Speed = speed; // Automatically updates the speed in the command, since the command uses a reference to the speed
@@ -50,6 +55,37 @@ namespace dae
 
 		if (!m_pColliderComponent) return;
 		m_pColliderComponent->SetDimensions(m_pRenderSpriteComponent->GetFrameSize());
+	}
+
+	void PlayerComponent::SetState(PlayerState state)
+	{
+		if (m_State == state) return;
+
+		switch (state)
+		{
+		case PlayerState::Idle:
+			m_pRenderSpriteComponent->SetAnimation("Idle");
+			break;
+		case PlayerState::Walk:
+			m_pRenderSpriteComponent->SetAnimation("Walk");
+			break;
+		case PlayerState::Jump:
+			m_pRenderSpriteComponent->SetAnimation("Jump");
+			break;
+		case PlayerState::Fall:
+			m_pRenderSpriteComponent->SetAnimation("Fall");
+			break;
+		case PlayerState::Shoot:
+			m_pRenderSpriteComponent->SetAnimation("Shoot");
+			break;
+		case PlayerState::Death:
+			m_pRenderSpriteComponent->SetAnimation("Death");
+			break;
+		default:
+			break;
+		}
+
+		m_State = state;
 	}
 
 	void PlayerComponent::SetupKeyBoardInput()
@@ -84,5 +120,39 @@ namespace dae
 		// Jump
 		auto jumpCommand{ std::make_unique<RigidbodyJumpCommand>(m_pRigidBodyComponent, m_JumpForce) };
 		controller->AddCommand(std::move(jumpCommand), InputState::Down, XboxController::XboxButton::A);
+	}
+	void PlayerComponent::HandleState()
+	{
+		const auto& velocity{ m_pRigidBodyComponent->GetVelocity() };
+
+		const bool IsMoving{ m_pRigidBodyComponent->IsMoving() };
+		const bool IsGrounded{ m_pRigidBodyComponent->IsGrounded() };
+
+		if (IsMoving && IsGrounded)
+		{
+			SetState(PlayerState::Walk);
+		}
+		else if (!IsGrounded && velocity.y > .0f)
+		{
+			SetState(PlayerState::Fall);
+		}
+		else if (!IsGrounded && velocity.y < .0f)
+		{
+			SetState(PlayerState::Jump);
+		}
+		else
+		{
+			SetState(PlayerState::Idle);
+		}
+
+		// Set the flip but prevent from flipping back when not moving, by getting the flip from the sprite component
+		if (velocity.x > FLT_EPSILON)
+		{
+			m_pRenderSpriteComponent->SetFlipX(true);
+		}
+		else if (velocity.x < -FLT_EPSILON)
+		{
+			m_pRenderSpriteComponent->SetFlipX(false);
+		}
 	}
 }

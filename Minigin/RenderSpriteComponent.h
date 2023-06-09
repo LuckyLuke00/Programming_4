@@ -41,9 +41,15 @@ namespace dae
 		void AddAnimation(const std::string& name, const SpriteAnimation& animation);
 		void SetAnimation(const std::string& name);
 
+		void SetFlipX(bool flipX) { m_FlipX = flipX; }
+		bool GetFlipX() const { return m_FlipX; }
+
 		glm::vec2 GetFrameSize() const;
 
 	private:
+		// For flipping the sprite
+		bool m_FlipX{ false };
+
 		TransformComponent* m_pTransformComponent{ nullptr };
 
 		// Container for all the animations

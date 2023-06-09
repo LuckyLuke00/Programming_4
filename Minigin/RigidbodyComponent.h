@@ -10,11 +10,11 @@ namespace dae
 	class ColliderComponent;
 	class CollisionEvent;
 
-	class RigidbodyComponent final : public Component, public Observer<CollisionEvent>
+	class RigidbodyComponent final : public Component
 	{
 	public:
 		explicit RigidbodyComponent(GameObject* pOwner);
-		~RigidbodyComponent() override;
+		~RigidbodyComponent() override = default;
 
 		RigidbodyComponent(const RigidbodyComponent& other) = delete;
 		RigidbodyComponent(RigidbodyComponent&& other) noexcept = delete;
@@ -23,10 +23,8 @@ namespace dae
 
 		void Update() override;
 
-		void OnNotify(CollisionEvent event) override;
-		void OnSubjectDestroy() override { };
-
 		bool IsGrounded() const { return m_IsGrounded; }
+		bool IsMoving() const { return std::fabs(m_Velocity.x) > FLT_EPSILON || std::fabs(m_Velocity.y) > FLT_EPSILON; }
 
 		const glm::vec2& GetVelocity() const { return m_Velocity; }
 		TransformComponent* GetTransform() const { return m_pTransformComponent; }
@@ -38,7 +36,6 @@ namespace dae
 		void AddForce(const glm::vec2& force);
 
 	private:
-		Subject<CollisionEvent>* m_pCollisionEvent{ nullptr };
 		ColliderComponent* m_pColliderComponent{ nullptr };
 		TransformComponent* m_pTransformComponent{ nullptr };
 

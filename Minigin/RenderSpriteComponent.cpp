@@ -14,7 +14,7 @@ namespace dae
 
 	void RenderSpriteComponent::Render()
 	{
-		if (!m_pCurrentAnimation || !m_pTransformComponent) return;
+		if (!m_pCurrentAnimation || !m_pCurrentAnimation->m_Texture || !m_pTransformComponent) return;
 
 		const auto pos{ m_pTransformComponent->GetWorldPosition() };
 
@@ -33,7 +33,7 @@ namespace dae
 		const float srcX{ (currentFrame % m_pCurrentAnimation->cols) * srcWidth };
 		const float srcY{ (currentFrame / m_pCurrentAnimation->cols) * srcHeight };
 
-		Renderer::GetInstance().RenderTexture(*m_pCurrentAnimation->m_Texture, pos.x, pos.y, dstWidth, dstHeight, srcX, srcY, srcWidth, srcHeight);
+		Renderer::GetInstance().RenderTexture(*m_pCurrentAnimation->m_Texture, pos.x, pos.y, m_FlipX ? -dstWidth : dstWidth, dstHeight, srcX, srcY, srcWidth, srcHeight);
 	}
 
 	void RenderSpriteComponent::AddAnimation(const std::string& name, const SpriteAnimation& animation)
@@ -49,6 +49,9 @@ namespace dae
 
 	void RenderSpriteComponent::SetAnimation(const std::string& name)
 	{
+		// Check if the animation exists
+		if (!m_Animations.contains(name)) return;
+
 		m_pCurrentAnimation->totalTime = .0f;
 		m_pCurrentAnimation = &m_Animations[name];
 	}

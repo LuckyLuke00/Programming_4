@@ -26,9 +26,6 @@ namespace dae
 		ColliderComponent& operator=(const ColliderComponent& other) = delete;
 		ColliderComponent& operator=(ColliderComponent&& other) noexcept = delete;
 
-		void Update() override;
-
-		bool IsColliding(const ColliderComponent* other, glm::vec2& dir) const;
 		bool IsColliding(glm::vec2& dir) const;
 
 		// Getter for the position

@@ -109,15 +109,39 @@ void load()
 	auto playerOne{ std::make_shared<dae::GameObject>() };
 	auto PlayerOneComponent{ playerOne->AddComponent<dae::PlayerComponent>() };
 	PlayerOneComponent->SetPosition({ 300.f, 360.f });
+
 	dae::SpriteAnimation walk;
 	walk.rows = 1;
 	walk.cols = 5;
 	walk.fps = 12;
 	walk.frames = 5;
-	walk.SetTexture("Sprites/Player/Bubblun/bubblun_walk.png");
-	PlayerOneComponent->AddAnimation("Walking", walk);
+	walk.SetTexture("Sprites/Player/Bub/bub_walk.png");
+	PlayerOneComponent->AddAnimation("Walk", walk);
 
-	//PlayerOneComponent->SetTexturePath("Sprites/Player/Bubblun/bubblun_walk.png");
+	dae::SpriteAnimation idle;
+	idle.rows = 1;
+	idle.cols = 5;
+	idle.fps = 0;
+	idle.frames = 1;
+	idle.SetTexture("Sprites/Player/Bub/bub_walk.png");
+	PlayerOneComponent->AddAnimation("Idle", idle);
+
+	dae::SpriteAnimation jump;
+	jump.rows = 1;
+	jump.cols = 2;
+	jump.fps = 12;
+	jump.frames = 2;
+	jump.SetTexture("Sprites/Player/Bub/bub_jump.png");
+	PlayerOneComponent->AddAnimation("Jump", jump);
+
+	dae::SpriteAnimation fall;
+	fall.rows = 1;
+	fall.cols = 2;
+	fall.fps = 12;
+	fall.frames = 2;
+	fall.SetTexture("Sprites/Player/Bub/bub_fall.png");
+	PlayerOneComponent->AddAnimation("Fall", fall);
+
 	demoScene.Add(playerOne);
 
 	//// Add Player 2
