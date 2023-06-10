@@ -60,6 +60,9 @@
     <ClCompile Include="LoadNextLevelCommand.cpp">
       <Filter>Core\Commands</Filter>
     </ClCompile>
+    <ClCompile Include="ZenChanBehavior.cpp">
+      <Filter>Core\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LevelLoader.h">
@@ -88,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="LoadNextLevelCommand.h">
       <Filter>Core\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="ZenChanBehavior.h">
+      <Filter>Core\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

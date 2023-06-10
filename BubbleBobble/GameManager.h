@@ -15,8 +15,8 @@ namespace dae
 		void LoadNextLevel();
 		void LoadPreviousLevel();
 
-		// Const getter for the current level
 		const Level* GetCurrentLevel() const;
+		const std::vector<PlayerComponent*>& GetPlayers() const { return m_pPlayers; }
 
 	private:
 		int m_CurrentLevel{ -1 };

@@ -13,14 +13,17 @@
 #include "LoggingSoundSystem.h"
 #include "Minigin.h"
 #include "PlaySoundCommand.h"
+#include "RenderSpriteComponent.h"
 #include "RenderTextureComponent.h"
 #include "Scene.h"
 #include "SDLSoundSystem.h"
 #include "TextComponent.h"
+#include "ZenChanBehavior.h"
 
 #define GAME_SCENE
 #define LEVEL
 #define PLAYER
+#define ENEMY
 #define FPS_COUNTER
 
 void load()
@@ -132,6 +135,28 @@ void load()
 	dae::GameManager::GetInstance().AddPlayer(playerTwoComponent);
 
 #endif // PLAYER
+
+#ifdef ENEMY
+	// Enemy Animations
+	dae::SpriteAnimation walkZenChan;
+	walkZenChan.rows = 2;
+	walkZenChan.cols = 2;
+	walkZenChan.fps = 6;
+	walkZenChan.frames = 4;
+
+	// Zen-chan
+	auto zenChan{ std::make_unique<dae::GameObject>() };
+	auto zenChanComponent{ zenChan->AddComponent<dae::ZenChanBehavior>() };
+
+	// Zen-chan: Animation Textures
+	walkZenChan.SetTexture("Sprites/Enemies/ZenChan/zenchan_walk.png");
+
+	// Zen-chan: Add Animations
+	zenChanComponent->AddAnimation("Walk", walkZenChan);
+
+	gameScene.Add(std::move(zenChan));
+
+#endif // DEBUG
 
 #ifdef FPS_COUNTER
 

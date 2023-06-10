@@ -1,10 +1,5 @@
 #pragma once
 #include "TransformComponent.h"
-#include "RigidbodyComponent.h"
-#include "RigidbodyMoveCommand.h"
-#include "RigidbodyJumpCommand.h"
-#include "RenderSpriteComponent.h"
-#include <memory>
 #include <string>
 
 namespace dae
@@ -13,15 +8,16 @@ namespace dae
 	class RenderSpriteComponent;
 	class RigidbodyComponent;
 	class TransformComponent;
+	struct SpriteAnimation;
 
 	enum class PlayerState
 	{
-		Idle,
-		Walk,
-		Jump,
+		Death,
 		Fall,
+		Idle,
+		Jump,
 		Shoot,
-		Death
+		Walk
 	};
 
 	class PlayerComponent final : public Component
@@ -43,6 +39,8 @@ namespace dae
 		void AddAnimation(const std::string& name, const SpriteAnimation& animation);
 		void SetPosition(const glm::vec2& pos) { m_pTransformComponent->SetPosition(pos); }
 
+		glm::vec2 GetPosition() const { return m_pTransformComponent->GetWorldPosition(); }
+
 		// Getters and setters for the state
 		PlayerState GetState() const { return m_State; }
 		void SetState(PlayerState state);
@@ -60,14 +58,13 @@ namespace dae
 		TransformComponent* m_pTransformComponent{ nullptr };
 		RenderSpriteComponent* m_pRenderSpriteComponent{ nullptr };
 		ColliderComponent* m_pColliderComponent{ nullptr };
-		RigidbodyComponent* m_pRigidBodyComponent{ nullptr };
+		RigidbodyComponent* m_pRigidbodyComponent{ nullptr };
 
 		void SetupKeyBoardInput();
 		void SetupControllerInput();
 
 		void HandleState();
-
-		// Function that makes the player move to the opposite side of the screen if he goes out of the screen
 		void WrapAroundScreen();
+		void HandleSpriteFlip();
 	};
 }

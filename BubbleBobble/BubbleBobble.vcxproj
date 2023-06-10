@@ -169,6 +169,7 @@
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="PlaySoundCommand.cpp" />
     <ClCompile Include="RigidbodyJumpCommand.cpp" />
+    <ClCompile Include="ZenChanBehavior.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Minigin\MoveCommand.h" />
@@ -180,6 +181,7 @@
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="PlaySoundCommand.h" />
     <ClInclude Include="RigidbodyJumpCommand.h" />
+    <ClInclude Include="ZenChanBehavior.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

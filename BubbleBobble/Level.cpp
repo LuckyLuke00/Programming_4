@@ -1,15 +1,10 @@
 #include "Level.h"
+#include "CollisionSystem.h"
 #include "GameObject.h"
-#include <string>
-#include "TransformComponent.h"
+#include "LevelLoader.h"
+#include "Renderer.h"
 #include "RenderTextureComponent.h"
 #include "Scene.h"
-#include "Renderer.h"
-#include "ColliderComponent.h"
-#include "CollisionSystem.h"
-#include "LevelLoader.h"
-
-#include <iostream>
 
 namespace dae
 {
@@ -60,8 +55,8 @@ namespace dae
 
 		for (auto* pTransformComponent : m_pTransformComponents)
 		{
-			// Round the scale to the nearest integer
-			m_Scale = glm::round(scale);
+			// Round the scale to the nearest integer or half integer
+			m_Scale = std::roundf(scale * 2.f) * .5f;
 			pTransformComponent->SetScale(m_Scale);
 			pTransformComponent->SetPosition(pTransformComponent->GetLocalPosition() * m_Scale);
 		}
