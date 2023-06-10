@@ -38,6 +38,13 @@ namespace dae
 				otherPos.y + otherDim.y > thisPos.y &&
 				otherPos.y < thisPos.y + thisDim.y)
 			{
+				if (pCollider->IsTrigger()) // Trigger
+				{
+					const auto& pTriggerCallback{ pCollider->GetTriggerCallback() };
+					if (pTriggerCallback) pTriggerCallback(pCollider->GetOwner(), GetOwner());
+					return false;
+				}
+
 				const float leftX{ -otherPos.x + thisPos.x + thisDim.x };
 				const float rightX{ thisPos.x - otherDim.x - otherPos.x };
 				const float overlapX{ std::fabsf(leftX) < std::fabsf(rightX) ? leftX : rightX };

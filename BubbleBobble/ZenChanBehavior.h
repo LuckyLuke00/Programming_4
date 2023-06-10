@@ -18,7 +18,7 @@ namespace dae
 		Walk
 	};
 
-	class ZenChanBehavior : public Component
+	class ZenChanBehavior final : public Component
 	{
 	public:
 		explicit ZenChanBehavior(GameObject* pOwner);

@@ -1,6 +1,8 @@
 #pragma once
 #include "TransformComponent.h"
 #include <string>
+#include <vector>
+#include <memory>
 
 namespace dae
 {
@@ -66,5 +68,7 @@ namespace dae
 		void HandleState();
 		void WrapAroundScreen();
 		void HandleSpriteFlip();
+
+		void BlowBubble();
 	};
 }

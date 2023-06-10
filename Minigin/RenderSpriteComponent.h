@@ -20,9 +20,9 @@ namespace dae
 
 		float totalTime{ .0f };
 
-		std::shared_ptr<Texture2D> m_Texture{};
-
 		void SetTexture(const std::string& filename) { m_Texture = ResourceManager::GetInstance().LoadTexture(filename); }
+
+		std::shared_ptr<Texture2D> m_Texture{};
 	};
 
 	class RenderSpriteComponent final : public RenderComponent

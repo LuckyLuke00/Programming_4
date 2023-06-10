@@ -161,7 +161,9 @@
   <ItemGroup>
     <ClCompile Include="..\Minigin\MoveCommand.cpp" />
     <ClCompile Include="..\Minigin\RigidbodyMoveCommand.cpp" />
+    <ClCompile Include="BlowBubbleCommand.cpp" />
     <ClCompile Include="BubbleBobble.cpp" />
+    <ClCompile Include="BubbleComponent.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
@@ -174,6 +176,8 @@
   <ItemGroup>
     <ClInclude Include="..\Minigin\MoveCommand.h" />
     <ClInclude Include="..\Minigin\RigidbodyMoveCommand.h" />
+    <ClInclude Include="BlowBubbleCommand.h" />
+    <ClInclude Include="BubbleComponent.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelLoader.h" />

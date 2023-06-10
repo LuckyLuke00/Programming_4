@@ -1,8 +1,9 @@
 #pragma once
 #include "CollisionEvent.h"
 #include "Component.h"
-#include <memory>
+#include <functional>
 #include <glm/glm.hpp>
+#include <memory>
 
 namespace dae
 {
@@ -27,6 +28,11 @@ namespace dae
 		ColliderComponent& operator=(ColliderComponent&& other) noexcept = delete;
 
 		bool IsColliding(glm::vec2& dir) const;
+		bool IsTrigger() const { return m_IsTrigger; }
+
+		void SetIsTrigger(bool isTrigger) { m_IsTrigger = isTrigger; }
+		void SetTriggerCallback(const std::function<void(GameObject*, GameObject*)>& callback) { m_pTriggerCallback = callback; }
+		std::function<void(GameObject*, GameObject*)> GetTriggerCallback() const { return m_pTriggerCallback; }
 
 		// Getter for the position
 		CollisionEvent* GetCollisionEvent() const { return m_pCollisionEvent.get(); }
@@ -37,10 +43,14 @@ namespace dae
 		void SetDimensions(const glm::vec2& dimensions) { m_Dimensions = dimensions; }
 
 	private:
+		bool m_IsTrigger{ false };
+
 		ColliderType m_ColliderType{ ColliderType::Normal };
+
 		glm::vec2 m_CollisionDirection{ .0f, .0f };
 		glm::vec2 m_Dimensions{ .0f, .0f };
 
 		std::unique_ptr<CollisionEvent> m_pCollisionEvent{ nullptr };
+		std::function<void(GameObject*, GameObject*)> m_pTriggerCallback{ nullptr };
 	};
 }

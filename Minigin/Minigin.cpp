@@ -94,6 +94,8 @@ void dae::Minigin::Run(const std::function<void()>& load)
 
 		doContinue = input.ProcessInput();
 
+		sceneManager.CleanUp();
+
 		// Fixed Update
 		while (lag >= m_FixedTimeStep)
 		{

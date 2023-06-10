@@ -38,6 +38,9 @@ namespace dae
 		void SetRenderOrder(int order) { m_RenderOrder = order; }
 		int GetRenderOrder() const { return m_RenderOrder; }
 
+		void MarkForDelete() { m_MarkedForDelete = true; }
+		bool IsMarkedForDelete() const { return m_MarkedForDelete; }
+
 		// Getters
 		const std::vector<GameObject*>& GetChildren() const { return m_Children; }
 		TransformComponent* GetTransformComponent() const { return m_pTransformComponent; }
@@ -49,6 +52,7 @@ namespace dae
 
 	private:
 		int m_RenderOrder{ 0 };
+		bool m_MarkedForDelete{ false };
 		bool m_IsActive{ true };
 		GameObject* m_pParent{ nullptr };
 		std::vector<GameObject*> m_Children{};

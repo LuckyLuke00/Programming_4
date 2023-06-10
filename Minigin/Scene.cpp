@@ -60,6 +60,22 @@ void dae::Scene::LateUpdate()
 	}
 }
 
+void dae::Scene::CleanUp()
+{
+	auto it{ m_objects.begin() };
+	while (it != m_objects.end())
+	{
+		if ((*it)->IsMarkedForDelete())
+		{
+			it = m_objects.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
+}
+
 void Scene::Render() const
 {
 	for (const auto& object : m_objects)

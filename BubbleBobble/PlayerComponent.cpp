@@ -8,6 +8,10 @@
 #include "RenderSpriteComponent.h"
 #include "RigidbodyMoveCommand.h"
 #include "RigidbodyJumpCommand.h"
+#include "BubbleComponent.h"
+#include "SceneManager.h"
+#include "Scene.h"
+#include "BlowBubbleCommand.h"
 
 namespace dae
 {
@@ -106,6 +110,13 @@ namespace dae
 		// Jump
 		auto jumpCommand{ std::make_unique<RigidbodyJumpCommand>(m_pRigidbodyComponent, m_JumpForce) };
 		InputManager::GetInstance().GetKeyboard().AddCommand(std::move(jumpCommand), InputState::Down, SDL_SCANCODE_SPACE);
+
+		jumpCommand = std::make_unique<RigidbodyJumpCommand>(m_pRigidbodyComponent, m_JumpForce);
+		InputManager::GetInstance().GetKeyboard().AddCommand(std::move(jumpCommand), InputState::Down, SDL_SCANCODE_W);
+
+		// Add the BlowBubble funtion to the command
+		auto bubbleCommand{ std::make_unique<BlowBubbleCommand>(std::bind_front(&PlayerComponent::BlowBubble, this)) };
+		InputManager::GetInstance().GetKeyboard().AddCommand(std::move(bubbleCommand), InputState::Pressed, SDL_SCANCODE_LCTRL);
 	}
 
 	void PlayerComponent::SetupControllerInput()
@@ -213,5 +224,44 @@ namespace dae
 		{
 			m_pRenderSpriteComponent->SetFlipX(false);
 		}
+	}
+
+	void PlayerComponent::BlowBubble()
+	{
+		auto scene{ SceneManager::GetInstance().GetActiveScene() };
+
+		auto bubble{ std::make_shared<GameObject>() };
+		auto bubbleComponent{ bubble->AddComponent<BubbleComponent>() };
+
+		// Set the position of the bubble to the player
+		const auto& pos{ m_pTransformComponent->GetWorldPosition() };
+		bubble->GetTransformComponent()->SetPosition(pos);
+
+		// Animation
+		dae::SpriteAnimation bubbleAnim;
+		bubbleAnim.rows = 1;
+		bubbleAnim.cols = 3;
+		bubbleAnim.fps = 12;
+		bubbleAnim.frames = 3;
+
+		switch (m_PlayerId)
+		{
+		case 0:
+			bubbleAnim.SetTexture("Sprites/Player/Bub/bub_bubble.png");
+			break;
+		case 1:
+			bubbleAnim.SetTexture("Sprites/Player/Bob/bob_bubble.png");
+			break;
+		default:
+			break;
+		}
+
+		bubbleComponent->AddAnimation("Bubble", bubbleAnim);
+
+		bubble->SetRenderOrder(0);
+
+		bubbleComponent->BlowBubble(m_pRenderSpriteComponent->GetFlipX() ? 1 : -1);
+
+		scene->Add(bubble);
 	}
 }

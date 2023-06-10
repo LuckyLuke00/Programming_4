@@ -61,15 +61,9 @@ namespace dae
 		glm::vec2 horizontalCollisionDir{};
 		if (m_pColliderComponent->IsColliding(horizontalCollisionDir))
 		{
-			if (horizontalCollisionDir.x > .0f)
+			if (horizontalCollisionDir.x > .0f || horizontalCollisionDir.x < .0f)
 			{
 				// Collision from the right
-				m_pTransformComponent->Translate(-horizontalCollisionDir.x, .0f);
-				m_Velocity.x = .0f;
-			}
-			else if (horizontalCollisionDir.x < .0f)
-			{
-				// Collision from the left
 				m_pTransformComponent->Translate(-horizontalCollisionDir.x, .0f);
 				m_Velocity.x = .0f;
 			}

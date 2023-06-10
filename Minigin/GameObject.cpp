@@ -1,6 +1,8 @@
 #include "GameObject.h"
 #include "RenderComponent.h"
 #include "RenderSpriteComponent.h"
+#include "SceneManager.h"
+#include "Scene.h"
 
 void dae::GameObject::Update()
 {
@@ -9,6 +11,9 @@ void dae::GameObject::Update()
 	// TODO: Update children
 	for (const auto& [key, component] : m_Components)
 	{
+		// If nullptr, skip
+		if (!component) continue;
+
 		component->Update();
 	}
 }

@@ -16,6 +16,8 @@ namespace dae
 		void FixedUpdate();
 		void LateUpdate();
 
+		void CleanUp();
+
 		void Render() const;
 
 		~Scene();
