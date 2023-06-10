@@ -16,7 +16,7 @@ namespace dae
 		void LoadPreviousLevel();
 
 		// Const getter for the current level
-		const Level& GetCurrentLevel() const { return *m_Levels[m_CurrentLevel]; }
+		const Level* GetCurrentLevel() const;
 
 	private:
 		int m_CurrentLevel{ -1 };

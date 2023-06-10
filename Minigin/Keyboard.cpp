@@ -47,6 +47,7 @@ namespace dae
 
 	void Keyboard::AddCommand(std::unique_ptr<Command> command, dae::InputState inputState, SDL_Scancode keyCode)
 	{
+		if (!command) return;
 		m_Commands.emplace(std::make_pair(std::make_pair(inputState, keyCode), std::move(command)));
 	}
 }

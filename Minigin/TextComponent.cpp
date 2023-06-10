@@ -11,7 +11,8 @@ namespace dae
 	TextComponent::TextComponent(GameObject* pOwner) :
 		Component{ pOwner },
 		m_pRenderComponent{ pOwner->GetComponent<RenderTextureComponent>() }
-	{}
+	{
+	}
 
 	void TextComponent::Update()
 	{

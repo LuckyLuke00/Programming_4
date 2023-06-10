@@ -111,6 +111,7 @@ namespace dae
 
 	void XboxController::AddCommand(std::unique_ptr<Command> command, InputState inputState, XboxButton button)
 	{
+		if (!command) return;
 		m_pImpl->AddCommand(std::move(command), inputState, button);
 	}
 }

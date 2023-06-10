@@ -66,5 +66,8 @@ namespace dae
 		void SetupControllerInput();
 
 		void HandleState();
+
+		// Function that makes the player move to the opposite side of the screen if he goes out of the screen
+		void WrapAroundScreen();
 	};
 }

@@ -6,73 +6,27 @@
 #endif
 
 #include "FPSComponent.h"
+#include "GameManager.h"
 #include "GameObject.h"
+#include "InputManager.h"
+#include "LoadNextLevelCommand.h"
+#include "LoggingSoundSystem.h"
 #include "Minigin.h"
+#include "PlaySoundCommand.h"
 #include "RenderTextureComponent.h"
 #include "Scene.h"
+#include "SDLSoundSystem.h"
 #include "TextComponent.h"
-#include "InputManager.h"
-#include "LevelLoader.h"
-#include <LoggingSoundSystem.h>
-#include <SDLSoundSystem.h>
-#include "PlaySoundCommand.h"
-#include "PlayerComponent.h"
-#include "GameManager.h"
-#include "LoadNextLevelCommand.h"
 
-#define DEMO_SCENE
+#define GAME_SCENE
+#define LEVEL
+#define PLAYER
 #define FPS_COUNTER
-#define COMMANDS
-#define EVENTS
 
 void load()
 {
-#ifdef DEMO_SCENE
-	auto& demoScene{ dae::SceneManager::GetInstance().CreateScene("Demo Scene") };
-
-	//// Add background
-	//auto demoBackground{ std::make_unique<dae::GameObject>() };
-	//demoBackground->AddComponent<dae::TransformComponent>();
-	//demoBackground->AddComponent<dae::RenderTextureComponent>()->SetTexture("Images/background.tga");
-	//demoScene.Add(std::move(demoBackground));
-
-	//// Add logo
-	//auto demoLogo{ std::make_unique<dae::GameObject>() };
-	//demoLogo->AddComponent<dae::TransformComponent>()->SetPosition(216.f, 180.f);
-	//demoLogo->AddComponent<dae::RenderTextureComponent>()->SetTexture("Images/logo.tga");
-	//demoScene.Add(std::move(demoLogo));
-
-	//// Add text
-	//auto demoText{ std::make_unique<dae::GameObject>() };
-	//demoText->AddComponent<dae::TransformComponent>()->SetPosition(80.f, 20.f);
-	//demoText->AddComponent<dae::RenderTextureComponent>();
-
-	//auto* demoTextComponent{ demoText->AddComponent<dae::TextComponent>() };
-	//demoTextComponent->SetFont("Fonts/Lingua.otf", 36);
-	//demoTextComponent->SetText("Programming 4 Assignment");
-
-	//demoScene.Add(std::move(demoText));
-
-	// Create a uniqe pointer to a level
-	auto level{ std::make_unique<dae::Level>(demoScene) };
-	level->SetLevelName("Level 1");
-	level->SetLevelFilePath("../Assets/Levels/level1.txt");
-	dae::GameManager::GetInstance().AddLevel(std::move(level));
-
-	level = std::make_unique<dae::Level>(demoScene);
-	level->SetLevelName("Level 2");
-	level->SetLevelFilePath("../Assets/Levels/level2.txt");
-
-	dae::GameManager::GetInstance().AddLevel(std::move(level));
-
-	level = std::make_unique<dae::Level>(demoScene);
-	level->SetLevelName("Level 3");
-	level->SetLevelFilePath("../Assets/Levels/level3.txt");
-
-	dae::GameManager::GetInstance().AddLevel(std::move(level));
-	dae::GameManager::GetInstance().LoadNextLevel();
-
-	dae::InputManager::GetInstance().GetKeyboard().AddCommand(std::make_unique<dae::LoadNextLevelCommand>(), dae::InputState::Pressed, SDL_SCANCODE_F1);
+#ifdef GAME_SCENE
+	auto& gameScene{ dae::SceneManager::GetInstance().CreateScene("Game Scene") };
 
 	const unsigned short soundId{ 0 };
 	dae::ServiceLocator<dae::SoundSystem>::RegisterService(std::make_unique<dae::LoggingSoundSystem>(std::make_unique<dae::SDLSoundSystem>()));
@@ -84,7 +38,100 @@ void load()
 	// Green text
 	std::cout << "\033[32m" << "Press E to play sound" << "\033[0m" << '\n';
 
-#endif // DEMO_SCENE
+#endif // GAME_SCENE
+
+#ifdef LEVEL
+
+	// Level 1
+	auto level{ std::make_unique<dae::Level>(gameScene) };
+	level->SetLevelName("Level 1");
+	level->SetLevelFilePath("../Assets/Levels/level1.txt");
+	dae::GameManager::GetInstance().AddLevel(std::move(level));
+
+	// Level 2
+	level = std::make_unique<dae::Level>(gameScene);
+	level->SetLevelName("Level 2");
+	level->SetLevelFilePath("../Assets/Levels/level2.txt");
+	dae::GameManager::GetInstance().AddLevel(std::move(level));
+
+	// Level 3
+	level = std::make_unique<dae::Level>(gameScene);
+	level->SetLevelName("Level 3");
+	level->SetLevelFilePath("../Assets/Levels/level3.txt");
+	dae::GameManager::GetInstance().AddLevel(std::move(level));
+
+	// Load the first level
+	dae::GameManager::GetInstance().LoadNextLevel();
+	dae::InputManager::GetInstance().GetKeyboard().AddCommand(std::make_unique<dae::LoadNextLevelCommand>(), dae::InputState::Pressed, SDL_SCANCODE_F1);
+
+#endif // LEVEL
+
+#ifdef PLAYER
+
+	// Player Animations
+	dae::SpriteAnimation fall;
+	fall.rows = 1;
+	fall.cols = 2;
+	fall.fps = 12;
+	fall.frames = 2;
+
+	dae::SpriteAnimation idle;
+	idle.rows = 1;
+	idle.cols = 5;
+	idle.fps = 0;
+	idle.frames = 1;
+
+	dae::SpriteAnimation jump;
+	jump.rows = 1;
+	jump.cols = 2;
+	jump.fps = 12;
+	jump.frames = 2;
+
+	dae::SpriteAnimation walk;
+	walk.rows = 1;
+	walk.cols = 5;
+	walk.fps = 12;
+	walk.frames = 5;
+
+	// Player One
+	auto playerOne{ std::make_shared<dae::GameObject>() };
+	auto PlayerOneComponent{ playerOne->AddComponent<dae::PlayerComponent>() };
+
+	// Player One: Animation Textures
+	fall.SetTexture("Sprites/Player/Bub/bub_fall.png");
+	idle.SetTexture("Sprites/Player/Bub/bub_walk.png");
+	jump.SetTexture("Sprites/Player/Bub/bub_jump.png");
+	walk.SetTexture("Sprites/Player/Bub/bub_walk.png");
+
+	// Player One: Add Animations
+	PlayerOneComponent->AddAnimation("Fall", fall);
+	PlayerOneComponent->AddAnimation("Idle", idle);
+	PlayerOneComponent->AddAnimation("Jump", jump);
+	PlayerOneComponent->AddAnimation("Walk", walk);
+
+	gameScene.Add(playerOne);
+	dae::GameManager::GetInstance().AddPlayer(PlayerOneComponent);
+
+	// Player Two
+	auto playerTwo{ std::make_shared<dae::GameObject>() };
+	auto playerTwoComponent{ playerTwo->AddComponent<dae::PlayerComponent>() };
+
+	// Player Two: Animation Textures
+	fall.SetTexture("Sprites/Player/Bob/bob_fall.png");
+	idle.SetTexture("Sprites/Player/Bob/bob_walk.png");
+	jump.SetTexture("Sprites/Player/Bob/bob_jump.png");
+	walk.SetTexture("Sprites/Player/Bob/bob_walk.png");
+
+	// Player Two: Add Animations
+	playerTwoComponent->AddAnimation("Fall", fall);
+	playerTwoComponent->AddAnimation("Idle", idle);
+	playerTwoComponent->AddAnimation("Jump", jump);
+	playerTwoComponent->AddAnimation("Walk", walk);
+
+	gameScene.Add(playerTwo);
+	dae::GameManager::GetInstance().AddPlayer(playerTwoComponent);
+
+#endif // PLAYER
 
 #ifdef FPS_COUNTER
 
@@ -99,71 +146,9 @@ void load()
 
 	fps->AddComponent<dae::FPSComponent>();
 
-	demoScene.Add(std::move(fps));
+	gameScene.Add(std::move(fps));
 
 #endif // FPS_COUNTER
-
-#ifdef COMMANDS
-
-	// Add Player 1
-	auto playerOne{ std::make_shared<dae::GameObject>() };
-	auto PlayerOneComponent{ playerOne->AddComponent<dae::PlayerComponent>() };
-
-	dae::SpriteAnimation walk;
-	walk.rows = 1;
-	walk.cols = 5;
-	walk.fps = 12;
-	walk.frames = 5;
-	walk.SetTexture("Sprites/Player/Bub/bub_walk.png");
-	PlayerOneComponent->AddAnimation("Walk", walk);
-
-	dae::SpriteAnimation idle;
-	idle.rows = 1;
-	idle.cols = 5;
-	idle.fps = 0;
-	idle.frames = 1;
-	idle.SetTexture("Sprites/Player/Bub/bub_walk.png");
-	PlayerOneComponent->AddAnimation("Idle", idle);
-
-	dae::SpriteAnimation jump;
-	jump.rows = 1;
-	jump.cols = 2;
-	jump.fps = 12;
-	jump.frames = 2;
-	jump.SetTexture("Sprites/Player/Bub/bub_jump.png");
-	PlayerOneComponent->AddAnimation("Jump", jump);
-
-	dae::SpriteAnimation fall;
-	fall.rows = 1;
-	fall.cols = 2;
-	fall.fps = 12;
-	fall.frames = 2;
-	fall.SetTexture("Sprites/Player/Bub/bub_fall.png");
-	PlayerOneComponent->AddAnimation("Fall", fall);
-
-	demoScene.Add(playerOne);
-	dae::GameManager::GetInstance().AddPlayer(PlayerOneComponent);
-
-	// Add Player 2
-	auto playerTwo{ std::make_shared<dae::GameObject>() };
-	auto playerTwoComponent{ playerTwo->AddComponent<dae::PlayerComponent>() };
-
-	walk.SetTexture("Sprites/Player/Bob/bob_walk.png");
-	playerTwoComponent->AddAnimation("Walk", walk);
-
-	idle.SetTexture("Sprites/Player/Bob/bob_walk.png");
-	playerTwoComponent->AddAnimation("Idle", idle);
-
-	jump.SetTexture("Sprites/Player/Bob/bob_jump.png");
-	playerTwoComponent->AddAnimation("Jump", jump);
-
-	fall.SetTexture("Sprites/Player/Bob/bob_fall.png");
-	playerTwoComponent->AddAnimation("Fall", fall);
-
-	demoScene.Add(playerTwo);
-	dae::GameManager::GetInstance().AddPlayer(playerTwoComponent);
-
-#endif // COMMANDS
 }
 
 int main(int, char* []) {

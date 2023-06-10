@@ -16,7 +16,7 @@ namespace dae
 	void RigidbodyComponent::Update()
 	{
 		const float dt{ Timer::GetDeltaSeconds() };
-		m_Velocity.y += m_Gravity * dt;
+		if (m_Velocity.y < m_MaxVelocity.y) m_Velocity.y += m_Gravity * dt;
 
 		// Apply drag
 		if (m_Velocity.x > .0f)

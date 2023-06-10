@@ -36,17 +36,7 @@ namespace dae
 	void PlayerComponent::Update()
 	{
 		HandleState();
-
-		// Check if the player is out of the screen
-		const auto& pos{ m_pTransformComponent->GetWorldPosition() };
-
-		int width, height;
-		Renderer::GetInstance().GetWindowSize(width, height);
-
-		if (pos.y > height)
-		{
-			m_pTransformComponent->SetPosition(pos.x, .0f - m_pRenderSpriteComponent->GetFrameSize().y);
-		}
+		WrapAroundScreen();
 	}
 
 	void PlayerComponent::SetSpeed(float speed)
@@ -63,10 +53,8 @@ namespace dae
 
 	void PlayerComponent::AddAnimation(const std::string& name, const SpriteAnimation& animation)
 	{
-		if (!m_pRenderSpriteComponent) return;
+		// No need to perform null checks, since the constructor already adds the components
 		m_pRenderSpriteComponent->AddAnimation(name, animation);
-
-		if (!m_pColliderComponent) return;
 		m_pColliderComponent->SetDimensions(m_pRenderSpriteComponent->GetFrameSize());
 	}
 
@@ -138,17 +126,20 @@ namespace dae
 	void PlayerComponent::Respawn()
 	{
 		const auto& level{ GameManager::GetInstance().GetCurrentLevel() };
-		const float levelScale{ level.GetLevelScale() };
+		if (!level) return;
+
+		const float levelScale{ level->GetLevelScale() };
 
 		// Subtract a quarter of the scale, so the player is centered
 		const float scale{ levelScale - (levelScale / 4.f) };
 		m_pTransformComponent->SetScale(scale); // Set the scale of the player based on the level scale
 
-		glm::vec2 spawnPos{ level.GetPlayerSpawnPosition(m_PlayerId) };
+		glm::vec2 spawnPos{ level->GetPlayerSpawnPosition(m_PlayerId) };
 		m_pTransformComponent->SetPosition(spawnPos);
 
 		// If the players position is over the half of the screen, flip the sprite
-		int width, height;
+		int width;
+		int height;
 		Renderer::GetInstance().GetWindowSize(width, height);
 
 		if (spawnPos.x < static_cast<float>(width) * .5f)
@@ -168,11 +159,11 @@ namespace dae
 		{
 			SetState(PlayerState::Walk);
 		}
-		else if (!IsGrounded && velocity.y > .0f)
+		else if (!IsGrounded && velocity.y > FLT_EPSILON)
 		{
 			SetState(PlayerState::Fall);
 		}
-		else if (!IsGrounded && velocity.y < .0f)
+		else if (!IsGrounded && velocity.y < FLT_EPSILON)
 		{
 			SetState(PlayerState::Jump);
 		}
@@ -189,6 +180,31 @@ namespace dae
 		else if (velocity.x < -FLT_EPSILON)
 		{
 			m_pRenderSpriteComponent->SetFlipX(false);
+		}
+	}
+
+	void PlayerComponent::WrapAroundScreen()
+	{
+		int width;
+		int height;
+		Renderer::GetInstance().GetWindowSize(width, height);
+
+		// Check if the player is out of the screen
+		const auto& pos{ m_pTransformComponent->GetWorldPosition() };
+		const glm::vec2& frameSize{ m_pRenderSpriteComponent->GetFrameSize() };
+
+		if (pos.y > static_cast<float>(height))
+		{
+			m_pTransformComponent->SetPosition(pos.x, .0f - frameSize.y);
+		}
+
+		if (pos.x > static_cast<float>(width))
+		{
+			m_pTransformComponent->SetPosition(.0f - frameSize.x, pos.y);
+		}
+		else if (pos.x < .0f - frameSize.x)
+		{
+			m_pTransformComponent->SetPosition(static_cast<float>(width), pos.y);
 		}
 	}
 }

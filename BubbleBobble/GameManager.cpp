@@ -29,4 +29,9 @@ namespace dae
 
 		for (const auto& pPlayer : m_pPlayers) pPlayer->Respawn();
 	}
+	const Level* GameManager::GetCurrentLevel() const
+	{
+		if (m_CurrentLevel < 0 || m_CurrentLevel >= static_cast<int>(m_Levels.size())) return nullptr;
+		return m_Levels[m_CurrentLevel].get();
+	}
 }
