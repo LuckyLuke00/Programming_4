@@ -22,8 +22,10 @@ namespace dae
 		void LoadNextLevel();
 		void LoadPreviousLevel();
 
-		void AddScore(int score, int playerId) { playerId == 0 ? m_ScoreBub += score : m_ScoreBob += score; }
+		// Score management
+		void AddScore(int score, int playerId);
 		int GetScore(int playerId) const { return playerId == 0 ? m_ScoreBub : m_ScoreBob; }
+		int GetHighScore() const { return m_HighScore; }
 
 		const Level* GetCurrentLevel() const;
 		const std::vector<PlayerComponent*>& GetPlayers() const { return m_pPlayers; }

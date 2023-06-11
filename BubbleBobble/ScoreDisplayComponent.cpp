@@ -65,7 +65,7 @@ namespace dae
 
 	void ScoreDisplayComponent::CreateTitleText()
 	{
-		auto title{ std::make_shared<GameObject>() };
+		auto title{ std::make_unique<GameObject>() };
 		m_pTransforms.first = title->AddComponent<TransformComponent>();
 
 		title->AddComponent<RenderTextureComponent>();
@@ -73,13 +73,12 @@ namespace dae
 		m_pScoreText.first = title->AddComponent<TextComponent>();
 		m_pScoreText.first->SetFont("Fonts/Joystix.otf", m_FontSize);
 
-		auto scene{ SceneManager::GetInstance().GetActiveScene() };
-		scene->Add(title);
+		SceneManager::GetInstance().GetActiveScene()->Add(std::move(title));
 	}
 
 	void ScoreDisplayComponent::CreateScoreText()
 	{
-		auto score{ std::make_shared<GameObject>() };
+		auto score{ std::make_unique<GameObject>() };
 		m_pTransforms.second = score->AddComponent<TransformComponent>();
 
 		score->AddComponent<RenderTextureComponent>();
@@ -88,7 +87,6 @@ namespace dae
 		m_pScoreText.second->SetFont("Fonts/Joystix.otf", m_FontSize);
 		m_pScoreText.second->SetColor(SDL_Color{ 255, 255, 255, 255 });
 
-		auto scene{ SceneManager::GetInstance().GetActiveScene() };
-		scene->Add(score);
+		SceneManager::GetInstance().GetActiveScene()->Add(std::move(score));
 	}
 }

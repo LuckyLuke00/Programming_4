@@ -5,6 +5,9 @@
 #include "ScoreDisplayComponent.h"
 #include "Renderer.h"
 #include <iostream>
+#include "GameManager.h"
+#include "SceneManager.h"
+#include "Scene.h"
 
 namespace dae
 {
@@ -20,6 +23,7 @@ namespace dae
 
 	HUDComponent::~HUDComponent()
 	{
+		PickupComponent::m_OnPickup.RemoveObserver(this);
 	}
 
 	void HUDComponent::CreateHighScoreText()
@@ -35,6 +39,8 @@ namespace dae
 		// Position in the middle of the screen
 		m_pHighScoreText->SetPosition(glm::vec2{ .0f, m_Margin });
 		m_pHighScoreText->CenterHorizontally();
+
+		SceneManager::GetInstance().GetActiveScene()->Add(go);
 	}
 
 	void HUDComponent::CreateScoreTextBub()
@@ -50,6 +56,8 @@ namespace dae
 		m_pScoreTextBub->SetPosition(glm::vec2{ .0f, m_Margin });
 		m_pScoreTextBub->AlignLeft();
 		m_pScoreTextBub->Offset(glm::vec2{ m_Margin, .0f });
+
+		SceneManager::GetInstance().GetActiveScene()->Add(std::move(go));
 	}
 
 	void HUDComponent::CreateScoreTextBob()
@@ -65,6 +73,15 @@ namespace dae
 		m_pScoreTextBob->SetPosition(glm::vec2{ .0f, m_Margin });
 		m_pScoreTextBob->AlignRight();
 		m_pScoreTextBob->Offset(glm::vec2{ -m_Margin, .0f });
+
+		SceneManager::GetInstance().GetActiveScene()->Add(std::move(go));
+	}
+
+	void HUDComponent::UpdateText()
+	{
+		m_pHighScoreText->SetScoreText(GameManager::GetInstance().GetHighScore());
+		m_pScoreTextBub->SetScoreText(GameManager::GetInstance().GetScore(0));
+		m_pScoreTextBob->SetScoreText(GameManager::GetInstance().GetScore(1));
 	}
 
 	void HUDComponent::OnNotify(PickupType type, int playerId)
@@ -72,18 +89,15 @@ namespace dae
 		switch (type)
 		{
 		case PickupType::Fries:
-			std::cout << "Fries: " << playerId << std::endl;
+			GameManager::GetInstance().AddScore(200, playerId);
 			break;
 		case PickupType::Watermelon:
-			std::cout << "Watermelon: " << playerId << std::endl;
+			GameManager::GetInstance().AddScore(100, playerId);
 			break;
 		default:
 			break;
 		}
-	}
 
-	void HUDComponent::OnSubjectDestroy()
-	{
-		PickupComponent::m_OnPickup.RemoveObserver(this);
+		UpdateText();
 	}
 }

@@ -33,6 +33,6 @@ namespace dae
 		RenderTextureComponent* m_pRenderComponent{ nullptr };
 		SDL_Color m_Color{ 255, 255, 255 };
 		std::shared_ptr<Font> m_Font{ nullptr };
-		std::string m_Text{ ' ' };
+		std::string m_Text{ "" };
 	};
 }

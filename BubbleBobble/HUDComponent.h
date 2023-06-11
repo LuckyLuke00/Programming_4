@@ -25,9 +25,9 @@ namespace dae
 		void CreateScoreTextBob();
 
 	private:
+		void UpdateText();
 
 		void OnNotify(PickupType type, int playerId) override;
-		void OnSubjectDestroy() override;
 
 		float m_Margin{ 5.f };
 		ScoreDisplayComponent* m_pHighScoreText{};
