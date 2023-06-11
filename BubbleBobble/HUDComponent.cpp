@@ -48,7 +48,7 @@ namespace dae
 		auto go{ std::make_shared<GameObject>() };
 		m_pScoreTextBub = go->AddComponent<ScoreDisplayComponent>();
 
-		m_pScoreTextBub->SetTitleText("INSERT COIN");
+		m_pScoreTextBub->SetTitleText("1UP");
 		m_pScoreTextBub->SetTitleColor(SDL_Color{ 0, 255, 0, 255 });
 
 		m_pScoreTextBub->SetScoreText(0);
@@ -65,8 +65,8 @@ namespace dae
 		auto go{ std::make_shared<GameObject>() };
 		m_pScoreTextBob = go->AddComponent<ScoreDisplayComponent>();
 
-		m_pScoreTextBob->SetTitleText("INSERT COIN");
-		m_pScoreTextBob->SetTitleColor(SDL_Color{ 0, 0, 255, 255 });
+		m_pScoreTextBob->SetTitleText("2UP");
+		m_pScoreTextBob->SetTitleColor(SDL_Color{ 0, 187, 255, 255 });
 
 		m_pScoreTextBob->SetScoreText(0);
 
