@@ -75,8 +75,7 @@ namespace dae
 		m_pColliderComponent->AddIgnoreTag("Player");
 		m_pColliderComponent->AddIgnoreTag("Enemy");
 
-		const auto rb{ other->GetComponent<RigidbodyComponent>() };
-		if (rb)
+		if (const auto rb{ other->GetComponent<RigidbodyComponent>() })
 		{
 			// Launch in the opposite direction of the player
 			const auto& vel{ rb->GetVelocity() };

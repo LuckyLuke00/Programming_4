@@ -36,6 +36,7 @@ namespace dae
 		void EnterBubble() override;
 		void ExitBubble() override;
 		void Kill() override;
+		void SpawnOnDeath() const override;
 
 	private:
 		ZenChanState m_State{ -1 };

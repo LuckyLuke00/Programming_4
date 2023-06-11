@@ -170,6 +170,7 @@
     <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="LoadNextLevelCommand.cpp" />
     <ClCompile Include="MaitaBehavior.cpp" />
+    <ClCompile Include="PickupComponent.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="PlaySoundCommand.cpp" />
     <ClCompile Include="RigidbodyJumpCommand.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="LoadNextLevelCommand.h" />
     <ClInclude Include="MaitaBehavior.h" />
+    <ClInclude Include="PickupComponent.h" />
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="PlaySoundCommand.h" />
     <ClInclude Include="RigidbodyJumpCommand.h" />

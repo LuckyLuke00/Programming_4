@@ -39,8 +39,8 @@ namespace dae
 		void SetJumpForce(float jumpForce);
 
 		void AddAnimation(const std::string& name, const SpriteAnimation& animation);
-		void SetPosition(const glm::vec2& pos) { m_pTransformComponent->SetPosition(pos); }
 
+		void SetPosition(const glm::vec2& pos) { m_pTransformComponent->SetPosition(pos); }
 		glm::vec2 GetPosition() const { return m_pTransformComponent->GetWorldPosition(); }
 
 		// Getters and setters for the state

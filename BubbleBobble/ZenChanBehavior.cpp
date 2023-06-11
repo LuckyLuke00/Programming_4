@@ -6,6 +6,9 @@
 #include "TransformComponent.h"
 #include "GameManager.h"
 #include "Renderer.h"
+#include "PickupComponent.h"
+#include "SceneManager.h"
+#include "Scene.h"
 
 namespace dae
 {
@@ -41,6 +44,19 @@ namespace dae
 		SetState(ZenChanState::Death);
 	}
 
+	void ZenChanBehavior::SpawnOnDeath() const
+	{
+		auto watermelon{ std::make_shared<dae::GameObject>() };
+		auto pickup{ watermelon->AddComponent<PickupComponent>() };
+
+		pickup->SetPickupType(PickupType::Watermelon);
+		pickup->SetPoints(100);
+		pickup->SetPosition(GetTransformComponent()->GetWorldPosition());
+		pickup->SetTexture("Sprites/Enemies/ZenChan/zenchan_pickup.png");
+
+		SceneManager::GetInstance().GetActiveScene()->Add(watermelon);
+	}
+
 	void ZenChanBehavior::HandleState()
 	{
 		if (m_State == ZenChanState::Bubble) return;
@@ -48,6 +64,7 @@ namespace dae
 		{
 			if (IsDead())
 			{
+				SpawnOnDeath();
 				GetOwner()->MarkForDelete();
 				return;
 			}

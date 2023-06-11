@@ -94,11 +94,11 @@ namespace dae
 		auto componentPtr{ component.get() };
 		m_Components[typeid(T)] = std::move(component);
 
-		if (auto renderComponent = dynamic_cast<RenderComponent*>(componentPtr))
+		if (auto renderComponent{ dynamic_cast<RenderComponent*>(componentPtr) })
 		{
 			m_pRenderComponent = renderComponent;
 		}
-		else if (auto transformComponent = dynamic_cast<TransformComponent*>(componentPtr))
+		else if (auto transformComponent{ dynamic_cast<TransformComponent*>(componentPtr) })
 		{
 			m_pTransformComponent = transformComponent;
 		}

@@ -229,8 +229,6 @@ namespace dae
 
 	void PlayerComponent::BlowBubble()
 	{
-		auto scene{ SceneManager::GetInstance().GetActiveScene() };
-
 		auto bubble{ std::make_shared<GameObject>() };
 		auto bubbleComponent{ bubble->AddComponent<BubbleComponent>() };
 
@@ -263,6 +261,6 @@ namespace dae
 
 		bubbleComponent->BlowBubble(m_pRenderSpriteComponent->GetFlipX() ? 1 : -1);
 
-		scene->Add(bubble);
+		SceneManager::GetInstance().GetActiveScene()->Add(bubble);
 	}
 }

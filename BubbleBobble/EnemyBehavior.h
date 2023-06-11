@@ -34,6 +34,7 @@ namespace dae
 		virtual void EnterBubble() = 0;
 		virtual void ExitBubble() = 0;
 		virtual void Kill() = 0;
+		virtual void SpawnOnDeath() const { /* Optional */ };
 
 		TransformComponent* GetTransformComponent() const { return m_pTransformComponent; }
 		RenderSpriteComponent* GetRenderSpriteComponent() const { return m_pRenderSpriteComponent; }
