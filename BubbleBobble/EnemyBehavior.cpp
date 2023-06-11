@@ -88,4 +88,29 @@ namespace dae
 
 		Kill();
 	}
+
+	void EnemyBehavior::WrapAroundScreen()
+	{
+		int width;
+		int height;
+		Renderer::GetInstance().GetWindowSize(width, height);
+
+		// Check if the player is out of the screen
+		const auto& pos{ m_pTransformComponent->GetWorldPosition() };
+		const glm::vec2& frameSize{ m_pRenderSpriteComponent->GetFrameSize() };
+
+		if (pos.y > static_cast<float>(height))
+		{
+			m_pTransformComponent->SetPosition(pos.x, .0f - frameSize.y);
+		}
+
+		if (pos.x > static_cast<float>(width))
+		{
+			m_pTransformComponent->SetPosition(.0f - frameSize.x, pos.y);
+		}
+		else if (pos.x < .0f - frameSize.x)
+		{
+			m_pTransformComponent->SetPosition(static_cast<float>(width), pos.y);
+		}
+	}
 }

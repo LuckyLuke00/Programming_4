@@ -43,6 +43,7 @@ namespace dae
 
 	protected:
 		void Spawn(const glm::vec2& spawnPos) const;
+		void WrapAroundScreen();
 
 	private:
 		float m_Speed{ 50.f };

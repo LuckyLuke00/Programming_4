@@ -37,7 +37,7 @@ namespace dae
 		float m_Deceleration{ 1'000.f };
 		float m_Direction{ 1.f };
 		float m_RiseSpeed{ 100.f };
-		float m_MaxYPos{ 145.f };
+		float m_MaxYPos{ 115.f };
 
 		float m_BubbleTimer{ 0.f };
 		float m_BubbleTime{ 5.f };

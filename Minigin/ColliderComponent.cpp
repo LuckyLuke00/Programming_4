@@ -18,6 +18,7 @@ namespace dae
 
 	bool ColliderComponent::IsColliding(glm::vec2& dir) const
 	{
+		bool isColliding{ false }; // Wait until the end to return, so we can check for triggers first
 		for (const auto& pCollider : CollisionSystem::GetInstance().GetColliders())
 		{
 			if (pCollider == this)
@@ -59,10 +60,10 @@ namespace dae
 				return false;
 			}
 
-			return true;
+			isColliding = true;
 		}
 
-		return false;
+		return isColliding;
 	}
 
 	void ColliderComponent::AddIgnoreTag(const std::string& tag)
@@ -90,14 +91,14 @@ namespace dae
 
 	void ColliderComponent::CalculateOverlap(const glm::vec2& posA, const glm::vec2& dimA, const glm::vec2& posB, const glm::vec2& dimB, glm::vec2& dir) const
 	{
-		const float leftX = -posB.x + posA.x + dimA.x;
-		const float rightX = posA.x - dimB.x - posB.x;
-		const float overlapX = std::fabsf(leftX) < std::fabsf(rightX) ? leftX : rightX;
+		const float leftX{ (posA.x + dimA.x) - posB.x };
+		const float rightX{ posA.x - (posB.x + dimB.x) };
+		const float overlapX{ (std::fabsf(leftX) < std::fabsf(rightX)) ? leftX : rightX };
 
-		const float leftY = -posB.y + posA.y + dimA.y;
-		const float rightY = posA.y - dimB.y - posB.y;
-		const float overlapY = std::fabsf(leftY) < std::fabsf(rightY) ? leftY : rightY;
+		const float upY{ (posA.y + dimA.y) - posB.y };
+		const float downY{ posA.y - (posB.y + dimB.y) };
+		const float overlapY{ (std::fabsf(upY) < std::fabsf(downY)) ? upY : downY };
 
-		dir = glm::vec2{ overlapX, overlapY };
+		dir = glm::vec2(overlapX, overlapY);
 	}
 }

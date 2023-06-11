@@ -21,6 +21,7 @@ namespace dae
 	void ZenChanBehavior::Update()
 	{
 		HandleState();
+		WrapAroundScreen();
 	}
 
 	void ZenChanBehavior::EnterBubble()
