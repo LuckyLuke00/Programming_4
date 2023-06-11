@@ -19,6 +19,8 @@ namespace dae
 	bool ColliderComponent::IsColliding(glm::vec2& dir) const
 	{
 		bool isColliding{ false }; // Wait until the end to return, so we can check for triggers first
+		bool isOneWay{ false };
+
 		for (const auto& pCollider : CollisionSystem::GetInstance().GetColliders())
 		{
 			if (pCollider == this)
@@ -46,10 +48,10 @@ namespace dae
 
 			if (!CheckCollision(thisPos, thisDim, otherPos, otherDim)) continue;
 
-			if (pCollider->IsTrigger()) // Trigger
+			if (pCollider->IsTrigger())
 			{
 				HandleTriggerCollision(pCollider);
-				return true;
+				return false;
 			}
 
 			CalculateOverlap(thisPos, thisDim, otherPos, otherDim, dir);
@@ -57,11 +59,14 @@ namespace dae
 			// One way collision, ignore if the other collider is below this one
 			if (pCollider->GetColliderType() == ColliderType::OneWay && dir.y < .0f)
 			{
-				return false;
+				isOneWay = true;
+				continue;
 			}
 
 			isColliding = true;
 		}
+
+		if (isOneWay) return false;
 
 		return isColliding;
 	}
@@ -99,6 +104,6 @@ namespace dae
 		const float downY{ posA.y - (posB.y + dimB.y) };
 		const float overlapY{ (std::fabsf(upY) < std::fabsf(downY)) ? upY : downY };
 
-		dir = glm::vec2(overlapX, overlapY);
+		dir = glm::vec2{ overlapX, overlapY };
 	}
 }

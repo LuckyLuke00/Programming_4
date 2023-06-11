@@ -29,7 +29,7 @@ namespace dae
 
 		void SetPickupType(PickupType type) { m_Type = type; }
 		void SetPosition(const glm::vec2& pos) { m_pTransformComponent->SetPosition(pos); }
-		void SetTexture(const std::string& filename) { m_pRenderTextureComponent->SetTexture(filename); }
+		void SetTexture(const std::string& filename);
 
 		static Subject<PickupType, int> m_OnPickup;
 

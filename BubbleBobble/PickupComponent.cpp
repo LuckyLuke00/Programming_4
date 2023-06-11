@@ -21,6 +21,12 @@ namespace dae
 		ScaleToLevelSize();
 	}
 
+	void PickupComponent::SetTexture(const std::string& filename)
+	{
+		m_pRenderTextureComponent->SetTexture(filename);
+		m_pColliderComponent->SetDimensions(m_pRenderTextureComponent->GetTextureSize());
+	}
+
 	void PickupComponent::OnTrigger(const GameObject* other)
 	{
 		if (!other || other->GetTag() != "Player") return;
