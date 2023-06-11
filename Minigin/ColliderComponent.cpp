@@ -23,6 +23,17 @@ namespace dae
 			if (pCollider == this)
 				continue;
 
+			// Check if the other collider is in the ignore list, or if this collider is in the other collider's ignore list
+			if (std::ranges::find(pCollider->GetIgnoreTags(), GetOwner()->GetTag()) != pCollider->GetIgnoreTags().end())
+			{
+				continue;
+			}
+
+			if (std::ranges::find(m_IgnoreTags, pCollider->GetOwner()->GetTag()) != m_IgnoreTags.end())
+			{
+				continue;
+			}
+
 			const auto& otherTransform{ pCollider->GetOwner()->GetTransformComponent() };
 			const auto& thisTransform{ GetOwner()->GetTransformComponent() };
 
@@ -37,7 +48,7 @@ namespace dae
 			if (pCollider->IsTrigger()) // Trigger
 			{
 				HandleTriggerCollision(pCollider);
-				return false;
+				return true;
 			}
 
 			CalculateOverlap(thisPos, thisDim, otherPos, otherDim, dir);
@@ -52,6 +63,15 @@ namespace dae
 		}
 
 		return false;
+	}
+
+	void ColliderComponent::AddIgnoreTag(const std::string& tag)
+	{
+		// Check if the tag is already in the list
+		auto it{ std::ranges::find(m_IgnoreTags, tag) };
+		if (it != m_IgnoreTags.end()) return;
+
+		m_IgnoreTags.emplace_back(tag);
 	}
 
 	bool ColliderComponent::CheckCollision(const glm::vec2& posA, const glm::vec2& dimA, const glm::vec2& posB, const glm::vec2& dimB) const

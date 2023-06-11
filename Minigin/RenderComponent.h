@@ -15,5 +15,10 @@ namespace dae
 		RenderComponent& operator=(RenderComponent&& other) noexcept = delete;
 
 		virtual void Render() = 0;
+
+		bool IsEnabled() const { return m_IsEnabled; }
+		void SetEnabled(bool enable) { m_IsEnabled = enable; }
+	private:
+		bool m_IsEnabled{ true };
 	};
 }

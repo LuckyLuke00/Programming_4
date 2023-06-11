@@ -31,6 +31,10 @@ namespace dae
 		GetRigidbodyComponent()->EnableGravity(true);
 	}
 
+	void MaitaBehavior::Kill()
+	{
+	}
+
 	void MaitaBehavior::HandleState()
 	{
 		if (GetRigidbodyComponent()->IsGrounded())

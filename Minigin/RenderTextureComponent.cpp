@@ -14,7 +14,7 @@ namespace dae
 
 	void RenderTextureComponent::Render()
 	{
-		if (!m_Texture) return;
+		if (!IsEnabled() || !m_Texture) return;
 
 		if (!m_pTransformComponent)
 		{

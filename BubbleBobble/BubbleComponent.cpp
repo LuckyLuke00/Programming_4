@@ -32,7 +32,13 @@ namespace dae
 
 	void BubbleComponent::Update()
 	{
-		if (!m_IsBlowing || m_IsPopped) return;
+		if (!m_IsBlowing) return;
+
+		if (m_pTrappedEnemy && m_pTrappedEnemy->IsDead())
+		{
+			PopBubble();
+			return;
+		}
 
 		// Move the bubble
 		const float dt{ Timer::GetDeltaSeconds() };
@@ -64,11 +70,25 @@ namespace dae
 	void BubbleComponent::OnTrigger(const GameObject* other)
 	{
 		if (!other) return;
+		if (m_pTrappedEnemy) return;
 		if (other->GetTag() != "Enemy") return;
 
 		// Other, contains an inherited class of EnemyBehavior, we need to get the EnemyBehavior component
 		m_pTrappedEnemy = other->GetComponent<EnemyBehavior>();
-		if (m_pTrappedEnemy) m_pTrappedEnemy->EnterBubble();
+		if (m_pTrappedEnemy)
+		{
+			m_pRenderSpriteComponent->SetEnabled(false);
+			m_pTrappedEnemy->EnterBubble();
+		}
+	}
+
+	void BubbleComponent::PopBubble()
+	{
+		GetOwner()->MarkForDelete();
+
+		if (!m_pTrappedEnemy) return;
+		if (!m_pTrappedEnemy->IsDead()) m_pTrappedEnemy->ExitBubble();
+		m_pTrappedEnemy = nullptr;
 	}
 
 	void BubbleComponent::HandleHorizontalMovement()
@@ -102,11 +122,7 @@ namespace dae
 		m_BubbleTimer += Timer::GetDeltaSeconds();
 		if (m_BubbleTimer >= m_BubbleTime)
 		{
-			m_pTrappedEnemy->ExitBubble();
-			m_pTrappedEnemy = nullptr;
-			// Mark for delete
-			//GetOwner()->SetActive(false);
-			GetOwner()->MarkForDelete();
+			PopBubble();
 		}
 	}
 }

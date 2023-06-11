@@ -145,16 +145,31 @@ void load()
 	walkZenChan.fps = 6;
 	walkZenChan.frames = 4;
 
+	dae::SpriteAnimation bubbleZenChan;
+	bubbleZenChan.rows = 1;
+	bubbleZenChan.cols = 3;
+	bubbleZenChan.fps = 6;
+	bubbleZenChan.frames = 3;
+
+	dae::SpriteAnimation deathZenChan;
+	deathZenChan.rows = 2;
+	deathZenChan.cols = 2;
+	deathZenChan.fps = 6;
+	deathZenChan.frames = 4;
+
 	// Zen-chan
 	auto zenChan{ std::make_unique<dae::GameObject>() };
-	zenChan->SetTag("Enemy");
 	auto zenChanComponent{ zenChan->AddComponent<dae::ZenChanBehavior>() };
 
 	// Zen-chan: Animation Textures
 	walkZenChan.SetTexture("Sprites/Enemies/ZenChan/zenchan_walk.png");
+	bubbleZenChan.SetTexture("Sprites/Enemies/ZenChan/zenchan_bubble.png");
+	deathZenChan.SetTexture("Sprites/Enemies/ZenChan/zenchan_death.png");
 
 	// Zen-chan: Add Animations
 	zenChanComponent->AddAnimation("Walk", walkZenChan);
+	zenChanComponent->AddAnimation("Bubble", bubbleZenChan);
+	zenChanComponent->AddAnimation("Death", deathZenChan);
 
 	gameScene.Add(std::move(zenChan));
 

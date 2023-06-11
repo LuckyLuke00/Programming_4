@@ -23,8 +23,10 @@ namespace dae
 
 		void Update() override;
 
+		bool IsDead() const override { return m_State == MaitaState::Death; }
 		void EnterBubble() override;
 		void ExitBubble() override;
+		void Kill() override;
 
 	private:
 		MaitaState m_State{ -1 };

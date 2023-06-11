@@ -27,13 +27,11 @@ namespace dae
 		void SetInitialVelocity(float velocity) { m_InitialVelocity = velocity; }
 		void AddAnimation(const std::string& name, const SpriteAnimation& animation);
 
-		bool IsPopped() const { return m_IsPopped; }
-
 		void BlowBubble(int direction);
 		void OnTrigger(const GameObject* other);
+		void PopBubble();
 
 	private:
-		bool m_IsPopped{ false };
 		bool m_IsBlowing{ false };
 		float m_InitialVelocity{ 500.f };
 		float m_Deceleration{ 1'000.f };

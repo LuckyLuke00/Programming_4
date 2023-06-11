@@ -14,7 +14,7 @@ namespace dae
 
 	void RenderSpriteComponent::Render()
 	{
-		if (!m_pCurrentAnimation || !m_pCurrentAnimation->m_Texture || !m_pTransformComponent) return;
+		if (!IsEnabled() || !m_pCurrentAnimation || !m_pCurrentAnimation->m_Texture || !m_pTransformComponent) return;
 
 		const auto pos{ m_pTransformComponent->GetWorldPosition() };
 

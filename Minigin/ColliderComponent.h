@@ -2,8 +2,7 @@
 #include "CollisionEvent.h"
 #include "Component.h"
 #include <functional>
-#include <glm/glm.hpp>
-#include <memory>
+#include <string>
 
 namespace dae
 {
@@ -40,6 +39,9 @@ namespace dae
 		void SetColliderType(const ColliderType& colliderType) { m_ColliderType = colliderType; }
 		void SetDimensions(const glm::vec2& dimensions) { m_Dimensions = dimensions; }
 
+		void AddIgnoreTag(const std::string& tag);
+		const std::vector<std::string>& GetIgnoreTags() const { return m_IgnoreTags; }
+
 	private:
 		bool m_IsTrigger{ false };
 
@@ -49,6 +51,7 @@ namespace dae
 		glm::vec2 m_Dimensions{ .0f, .0f };
 
 		std::function<void(const GameObject*)> m_pTriggerCallback{ nullptr };
+		std::vector<std::string> m_IgnoreTags{};
 
 		bool CheckCollision(const glm::vec2& posA, const glm::vec2& dimA, const glm::vec2& posB, const glm::vec2& dimB) const;
 		void HandleTriggerCollision(const ColliderComponent* pOther) const;

@@ -16,7 +16,9 @@ namespace dae
 		m_pColliderComponent{ pOwner->AddComponent<ColliderComponent>() },
 		m_pRigidbodyComponent{ pOwner->AddComponent<RigidbodyComponent>() }
 	{
+		pOwner->SetTag("Enemy");
 		m_pRigidbodyComponent->SetMaxVelocity({ m_Speed, m_JumpForce });
+		m_pColliderComponent->SetTriggerCallback(std::bind_front(&EnemyBehavior::OnTrigger, this));
 		ScaleToLevelSize();
 	}
 
@@ -63,5 +65,28 @@ namespace dae
 		// Subtract a quarter of the scale, so the player is centered
 		const float scale{ levelScale - (levelScale / 4.f) };
 		m_pTransformComponent->SetScale(scale); // Set the scale of the player based on the level scale
+	}
+
+	void EnemyBehavior::OnTrigger(const GameObject* other)
+	{
+		if (IsDead()) return; // Prevents the enemy from dying multiple times
+		if (!other || other->GetTag() != "Player") return;
+
+		m_pColliderComponent->AddIgnoreTag("Player");
+		m_pColliderComponent->AddIgnoreTag("Enemy");
+
+		const auto rb{ other->GetComponent<RigidbodyComponent>() };
+		if (rb)
+		{
+			// Launch in the opposite direction of the player
+			const auto& vel{ rb->GetVelocity() };
+			m_pRigidbodyComponent->SetVelocity({ GetJumpForce() * ((vel.x > .0f) ? 1.f : -1.f), -GetJumpForce() });
+		}
+
+		m_pRigidbodyComponent->EnableGravity(true);
+		m_pRigidbodyComponent->EnableFriction(false);
+		m_pColliderComponent->SetIsTrigger(false);
+
+		Kill();
 	}
 }

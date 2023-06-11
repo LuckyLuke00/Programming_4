@@ -32,8 +32,11 @@ namespace dae
 
 		void Update() override;
 
+		bool IsDead() const override { return m_State == ZenChanState::Death; }
 		void EnterBubble() override;
 		void ExitBubble() override;
+		void Kill() override;
+
 	private:
 		ZenChanState m_State{ -1 };
 
@@ -45,7 +48,7 @@ namespace dae
 		void HandleState();
 		void SetState(ZenChanState state);
 
-		void HandleSpriteFlip();
+		void HandleSpriteFlip() const;
 
 		// Movement
 		void HandleMovement();

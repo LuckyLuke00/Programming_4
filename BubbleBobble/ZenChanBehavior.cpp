@@ -24,18 +24,33 @@ namespace dae
 	{
 		SetState(ZenChanState::Bubble);
 		GetRigidbodyComponent()->EnableGravity(false);
+		GetColliderComponent()->SetIsTrigger(true);
 	}
 
 	void ZenChanBehavior::ExitBubble()
 	{
+		if (IsDead()) return;
+
 		SetState(ZenChanState::Walk);
 		GetRigidbodyComponent()->EnableGravity(true);
+		GetColliderComponent()->SetIsTrigger(false);
+	}
+
+	void ZenChanBehavior::Kill()
+	{
+		SetState(ZenChanState::Death);
 	}
 
 	void ZenChanBehavior::HandleState()
 	{
+		if (m_State == ZenChanState::Bubble) return;
 		if (GetRigidbodyComponent()->IsGrounded())
 		{
+			if (IsDead())
+			{
+				GetOwner()->MarkForDelete();
+				return;
+			}
 			SetState(ZenChanState::Walk);
 			HandleMovement();
 		}
@@ -55,6 +70,7 @@ namespace dae
 			GetRenderSpriteComponent()->SetAnimation("Bubble");
 			break;
 		case ZenChanState::Death:
+			GetRenderSpriteComponent()->SetAnimation("Death");
 			break;
 		case ZenChanState::Walk:
 			GetRenderSpriteComponent()->SetAnimation("Walk");
@@ -62,7 +78,7 @@ namespace dae
 		}
 	}
 
-	void ZenChanBehavior::HandleSpriteFlip()
+	void ZenChanBehavior::HandleSpriteFlip() const
 	{
 		const auto& velocity{ GetRigidbodyComponent()->GetVelocity() };
 

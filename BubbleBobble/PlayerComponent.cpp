@@ -35,6 +35,7 @@ namespace dae
 		SetupControllerInput();
 
 		pOwner->SetRenderOrder(INT_MAX);
+		pOwner->SetTag("Player");
 
 		Respawn();
 	}

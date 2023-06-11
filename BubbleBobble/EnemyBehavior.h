@@ -30,8 +30,10 @@ namespace dae
 		float GetSpeed() const { return m_Speed; }
 		float GetJumpForce() const { return m_JumpForce; }
 
+		virtual bool IsDead() const = 0;
 		virtual void EnterBubble() = 0;
 		virtual void ExitBubble() = 0;
+		virtual void Kill() = 0;
 
 		TransformComponent* GetTransformComponent() const { return m_pTransformComponent; }
 		RenderSpriteComponent* GetRenderSpriteComponent() const { return m_pRenderSpriteComponent; }
@@ -51,5 +53,6 @@ namespace dae
 		RigidbodyComponent* m_pRigidbodyComponent{ nullptr };
 
 		void ScaleToLevelSize();
+		void OnTrigger(const GameObject* other);
 	};
 }

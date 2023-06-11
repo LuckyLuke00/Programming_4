@@ -18,18 +18,8 @@ namespace dae
 		const float dt{ Timer::GetDeltaSeconds() };
 		if (m_GravityEnabled && m_Velocity.y < m_MaxVelocity.y) m_Velocity.y += m_Gravity * dt;
 
-		// Apply drag
-		if (m_Velocity.x > .0f)
-		{
-			m_Velocity.x -= m_Friction * dt;
-			if (m_Velocity.x < .0f) m_Velocity.x = .0f;
-		}
-		else if (m_Velocity.x < .0f)
-		{
-			m_Velocity.x += m_Friction * dt;
-			if (m_Velocity.x > .0f) m_Velocity.x = .0f;
-		}
-
+		// Apply friction
+		if (m_FrictionEnabled) ApplyFriction();
 		m_IsGrounded = false;
 
 		// Apply vertical movement
@@ -41,12 +31,14 @@ namespace dae
 		{
 			if (verticalCollisionDir.y > .0f)
 			{
+				m_IsGrounded = true;
+				if (m_pColliderComponent->IsTrigger()) return; // We still want ground detection for triggers
+
 				// Collision from below
 				m_pTransformComponent->Translate(.0f, -verticalCollisionDir.y);
 				m_Velocity.y = .0f;
-				m_IsGrounded = true;
 			}
-			else if (verticalCollisionDir.y < .0f)
+			else if (!m_pColliderComponent->IsTrigger() && verticalCollisionDir.y < .0f)
 			{
 				// Collision from above
 				m_pTransformComponent->Translate(.0f, -verticalCollisionDir.y);
@@ -61,6 +53,7 @@ namespace dae
 		glm::vec2 horizontalCollisionDir{};
 		if (m_pColliderComponent->IsColliding(horizontalCollisionDir))
 		{
+			if (m_pColliderComponent->IsTrigger()) return;
 			if (horizontalCollisionDir.x > .0f || horizontalCollisionDir.x < .0f)
 			{
 				// Collision from the right
@@ -76,5 +69,21 @@ namespace dae
 		m_Velocity += force;
 		m_Velocity.x = std::clamp(m_Velocity.x, -m_MaxVelocity.x, m_MaxVelocity.x);
 		m_Velocity.y = std::clamp(m_Velocity.y, -m_MaxVelocity.y, m_MaxVelocity.y);
+	}
+
+	void RigidbodyComponent::ApplyFriction()
+	{
+		const float dt{ Timer::GetDeltaSeconds() };
+
+		if (m_Velocity.x > .0f)
+		{
+			m_Velocity.x -= m_Friction * dt;
+			if (m_Velocity.x < .0f) m_Velocity.x = .0f;
+		}
+		else if (m_Velocity.x < .0f)
+		{
+			m_Velocity.x += m_Friction * dt;
+			if (m_Velocity.x > .0f) m_Velocity.x = .0f;
+		}
 	}
 }
