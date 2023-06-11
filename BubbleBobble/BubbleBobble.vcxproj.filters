@@ -20,6 +20,9 @@
     <Filter Include="Core\Managers">
       <UniqueIdentifier>{a3985efc-be50-4da0-9013-ef983e3d1af2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Components\Enemies">
+      <UniqueIdentifier>{15a30189-215a-4871-b153-92136af25098}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LevelLoader.cpp">
@@ -49,9 +52,6 @@
     <ClCompile Include="LoadNextLevelCommand.cpp">
       <Filter>Core\Commands</Filter>
     </ClCompile>
-    <ClCompile Include="ZenChanBehavior.cpp">
-      <Filter>Core\Components</Filter>
-    </ClCompile>
     <ClCompile Include="BubbleComponent.cpp">
       <Filter>Core\Components</Filter>
     </ClCompile>
@@ -60,6 +60,15 @@
     </ClCompile>
     <ClCompile Include="BlowBubbleCommand.cpp">
       <Filter>Core\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBehavior.cpp">
+      <Filter>Core\Components\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="ZenChanBehavior.cpp">
+      <Filter>Core\Components\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="MaitaBehavior.cpp">
+      <Filter>Core\Components\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -90,14 +99,20 @@
     <ClInclude Include="LoadNextLevelCommand.h">
       <Filter>Core\Commands</Filter>
     </ClInclude>
-    <ClInclude Include="ZenChanBehavior.h">
-      <Filter>Core\Components</Filter>
-    </ClInclude>
     <ClInclude Include="BubbleComponent.h">
       <Filter>Core\Components</Filter>
     </ClInclude>
     <ClInclude Include="BlowBubbleCommand.h">
       <Filter>Core\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBehavior.h">
+      <Filter>Core\Components\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="ZenChanBehavior.h">
+      <Filter>Core\Components\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="MaitaBehavior.h">
+      <Filter>Core\Components\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

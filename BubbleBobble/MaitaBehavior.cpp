@@ -1,49 +1,48 @@
-#include "ZenChanBehavior.h"
-#include "ColliderComponent.h"
+#include "MaitaBehavior.h"
+#include "Renderer.h"
+#include "TransformComponent.h"
 #include "RenderSpriteComponent.h"
 #include "RigidbodyComponent.h"
-#include "GameObject.h"
-#include "TransformComponent.h"
 #include "GameManager.h"
-#include "Renderer.h"
+#include <glm/glm.hpp>
 
 namespace dae
 {
-	ZenChanBehavior::ZenChanBehavior(GameObject* pOwner) :
+	MaitaBehavior::MaitaBehavior(GameObject* pOwner) :
 		EnemyBehavior{ pOwner }
 	{
 		Spawn(glm::vec2{ 200.f, 200.f });
 	}
 
-	void ZenChanBehavior::Update()
+	void MaitaBehavior::Update()
 	{
 		HandleState();
 	}
 
-	void ZenChanBehavior::EnterBubble()
+	void MaitaBehavior::EnterBubble()
 	{
-		SetState(ZenChanState::Bubble);
+		SetState(MaitaState::Bubble);
 		GetRigidbodyComponent()->EnableGravity(false);
 	}
 
-	void ZenChanBehavior::ExitBubble()
+	void MaitaBehavior::ExitBubble()
 	{
-		SetState(ZenChanState::Walk);
+		SetState(MaitaState::Walk);
 		GetRigidbodyComponent()->EnableGravity(true);
 	}
 
-	void ZenChanBehavior::HandleState()
+	void MaitaBehavior::HandleState()
 	{
 		if (GetRigidbodyComponent()->IsGrounded())
 		{
-			SetState(ZenChanState::Walk);
+			SetState(MaitaState::Walk);
 			HandleMovement();
 		}
 
 		HandleSpriteFlip();
 	}
 
-	void ZenChanBehavior::SetState(ZenChanState state)
+	void MaitaBehavior::SetState(MaitaState state)
 	{
 		if (m_State == state) return;
 
@@ -51,18 +50,18 @@ namespace dae
 
 		switch (m_State)
 		{
-		case ZenChanState::Bubble:
+		case MaitaState::Bubble:
 			GetRenderSpriteComponent()->SetAnimation("Bubble");
 			break;
-		case ZenChanState::Death:
+		case MaitaState::Death:
 			break;
-		case ZenChanState::Walk:
+		case MaitaState::Walk:
 			GetRenderSpriteComponent()->SetAnimation("Walk");
 			break;
 		}
 	}
 
-	void ZenChanBehavior::HandleSpriteFlip()
+	void MaitaBehavior::HandleSpriteFlip()
 	{
 		const auto& velocity{ GetRigidbodyComponent()->GetVelocity() };
 
@@ -76,12 +75,12 @@ namespace dae
 		}
 	}
 
-	void ZenChanBehavior::HandleMovement()
+	void MaitaBehavior::HandleMovement()
 	{
 		FindClosestTarget();
 		SeekTarget();
 	}
-	void ZenChanBehavior::FindClosestTarget()
+	void MaitaBehavior::FindClosestTarget()
 	{
 		const auto& pos{ GetTransformComponent()->GetWorldPosition() };
 		const auto& targets{ GameManager::GetInstance().GetPlayers() };
@@ -106,7 +105,7 @@ namespace dae
 		}
 	}
 
-	void ZenChanBehavior::SeekTarget()
+	void MaitaBehavior::SeekTarget()
 	{
 		if (!GetRigidbodyComponent()->IsGrounded()) return;
 

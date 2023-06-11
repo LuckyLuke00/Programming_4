@@ -6,6 +6,7 @@
 #include "Timer.h"
 #include "SceneManager.h"
 #include "Scene.h"
+#include "EnemyBehavior.h"
 
 #include <iostream>
 namespace dae
@@ -36,6 +37,7 @@ namespace dae
 		// Move the bubble
 		const float dt{ Timer::GetDeltaSeconds() };
 		m_pTransformComponent->Translate(m_Velocity * dt);
+		if (m_pTrappedEnemy) m_pTrappedEnemy->GetTransformComponent()->SetPosition(m_pTransformComponent->GetWorldPosition());
 
 		HandleHorizontalMovement();
 		HandleVerticalMovement();
@@ -61,10 +63,12 @@ namespace dae
 
 	void BubbleComponent::OnTrigger(const GameObject* other)
 	{
-		// If tag is not enemy, return
+		if (!other) return;
 		if (other->GetTag() != "Enemy") return;
 
-		std::cout << "BubbleComponent::OnTriggerEnter: " << other->GetTag() << '\n';
+		// Other, contains an inherited class of EnemyBehavior, we need to get the EnemyBehavior component
+		m_pTrappedEnemy = other->GetComponent<EnemyBehavior>();
+		if (m_pTrappedEnemy) m_pTrappedEnemy->EnterBubble();
 	}
 
 	void BubbleComponent::HandleHorizontalMovement()
@@ -98,6 +102,8 @@ namespace dae
 		m_BubbleTimer += Timer::GetDeltaSeconds();
 		if (m_BubbleTimer >= m_BubbleTime)
 		{
+			m_pTrappedEnemy->ExitBubble();
+			m_pTrappedEnemy = nullptr;
 			// Mark for delete
 			//GetOwner()->SetActive(false);
 			GetOwner()->MarkForDelete();

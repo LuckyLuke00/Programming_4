@@ -1,5 +1,7 @@
 #pragma once
 #include "Component.h"
+#include "TransformComponent.h"
+#include "EnemyBehavior.h"
 #include <string>
 #include <glm/glm.hpp>
 
@@ -8,7 +10,6 @@ namespace dae
 	class ColliderComponent;
 	class RenderSpriteComponent;
 	class RigidbodyComponent;
-	class TransformComponent;
 	struct SpriteAnimation;
 
 	enum class ZenChanState
@@ -18,7 +19,7 @@ namespace dae
 		Walk
 	};
 
-	class ZenChanBehavior final : public Component
+	class ZenChanBehavior final : public EnemyBehavior
 	{
 	public:
 		explicit ZenChanBehavior(GameObject* pOwner);
@@ -31,32 +32,24 @@ namespace dae
 
 		void Update() override;
 
-		void SetSpeed(float speed);
-		void SetJumpForce(float jumpForce);
-
-		void AddAnimation(const std::string& name, const SpriteAnimation& animation);
+		void EnterBubble() override;
+		void ExitBubble() override;
 	private:
 		ZenChanState m_State{ -1 };
 
-		TransformComponent* m_pTransformComponent{ nullptr };
-		RenderSpriteComponent* m_pRenderSpriteComponent{ nullptr };
-		ColliderComponent* m_pColliderComponent{ nullptr };
-		RigidbodyComponent* m_pRigidbodyComponent{ nullptr };
-
-		glm::vec2 m_TargetPos{};
-		glm::vec2 m_DirectionToTarget{};
-
-		float m_Speed{ 50.f };
-		float m_JumpForce{ 130.f };
-
 		float m_JumpThreshold{ 50.f };
+
+		glm::vec2 m_DirectionToTarget{ .0f, .0f };
+		glm::vec2 m_TargetPos{ .0f, .0f };
 
 		void HandleState();
 		void SetState(ZenChanState state);
-		void HandleMovement();
+
 		void HandleSpriteFlip();
+
+		// Movement
+		void HandleMovement();
 		void FindClosestTarget();
 		void SeekTarget();
-		void Spawn();
 	};
 }

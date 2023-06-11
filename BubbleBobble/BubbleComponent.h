@@ -8,6 +8,7 @@ namespace dae
 	class TransformComponent;
 	class RenderSpriteComponent;
 	class ColliderComponent;
+	class EnemyBehavior;
 	struct SpriteAnimation;
 
 	class BubbleComponent final : public Component
@@ -47,6 +48,7 @@ namespace dae
 		TransformComponent* m_pTransformComponent{ nullptr };
 		RenderSpriteComponent* m_pRenderSpriteComponent{ nullptr };
 		ColliderComponent* m_pColliderComponent{ nullptr };
+		EnemyBehavior* m_pTrappedEnemy{ nullptr };
 
 		void HandleHorizontalMovement();
 		void HandleVerticalMovement();

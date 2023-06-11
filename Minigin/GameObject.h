@@ -70,9 +70,19 @@ namespace dae
 	template<typename T>
 	inline T* GameObject::GetComponent() const
 	{
-		if (const auto iter{ m_Components.find(typeid(T)) }; iter != m_Components.end())
+		//if (const auto iter{ m_Components.find(typeid(T)) }; iter != m_Components.end())
+		//{
+		//	return dynamic_cast<T*>(iter->second.get());
+		//}
+		//return nullptr;
+
+		// With this we can get base class components from derived classes
+		for (const auto& [type, component] : m_Components)
 		{
-			return dynamic_cast<T*>(iter->second.get());
+			if (const auto castedComponent{ dynamic_cast<T*>(component.get()) })
+			{
+				return castedComponent;
+			}
 		}
 		return nullptr;
 	}

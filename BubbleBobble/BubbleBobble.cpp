@@ -19,6 +19,7 @@
 #include "SDLSoundSystem.h"
 #include "TextComponent.h"
 #include "ZenChanBehavior.h"
+#include "MaitaBehavior.h"
 
 #define GAME_SCENE
 #define LEVEL

@@ -164,10 +164,12 @@
     <ClCompile Include="BlowBubbleCommand.cpp" />
     <ClCompile Include="BubbleBobble.cpp" />
     <ClCompile Include="BubbleComponent.cpp" />
+    <ClCompile Include="EnemyBehavior.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="LoadNextLevelCommand.cpp" />
+    <ClCompile Include="MaitaBehavior.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="PlaySoundCommand.cpp" />
     <ClCompile Include="RigidbodyJumpCommand.cpp" />
@@ -178,10 +180,12 @@
     <ClInclude Include="..\Minigin\RigidbodyMoveCommand.h" />
     <ClInclude Include="BlowBubbleCommand.h" />
     <ClInclude Include="BubbleComponent.h" />
+    <ClInclude Include="EnemyBehavior.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="LoadNextLevelCommand.h" />
+    <ClInclude Include="MaitaBehavior.h" />
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="PlaySoundCommand.h" />
     <ClInclude Include="RigidbodyJumpCommand.h" />
