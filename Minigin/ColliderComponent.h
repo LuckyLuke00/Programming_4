@@ -31,11 +31,9 @@ namespace dae
 		bool IsTrigger() const { return m_IsTrigger; }
 
 		void SetIsTrigger(bool isTrigger) { m_IsTrigger = isTrigger; }
-		void SetTriggerCallback(const std::function<void(GameObject*, GameObject*)>& callback) { m_pTriggerCallback = callback; }
-		std::function<void(GameObject*, GameObject*)> GetTriggerCallback() const { return m_pTriggerCallback; }
+		void SetTriggerCallback(const std::function<void(const GameObject*)>& callback) { m_pTriggerCallback = callback; }
+		std::function<void(const GameObject*)> GetTriggerCallback() const { return m_pTriggerCallback; }
 
-		// Getter for the position
-		CollisionEvent* GetCollisionEvent() const { return m_pCollisionEvent.get(); }
 		const ColliderType& GetColliderType() const { return m_ColliderType; }
 		const glm::vec2& GetDimensions() const { return m_Dimensions; }
 
@@ -50,7 +48,10 @@ namespace dae
 		glm::vec2 m_CollisionDirection{ .0f, .0f };
 		glm::vec2 m_Dimensions{ .0f, .0f };
 
-		std::unique_ptr<CollisionEvent> m_pCollisionEvent{ nullptr };
-		std::function<void(GameObject*, GameObject*)> m_pTriggerCallback{ nullptr };
+		std::function<void(const GameObject*)> m_pTriggerCallback{ nullptr };
+
+		bool CheckCollision(const glm::vec2& posA, const glm::vec2& dimA, const glm::vec2& posB, const glm::vec2& dimB) const;
+		void HandleTriggerCollision(const ColliderComponent* pOther) const;
+		void CalculateOverlap(const glm::vec2& posA, const glm::vec2& dimA, const glm::vec2& posB, const glm::vec2& dimB, glm::vec2& dir) const;
 	};
 }

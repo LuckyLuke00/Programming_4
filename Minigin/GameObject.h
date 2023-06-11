@@ -3,6 +3,7 @@
 #include "TransformComponent.h"
 #include <unordered_map>
 #include <typeindex>
+#include <string>
 
 namespace dae
 {
@@ -41,6 +42,9 @@ namespace dae
 		void MarkForDelete() { m_MarkedForDelete = true; }
 		bool IsMarkedForDelete() const { return m_MarkedForDelete; }
 
+		void SetTag(const char* tag) { m_Tag = tag; }
+		std::string GetTag() const { return m_Tag; }
+
 		// Getters
 		const std::vector<GameObject*>& GetChildren() const { return m_Children; }
 		TransformComponent* GetTransformComponent() const { return m_pTransformComponent; }
@@ -51,6 +55,7 @@ namespace dae
 		template <typename T> bool HasComponent() const;
 
 	private:
+		std::string m_Tag{ "" };
 		int m_RenderOrder{ 0 };
 		bool m_MarkedForDelete{ false };
 		bool m_IsActive{ true };

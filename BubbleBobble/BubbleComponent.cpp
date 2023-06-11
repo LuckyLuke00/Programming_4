@@ -7,6 +7,7 @@
 #include "SceneManager.h"
 #include "Scene.h"
 
+#include <iostream>
 namespace dae
 {
 	BubbleComponent::BubbleComponent(GameObject* pOwner) :
@@ -25,6 +26,7 @@ namespace dae
 		m_pTransformComponent->SetScale(scale); // Set the scale of the player based on the level scale
 
 		m_pColliderComponent->SetIsTrigger(true);
+		m_pColliderComponent->SetTriggerCallback(std::bind_front(&BubbleComponent::OnTrigger, this));
 	}
 
 	void BubbleComponent::Update()
@@ -55,6 +57,14 @@ namespace dae
 		// Set the velocity of the bubble
 		m_Velocity.x = m_Direction * m_InitialVelocity;
 		m_Velocity.y = 0;
+	}
+
+	void BubbleComponent::OnTrigger(const GameObject* other)
+	{
+		// If tag is not enemy, return
+		if (other->GetTag() != "Enemy") return;
+
+		std::cout << "BubbleComponent::OnTriggerEnter: " << other->GetTag() << '\n';
 	}
 
 	void BubbleComponent::HandleHorizontalMovement()

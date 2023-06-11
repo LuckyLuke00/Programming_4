@@ -146,6 +146,7 @@ void load()
 
 	// Zen-chan
 	auto zenChan{ std::make_unique<dae::GameObject>() };
+	zenChan->SetTag("Enemy");
 	auto zenChanComponent{ zenChan->AddComponent<dae::ZenChanBehavior>() };
 
 	// Zen-chan: Animation Textures

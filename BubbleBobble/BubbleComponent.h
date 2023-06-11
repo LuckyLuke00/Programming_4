@@ -29,6 +29,8 @@ namespace dae
 		bool IsPopped() const { return m_IsPopped; }
 
 		void BlowBubble(int direction);
+		void OnTrigger(const GameObject* other);
+
 	private:
 		bool m_IsPopped{ false };
 		bool m_IsBlowing{ false };
