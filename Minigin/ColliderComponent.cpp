@@ -20,6 +20,7 @@ namespace dae
 	{
 		bool isColliding{ false }; // Wait until the end to return, so we can check for triggers first
 		bool isOneWay{ false };
+		bool isTrigger{ false };
 
 		const ColliderComponent* pCollidedWith{ nullptr };
 
@@ -55,7 +56,8 @@ namespace dae
 			if (pCollider->IsTrigger())
 			{
 				HandleTriggerCollision(pCollider);
-				return false;
+				isTrigger = true;
+				continue;
 			}
 
 			CalculateOverlap(thisPos, thisDim, otherPos, otherDim, dir);
@@ -70,7 +72,7 @@ namespace dae
 			isColliding = true;
 		}
 
-		if (isOneWay) return false;
+		if (isTrigger || isOneWay) return false;
 
 		if (isColliding)
 		{

@@ -87,11 +87,11 @@ namespace dae
 
 	void BubbleComponent::PopBubble()
 	{
-		GetOwner()->MarkForDelete();
-
 		if (!m_pTrappedEnemy) return;
 		if (!m_pTrappedEnemy->IsDead()) m_pTrappedEnemy->ExitBubble();
 		m_pTrappedEnemy = nullptr;
+
+		GetOwner()->MarkForDelete();
 	}
 
 	void BubbleComponent::HandleHorizontalMovement()

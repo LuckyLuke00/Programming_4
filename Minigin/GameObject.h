@@ -36,7 +36,7 @@ namespace dae
 		void SetActive(bool isActive) { m_IsActive = isActive; }
 		bool IsActive() const { return m_IsActive; }
 
-		void SetRenderOrder(int order) { m_RenderOrder = order; }
+		void SetRenderOrder(int order);
 		int GetRenderOrder() const { return m_RenderOrder; }
 
 		void MarkForDelete() { m_MarkedForDelete = true; }

@@ -23,6 +23,8 @@ namespace dae
 
 	void MaitaBehavior::EnterBubble()
 	{
+		if (m_State == MaitaState::Bubble) return;
+
 		SetState(MaitaState::Bubble);
 		GetRigidbodyComponent()->EnableGravity(false);
 		GetColliderComponent()->SetIsTrigger(true);

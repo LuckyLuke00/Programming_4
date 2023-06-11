@@ -23,6 +23,8 @@ namespace dae
 
 	void ZenChanBehavior::EnterBubble()
 	{
+		if (m_State == ZenChanState::Bubble) return;
+
 		SetState(ZenChanState::Bubble);
 		GetRigidbodyComponent()->EnableGravity(false);
 		GetColliderComponent()->SetIsTrigger(true);

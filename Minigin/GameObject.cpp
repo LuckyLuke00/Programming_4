@@ -96,3 +96,9 @@ void dae::GameObject::RemoveChild(GameObject* child)
 		child->m_pParent = nullptr;
 	}
 }
+
+void dae::GameObject::SetRenderOrder(int order)
+{
+	m_RenderOrder = order;
+	SceneManager::GetInstance().GetActiveScene()->SortObjects();
+}
