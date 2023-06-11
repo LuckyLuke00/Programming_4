@@ -43,6 +43,16 @@ namespace dae
 		m_Text = text;
 		m_NeedsUpdate = true;
 	}
+	glm::vec2 TextComponent::GetTextSize() const
+	{
+		if (m_Text.empty()) return glm::vec2{ 0, 0 };
+
+		int width{};
+		int height{};
+		TTF_SizeText(m_Font->GetFont(), m_Text.c_str(), &width, &height);
+		return glm::vec2{ width, height };
+	}
+
 	void TextComponent::SetFont(const std::string& file, unsigned int size)
 	{
 		m_Font = ResourceManager::GetInstance().LoadFont(file, size);

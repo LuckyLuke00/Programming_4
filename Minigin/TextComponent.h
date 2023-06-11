@@ -3,6 +3,7 @@
 #include <memory>
 #include <SDL_ttf.h>
 #include <string>
+#include <glm/vec2.hpp>
 
 namespace dae
 {
@@ -25,6 +26,8 @@ namespace dae
 		void SetColor(const SDL_Color& color) { m_Color = color; }
 		void SetFont(const std::string& file, unsigned int size);
 		void SetText(const std::string& text);
+
+		glm::vec2 GetTextSize() const;
 	private:
 		bool m_NeedsUpdate{ false };
 		RenderTextureComponent* m_pRenderComponent{ nullptr };

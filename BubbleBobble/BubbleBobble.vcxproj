@@ -166,6 +166,7 @@
     <ClCompile Include="BubbleComponent.cpp" />
     <ClCompile Include="EnemyBehavior.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="HUDComponent.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="LoadNextLevelCommand.cpp" />
@@ -174,6 +175,7 @@
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="PlaySoundCommand.cpp" />
     <ClCompile Include="RigidbodyJumpCommand.cpp" />
+    <ClCompile Include="ScoreDisplayComponent.cpp" />
     <ClCompile Include="ZenChanBehavior.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +185,7 @@
     <ClInclude Include="BubbleComponent.h" />
     <ClInclude Include="EnemyBehavior.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="HUDComponent.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="LoadNextLevelCommand.h" />
@@ -191,6 +194,7 @@
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="PlaySoundCommand.h" />
     <ClInclude Include="RigidbodyJumpCommand.h" />
+    <ClInclude Include="ScoreDisplayComponent.h" />
     <ClInclude Include="ZenChanBehavior.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

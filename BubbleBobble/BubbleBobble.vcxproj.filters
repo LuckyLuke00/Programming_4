@@ -23,6 +23,9 @@
     <Filter Include="Core\Components\Enemies">
       <UniqueIdentifier>{15a30189-215a-4871-b153-92136af25098}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Components\HUD">
+      <UniqueIdentifier>{c060f4ab-6bbf-4a4f-929e-b0ad91b49887}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LevelLoader.cpp">
@@ -73,6 +76,12 @@
     <ClCompile Include="PickupComponent.cpp">
       <Filter>Core\Components</Filter>
     </ClCompile>
+    <ClCompile Include="HUDComponent.cpp">
+      <Filter>Core\Components\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreDisplayComponent.cpp">
+      <Filter>Core\Components\HUD</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LevelLoader.h">
@@ -119,6 +128,12 @@
     </ClInclude>
     <ClInclude Include="PickupComponent.h">
       <Filter>Core\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="HUDComponent.h">
+      <Filter>Core\Components\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreDisplayComponent.h">
+      <Filter>Core\Components\HUD</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -20,12 +20,14 @@
 #include "TextComponent.h"
 #include "ZenChanBehavior.h"
 #include "MaitaBehavior.h"
+#include "HUDComponent.h"
 
 #define GAME_SCENE
 #define LEVEL
 #define PLAYER
 #define ENEMY
-#define FPS_COUNTER
+#define HUD
+//#define FPS_COUNTER
 
 void load()
 {
@@ -173,7 +175,17 @@ void load()
 
 	gameScene.Add(std::move(zenChan));
 
-#endif // DEBUG
+#endif // ENEMY
+
+#ifdef HUD
+
+	// Add HUD
+	auto hud{ std::make_unique<dae::GameObject>() };
+	hud->AddComponent<dae::HUDComponent>();
+
+	gameScene.Add(std::move(hud));
+
+#endif // HUD
 
 #ifdef FPS_COUNTER
 
