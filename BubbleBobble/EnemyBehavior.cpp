@@ -79,7 +79,7 @@ namespace dae
 		{
 			// Launch in the opposite direction of the player
 			const auto& vel{ rb->GetVelocity() };
-			m_pRigidbodyComponent->SetVelocity({ GetJumpForce() * ((vel.x > .0f) ? 1.f : -1.f), -GetJumpForce() });
+			m_pRigidbodyComponent->SetVelocity({ GetJumpForce() * .75f * ((vel.x > .0f) ? 1.f : -1.f), -GetJumpForce() * .75f });
 		}
 
 		m_pRigidbodyComponent->EnableGravity(true);

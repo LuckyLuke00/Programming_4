@@ -7,8 +7,8 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "EnemyBehavior.h"
+#include "Renderer.h"
 
-#include <iostream>
 namespace dae
 {
 	BubbleComponent::BubbleComponent(GameObject* pOwner) :
@@ -28,6 +28,7 @@ namespace dae
 
 		m_pColliderComponent->SetIsTrigger(true);
 		m_pColliderComponent->SetTriggerCallback(std::bind_front(&BubbleComponent::OnTrigger, this));
+		m_pColliderComponent->AddIgnoreTag("Player");
 	}
 
 	void BubbleComponent::Update()
@@ -58,6 +59,8 @@ namespace dae
 	void BubbleComponent::BlowBubble(int direction)
 	{
 		m_IsBlowing = true;
+
+		CalculateBounds();
 
 		// Store a -1 or 1 based on the direction
 		m_Direction = (direction < 0) ? -1.f : 1.f;
@@ -95,6 +98,14 @@ namespace dae
 	{
 		const float dt{ Timer::GetDeltaSeconds() };
 
+		// Check if the bubble is out of bounds
+		const float xPos{ m_pTransformComponent->GetWorldPosition().x };
+		if (xPos > m_MaxXPos || xPos < m_MinXPos)
+		{
+			m_Velocity.x = .0f;
+			return;
+		}
+
 		if (m_Velocity.x * m_Direction > FLT_EPSILON)
 		{
 			// Slow down the bubble
@@ -124,5 +135,22 @@ namespace dae
 		{
 			PopBubble();
 		}
+	}
+
+	void BubbleComponent::CalculateBounds()
+	{
+		int width;
+		int height;
+
+		Renderer::GetInstance().GetWindowSize(width, height);
+
+		const auto& level{ GameManager::GetInstance().GetCurrentLevel() };
+		if (!level) return;
+
+		const float levelScale{ level->GetLevelScale() };
+
+		// Subtract a quarter of the scale, so the player is centered
+		m_MinXPos = (m_LevelMargin * levelScale);
+		m_MaxXPos = static_cast<float>(width) - m_MinXPos - (m_pRenderSpriteComponent->GetFrameSize().x * levelScale);
 	}
 }

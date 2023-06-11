@@ -32,12 +32,16 @@ namespace dae
 		void PopBubble();
 
 	private:
+		float m_LevelMargin{ 16.f };
+		float m_MaxXPos{ 0.f };
+		float m_MinXPos{ 0.f };
+
 		bool m_IsBlowing{ false };
 		float m_InitialVelocity{ 500.f };
 		float m_Deceleration{ 1'000.f };
 		float m_Direction{ 1.f };
 		float m_RiseSpeed{ 100.f };
-		float m_MaxYPos{ 115.f };
+		float m_MaxYPos{ 125.f };
 
 		float m_BubbleTimer{ 0.f };
 		float m_BubbleTime{ 5.f };
@@ -50,5 +54,7 @@ namespace dae
 
 		void HandleHorizontalMovement();
 		void HandleVerticalMovement();
+
+		void CalculateBounds();
 	};
 }

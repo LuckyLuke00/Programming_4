@@ -46,7 +46,7 @@ namespace dae
 		void WrapAroundScreen();
 
 	private:
-		float m_Speed{ 50.f };
+		float m_Speed{ 40.f };
 		float m_JumpForce{ 130.f };
 
 		TransformComponent* m_pTransformComponent{ nullptr };
