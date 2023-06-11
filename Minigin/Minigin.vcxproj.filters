@@ -149,9 +149,6 @@
     <ClInclude Include="LoggingSoundSystem.h">
       <Filter>Core\Sound</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionEvent.h">
-      <Filter>Core\Events</Filter>
-    </ClInclude>
     <ClInclude Include="ColliderComponent.h">
       <Filter>Core\Components\Physics</Filter>
     </ClInclude>
@@ -252,9 +249,6 @@
     </ClCompile>
     <ClCompile Include="SDLSoundSystem.cpp">
       <Filter>Core\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionEvent.cpp">
-      <Filter>Core\Events</Filter>
     </ClCompile>
     <ClCompile Include="ColliderComponent.cpp">
       <Filter>Core\Components\Physics</Filter>

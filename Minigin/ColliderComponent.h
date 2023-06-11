@@ -1,8 +1,8 @@
 #pragma once
-#include "CollisionEvent.h"
 #include "Component.h"
 #include <functional>
 #include <string>
+#include <glm/vec2.hpp>
 
 namespace dae
 {

@@ -4,15 +4,22 @@
 #include "TextComponent.h"
 #include "ScoreDisplayComponent.h"
 #include "Renderer.h"
+#include <iostream>
 
 namespace dae
 {
 	HUDComponent::HUDComponent(GameObject* pOwner) :
 		Component{ pOwner }
 	{
+		PickupComponent::m_OnPickup.AddObserver(this);
+
 		CreateHighScoreText();
 		CreateScoreTextBub();
 		CreateScoreTextBob();
+	}
+
+	HUDComponent::~HUDComponent()
+	{
 	}
 
 	void HUDComponent::CreateHighScoreText()
@@ -58,5 +65,25 @@ namespace dae
 		m_pScoreTextBob->SetPosition(glm::vec2{ .0f, m_Margin });
 		m_pScoreTextBob->AlignRight();
 		m_pScoreTextBob->Offset(glm::vec2{ -m_Margin, .0f });
+	}
+
+	void HUDComponent::OnNotify(PickupType type, int playerId)
+	{
+		switch (type)
+		{
+		case PickupType::Fries:
+			std::cout << "Fries: " << playerId << std::endl;
+			break;
+		case PickupType::Watermelon:
+			std::cout << "Watermelon: " << playerId << std::endl;
+			break;
+		default:
+			break;
+		}
+	}
+
+	void HUDComponent::OnSubjectDestroy()
+	{
+		PickupComponent::m_OnPickup.RemoveObserver(this);
 	}
 }

@@ -1,5 +1,7 @@
 #pragma once
 #include "Component.h"
+#include "Observer.h"
+#include "PickupComponent.h"
 #include <utility>
 
 namespace dae
@@ -7,11 +9,11 @@ namespace dae
 	class TextComponent;
 	class ScoreDisplayComponent;
 
-	class HUDComponent final : public Component
+	class HUDComponent final : public Component, public Observer<PickupType, int>
 	{
 	public:
 		explicit HUDComponent(GameObject* pOwner);
-		~HUDComponent() override = default;
+		~HUDComponent() override;
 
 		HUDComponent(const HUDComponent& other) = delete;
 		HUDComponent(HUDComponent&& other) noexcept = delete;
@@ -23,6 +25,10 @@ namespace dae
 		void CreateScoreTextBob();
 
 	private:
+
+		void OnNotify(PickupType type, int playerId) override;
+		void OnSubjectDestroy() override;
+
 		float m_Margin{ 5.f };
 		ScoreDisplayComponent* m_pHighScoreText{};
 		ScoreDisplayComponent* m_pScoreTextBub{};

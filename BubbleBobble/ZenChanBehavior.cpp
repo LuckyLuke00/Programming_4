@@ -51,7 +51,6 @@ namespace dae
 		auto pickup{ watermelon->AddComponent<PickupComponent>() };
 
 		pickup->SetPickupType(PickupType::Watermelon);
-		pickup->SetPoints(100);
 		pickup->SetPosition(GetTransformComponent()->GetWorldPosition());
 		pickup->SetTexture("Sprites/Enemies/ZenChan/zenchan_pickup.png");
 

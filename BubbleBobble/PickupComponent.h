@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "TransformComponent.h"
 #include "RenderTextureComponent.h"
+#include "Subject.h"
 
 namespace dae
 {
@@ -27,21 +28,19 @@ namespace dae
 		PickupComponent& operator=(PickupComponent&& other) noexcept = delete;
 
 		void SetPickupType(PickupType type) { m_Type = type; }
-		void SetPoints(int points) { m_Points = points; }
 		void SetPosition(const glm::vec2& pos) { m_pTransformComponent->SetPosition(pos); }
 		void SetTexture(const std::string& filename) { m_pRenderTextureComponent->SetTexture(filename); }
 
-		int PickUp() const;
+		static Subject<PickupType, int> m_OnPickup;
 
 	private:
-		int m_Points{ 0 };
 		PickupType m_Type{ -1 };
 
 		TransformComponent* m_pTransformComponent{ nullptr };
 		RenderTextureComponent* m_pRenderTextureComponent{ nullptr };
 		ColliderComponent* m_pColliderComponent{ nullptr };
 
-		void OnTrigger(const GameObject* other) const;
+		void OnTrigger(const GameObject* other);
 		void ScaleToLevelSize();
 	};
 }

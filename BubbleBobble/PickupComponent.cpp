@@ -6,6 +6,8 @@
 
 namespace dae
 {
+	Subject<PickupType, int> PickupComponent::m_OnPickup{};
+
 	PickupComponent::PickupComponent(GameObject* pOwner) :
 		Component{ pOwner },
 		m_pTransformComponent{ pOwner->AddComponent<TransformComponent>() },
@@ -19,16 +21,18 @@ namespace dae
 		ScaleToLevelSize();
 	}
 
-	int PickupComponent::PickUp() const
-	{
-		GetOwner()->MarkForDelete();
-		return m_Points;
-	}
-
-	void PickupComponent::OnTrigger(const GameObject* other) const
+	void PickupComponent::OnTrigger(const GameObject* other)
 	{
 		if (!other || other->GetTag() != "Player") return;
-		PickUp();
+
+		// Get the player component
+		if (const auto player{ other->GetComponent<PlayerComponent>() })
+		{
+			m_OnPickup.Notify(m_Type, player->GetPlayerId());
+		}
+		else return;
+
+		GetOwner()->MarkForDelete();
 	}
 
 	void PickupComponent::ScaleToLevelSize()

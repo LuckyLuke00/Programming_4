@@ -43,6 +43,8 @@ namespace dae
 		void SetPosition(const glm::vec2& pos) { m_pTransformComponent->SetPosition(pos); }
 		glm::vec2 GetPosition() const { return m_pTransformComponent->GetWorldPosition(); }
 
+		int GetPlayerId() const { return m_PlayerId; }
+
 		// Getters and setters for the state
 		PlayerState GetState() const { return m_State; }
 		void SetState(PlayerState state);
