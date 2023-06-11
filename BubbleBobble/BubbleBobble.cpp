@@ -140,7 +140,7 @@ void load()
 #endif // PLAYER
 
 #ifdef ENEMY
-	// Enemy Animations
+	// Zen-chan Animations
 	dae::SpriteAnimation walkZenChan;
 	walkZenChan.rows = 2;
 	walkZenChan.cols = 2;
@@ -174,6 +174,41 @@ void load()
 	zenChanComponent->AddAnimation("Death", deathZenChan);
 
 	gameScene.Add(std::move(zenChan));
+
+	// Maita Animations
+	dae::SpriteAnimation walkMaita;
+	walkMaita.rows = 1;
+	walkMaita.cols = 5;
+	walkMaita.fps = 12;
+	walkMaita.frames = 5;
+
+	dae::SpriteAnimation bubbleMaita;
+	bubbleMaita.rows = 1;
+	bubbleMaita.cols = 3;
+	bubbleMaita.fps = 6;
+	bubbleMaita.frames = 3;
+
+	dae::SpriteAnimation deathMaita;
+	deathMaita.rows = 2;
+	deathMaita.cols = 2;
+	deathMaita.fps = 6;
+	deathMaita.frames = 4;
+
+	// Maita
+	auto maita{ std::make_unique<dae::GameObject>() };
+	auto maitaComponent{ maita->AddComponent<dae::MaitaBehavior>() };
+
+	// Maita: Animation Textures
+	walkMaita.SetTexture("Sprites/Enemies/Maita/maita_walk.png");
+	bubbleMaita.SetTexture("Sprites/Enemies/Maita/maita_bubble.png");
+	deathMaita.SetTexture("Sprites/Enemies/Maita/maita_death.png");
+
+	// Maita: Add Animations
+	maitaComponent->AddAnimation("Walk", walkMaita);
+	maitaComponent->AddAnimation("Bubble", bubbleMaita);
+	maitaComponent->AddAnimation("Death", deathMaita);
+
+	gameScene.Add(std::move(maita));
 
 #endif // ENEMY
 

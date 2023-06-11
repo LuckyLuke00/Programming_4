@@ -3,11 +3,8 @@
 #include "RenderSpriteComponent.h"
 #include "RigidbodyComponent.h"
 #include "GameObject.h"
-#include "TransformComponent.h"
 #include "GameManager.h"
-#include "Renderer.h"
 #include "PickupComponent.h"
-#include "SceneManager.h"
 #include "Scene.h"
 
 namespace dae
@@ -151,7 +148,12 @@ namespace dae
 
 		// Check if we should change direction
 		// if not, just keep moving in the same direction
-		if (!isVerticalThreshold || !GetRigidbodyComponent()->IsMoving())
+		if (!GetRigidbodyComponent()->IsMoving())
+		{
+			// Choose a random direction
+			m_DirectionToTarget.x = (rand() % 2 == 0) ? -1.f : 1.f;
+		}
+		else if (!isVerticalThreshold)
 		{
 			m_DirectionToTarget.x = (m_TargetPos.x < pos.x) ? -1.f : 1.f;
 		}

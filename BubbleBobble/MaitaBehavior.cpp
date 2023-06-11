@@ -1,44 +1,70 @@
 #include "MaitaBehavior.h"
-#include "Renderer.h"
-#include "TransformComponent.h"
+#include "ColliderComponent.h"
+#include "GameManager.h"
 #include "RenderSpriteComponent.h"
 #include "RigidbodyComponent.h"
-#include "GameManager.h"
-#include <glm/glm.hpp>
+#include "PickupComponent.h"
+#include "GameObject.h"
+#include "Scene.h"
 
 namespace dae
 {
 	MaitaBehavior::MaitaBehavior(GameObject* pOwner) :
 		EnemyBehavior{ pOwner }
 	{
-		Spawn(glm::vec2{ 200.f, 200.f });
+		Spawn(glm::vec2{ 250.f, 200.f });
 	}
 
 	void MaitaBehavior::Update()
 	{
 		HandleState();
+		WrapAroundScreen();
 	}
 
 	void MaitaBehavior::EnterBubble()
 	{
 		SetState(MaitaState::Bubble);
 		GetRigidbodyComponent()->EnableGravity(false);
+		GetColliderComponent()->SetIsTrigger(true);
 	}
 
 	void MaitaBehavior::ExitBubble()
 	{
+		if (IsDead()) return;
+
 		SetState(MaitaState::Walk);
 		GetRigidbodyComponent()->EnableGravity(true);
+		GetColliderComponent()->SetIsTrigger(false);
 	}
 
 	void MaitaBehavior::Kill()
 	{
+		SetState(MaitaState::Death);
+	}
+
+	void MaitaBehavior::SpawnOnDeath() const
+	{
+		auto fries{ std::make_shared<dae::GameObject>() };
+		auto pickup{ fries->AddComponent<PickupComponent>() };
+
+		pickup->SetPickupType(PickupType::Fries);
+		pickup->SetPosition(GetTransformComponent()->GetWorldPosition());
+		pickup->SetTexture("Sprites/Enemies/Maita/maita_pickup.png");
+
+		SceneManager::GetInstance().GetActiveScene()->Add(fries);
 	}
 
 	void MaitaBehavior::HandleState()
 	{
+		if (m_State == MaitaState::Bubble) return;
 		if (GetRigidbodyComponent()->IsGrounded())
 		{
+			if (IsDead())
+			{
+				SpawnOnDeath();
+				GetOwner()->MarkForDelete();
+				return;
+			}
 			SetState(MaitaState::Walk);
 			HandleMovement();
 		}
@@ -58,6 +84,7 @@ namespace dae
 			GetRenderSpriteComponent()->SetAnimation("Bubble");
 			break;
 		case MaitaState::Death:
+			GetRenderSpriteComponent()->SetAnimation("Death");
 			break;
 		case MaitaState::Walk:
 			GetRenderSpriteComponent()->SetAnimation("Walk");
@@ -65,7 +92,7 @@ namespace dae
 		}
 	}
 
-	void MaitaBehavior::HandleSpriteFlip()
+	void MaitaBehavior::HandleSpriteFlip() const
 	{
 		const auto& velocity{ GetRigidbodyComponent()->GetVelocity() };
 
@@ -121,7 +148,12 @@ namespace dae
 
 		// Check if we should change direction
 		// if not, just keep moving in the same direction
-		if (!isVerticalThreshold || !GetRigidbodyComponent()->IsMoving())
+		if (!GetRigidbodyComponent()->IsMoving())
+		{
+			// Choose a random direction
+			m_DirectionToTarget.x = (rand() % 2 == 0) ? -1.f : 1.f;
+		}
+		else if (!isVerticalThreshold)
 		{
 			m_DirectionToTarget.x = (m_TargetPos.x < pos.x) ? -1.f : 1.f;
 		}

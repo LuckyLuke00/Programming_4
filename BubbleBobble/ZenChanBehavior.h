@@ -1,17 +1,8 @@
 #pragma once
-#include "Component.h"
-#include "TransformComponent.h"
 #include "EnemyBehavior.h"
-#include <string>
-#include <glm/glm.hpp>
 
 namespace dae
 {
-	class ColliderComponent;
-	class RenderSpriteComponent;
-	class RigidbodyComponent;
-	struct SpriteAnimation;
-
 	enum class ZenChanState
 	{
 		Bubble,

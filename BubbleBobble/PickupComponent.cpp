@@ -29,11 +29,12 @@ namespace dae
 
 	void PickupComponent::OnTrigger(const GameObject* other)
 	{
-		if (!other || other->GetTag() != "Player") return;
+		if (m_IsPickedUp || !other || other->GetTag() != "Player") return;
 
 		// Get the player component
 		if (const auto player{ other->GetComponent<PlayerComponent>() })
 		{
+			m_IsPickedUp = true;
 			m_OnPickup.Notify(m_Type, player->GetPlayerId());
 		}
 		else return;

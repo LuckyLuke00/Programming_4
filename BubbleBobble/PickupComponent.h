@@ -36,6 +36,8 @@ namespace dae
 	private:
 		PickupType m_Type{ -1 };
 
+		bool m_IsPickedUp{ false };
+
 		TransformComponent* m_pTransformComponent{ nullptr };
 		RenderTextureComponent* m_pRenderTextureComponent{ nullptr };
 		ColliderComponent* m_pColliderComponent{ nullptr };

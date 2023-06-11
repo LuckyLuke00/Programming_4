@@ -27,6 +27,7 @@ namespace dae
 		void EnterBubble() override;
 		void ExitBubble() override;
 		void Kill() override;
+		void SpawnOnDeath() const override;
 
 	private:
 		MaitaState m_State{ -1 };
@@ -39,7 +40,7 @@ namespace dae
 		void HandleState();
 		void SetState(MaitaState state);
 
-		void HandleSpriteFlip();
+		void HandleSpriteFlip() const;
 
 		// Movement
 		void HandleMovement();
