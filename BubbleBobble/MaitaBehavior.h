@@ -5,6 +5,7 @@ namespace dae
 {
 	enum class MaitaState
 	{
+		Attack,
 		Bubble,
 		Death,
 		Walk

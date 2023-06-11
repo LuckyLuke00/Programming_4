@@ -99,6 +99,12 @@ void load()
 	walk.fps = 12;
 	walk.frames = 5;
 
+	dae::SpriteAnimation death;
+	death.rows = 2;
+	death.cols = 2;
+	death.fps = 6;
+	death.frames = 4;
+
 	// Player One
 	auto playerOne{ std::make_shared<dae::GameObject>() };
 	auto PlayerOneComponent{ playerOne->AddComponent<dae::PlayerComponent>() };
@@ -108,12 +114,14 @@ void load()
 	idle.SetTexture("Sprites/Player/Bub/bub_walk.png");
 	jump.SetTexture("Sprites/Player/Bub/bub_jump.png");
 	walk.SetTexture("Sprites/Player/Bub/bub_walk.png");
+	death.SetTexture("Sprites/Player/Bub/bub_death.png");
 
 	// Player One: Add Animations
 	PlayerOneComponent->AddAnimation("Fall", fall);
 	PlayerOneComponent->AddAnimation("Idle", idle);
 	PlayerOneComponent->AddAnimation("Jump", jump);
 	PlayerOneComponent->AddAnimation("Walk", walk);
+	PlayerOneComponent->AddAnimation("Death", death);
 
 	gameScene.Add(playerOne);
 	dae::GameManager::GetInstance().AddPlayer(PlayerOneComponent);
@@ -127,12 +135,14 @@ void load()
 	idle.SetTexture("Sprites/Player/Bob/bob_walk.png");
 	jump.SetTexture("Sprites/Player/Bob/bob_jump.png");
 	walk.SetTexture("Sprites/Player/Bob/bob_walk.png");
+	death.SetTexture("Sprites/Player/Bob/bob_death.png");
 
 	// Player Two: Add Animations
 	playerTwoComponent->AddAnimation("Fall", fall);
 	playerTwoComponent->AddAnimation("Idle", idle);
 	playerTwoComponent->AddAnimation("Jump", jump);
 	playerTwoComponent->AddAnimation("Walk", walk);
+	playerTwoComponent->AddAnimation("Death", death);
 
 	gameScene.Add(playerTwo);
 	dae::GameManager::GetInstance().AddPlayer(playerTwoComponent);

@@ -33,6 +33,9 @@ namespace dae
 		void SetTriggerCallback(const std::function<void(const GameObject*)>& callback) { m_pTriggerCallback = callback; }
 		std::function<void(const GameObject*)> GetTriggerCallback() const { return m_pTriggerCallback; }
 
+		void SetCollisionCallback(const std::function<void(const GameObject*)>& callback) { m_pCollisionCallback = callback; }
+		std::function<void(const GameObject*)> GetCollisionCallback() const { return m_pCollisionCallback; }
+
 		const ColliderType& GetColliderType() const { return m_ColliderType; }
 		const glm::vec2& GetDimensions() const { return m_Dimensions; }
 
@@ -40,6 +43,7 @@ namespace dae
 		void SetDimensions(const glm::vec2& dimensions) { m_Dimensions = dimensions; }
 
 		void AddIgnoreTag(const std::string& tag);
+		void RemoveIgnoreTag(const std::string& tag);
 		const std::vector<std::string>& GetIgnoreTags() const { return m_IgnoreTags; }
 
 	private:
@@ -51,6 +55,7 @@ namespace dae
 		glm::vec2 m_Dimensions{ .0f, .0f };
 
 		std::function<void(const GameObject*)> m_pTriggerCallback{ nullptr };
+		std::function<void(const GameObject*)> m_pCollisionCallback{ nullptr };
 		std::vector<std::string> m_IgnoreTags{};
 
 		bool CheckCollision(const glm::vec2& posA, const glm::vec2& dimA, const glm::vec2& posB, const glm::vec2& dimB) const;

@@ -21,6 +21,8 @@ namespace dae
 		bool isColliding{ false }; // Wait until the end to return, so we can check for triggers first
 		bool isOneWay{ false };
 
+		const ColliderComponent* pCollidedWith{ nullptr };
+
 		for (const auto& pCollider : CollisionSystem::GetInstance().GetColliders())
 		{
 			if (pCollider == this)
@@ -48,6 +50,8 @@ namespace dae
 
 			if (!CheckCollision(thisPos, thisDim, otherPos, otherDim)) continue;
 
+			pCollidedWith = pCollider;
+
 			if (pCollider->IsTrigger())
 			{
 				HandleTriggerCollision(pCollider);
@@ -68,7 +72,14 @@ namespace dae
 
 		if (isOneWay) return false;
 
-		return isColliding;
+		if (isColliding)
+		{
+			const auto pCollisionCallback{ pCollidedWith->GetCollisionCallback() };
+			if (pCollisionCallback) pCollisionCallback(GetOwner());
+			return true;
+		}
+
+		return false;
 	}
 
 	void ColliderComponent::AddIgnoreTag(const std::string& tag)
@@ -78,6 +89,15 @@ namespace dae
 		if (it != m_IgnoreTags.end()) return;
 
 		m_IgnoreTags.emplace_back(tag);
+	}
+
+	void ColliderComponent::RemoveIgnoreTag(const std::string& tag)
+	{
+		// Check if the tag is in the list
+		auto it{ std::ranges::find(m_IgnoreTags, tag) };
+		if (it == m_IgnoreTags.end()) return;
+
+		m_IgnoreTags.erase(it);
 	}
 
 	bool ColliderComponent::CheckCollision(const glm::vec2& posA, const glm::vec2& dimA, const glm::vec2& posB, const glm::vec2& dimB) const

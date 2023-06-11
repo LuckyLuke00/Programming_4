@@ -125,6 +125,8 @@ namespace dae
 		float closestDistance{ FLT_MAX };
 		for (const auto& target : targets)
 		{
+			if (target->IsDead()) continue;
+
 			const auto& targetPos{ target->GetPosition() };
 			const float sqrDistance{ std::fabs((targetPos.x - pos.x) * (targetPos.x - pos.x) + (targetPos.y - pos.y) * (targetPos.y - pos.y)) };
 

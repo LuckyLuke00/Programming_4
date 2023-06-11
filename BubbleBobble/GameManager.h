@@ -27,6 +27,10 @@ namespace dae
 		int GetScore(int playerId) const { return playerId == 0 ? m_ScoreBub : m_ScoreBob; }
 		int GetHighScore() const { return m_HighScore; }
 
+		// Lives management
+		int GetLives(int playerId) const { return playerId == 0 ? m_LivesBub : m_LivesBob; }
+		void RemoveLife(int playerId) { playerId == 0 ? --m_LivesBub : --m_LivesBob; }
+
 		const Level* GetCurrentLevel() const;
 		const std::vector<PlayerComponent*>& GetPlayers() const { return m_pPlayers; }
 
@@ -37,6 +41,9 @@ namespace dae
 		int m_HighScore{ 0 };
 		int m_ScoreBob{ 0 };
 		int m_ScoreBub{ 0 };
+
+		int m_LivesBob{ 3 };
+		int m_LivesBub{ 3 };
 
 		// Level management
 		int m_CurrentLevel{ -1 };

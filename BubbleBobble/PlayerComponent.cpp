@@ -38,6 +38,8 @@ namespace dae
 		pOwner->SetTag("Player");
 
 		Respawn();
+
+		m_pColliderComponent->SetCollisionCallback(std::bind_front(&PlayerComponent::OnCollision, this));
 	}
 
 	void PlayerComponent::Update()
@@ -115,7 +117,7 @@ namespace dae
 		jumpCommand = std::make_unique<RigidbodyJumpCommand>(m_pRigidbodyComponent, m_JumpForce);
 		InputManager::GetInstance().GetKeyboard().AddCommand(std::move(jumpCommand), InputState::Down, SDL_SCANCODE_W);
 
-		// Add the BlowBubble funtion to the command
+		// Bubble
 		auto bubbleCommand{ std::make_unique<BlowBubbleCommand>(std::bind_front(&PlayerComponent::BlowBubble, this)) };
 		InputManager::GetInstance().GetKeyboard().AddCommand(std::move(bubbleCommand), InputState::Pressed, SDL_SCANCODE_LCTRL);
 	}
@@ -135,6 +137,10 @@ namespace dae
 		// Jump
 		auto jumpCommand{ std::make_unique<RigidbodyJumpCommand>(m_pRigidbodyComponent, m_JumpForce) };
 		controller->AddCommand(std::move(jumpCommand), InputState::Down, XboxController::XboxButton::A);
+
+		// Bubble
+		auto bubbleCommand{ std::make_unique<BlowBubbleCommand>(std::bind_front(&PlayerComponent::BlowBubble, this)) };
+		controller->AddCommand(std::move(bubbleCommand), InputState::Pressed, XboxController::XboxButton::X);
 	}
 
 	void PlayerComponent::Respawn()
@@ -160,6 +166,12 @@ namespace dae
 		{
 			m_pRenderSpriteComponent->SetFlipX(true);
 		}
+
+		m_pColliderComponent->RemoveIgnoreTag("Player");
+		m_pColliderComponent->RemoveIgnoreTag("Enemy");
+
+		// Set the state to idle
+		SetState(PlayerState::Idle);
 	}
 
 	void PlayerComponent::HandleState()
@@ -167,6 +179,18 @@ namespace dae
 		const auto& velocity{ m_pRigidbodyComponent->GetVelocity() };
 		const bool IsMoving{ m_pRigidbodyComponent->IsMoving() };
 		const bool IsGrounded{ m_pRigidbodyComponent->IsGrounded() };
+
+		if (IsDead())
+		{
+			m_DeathTimer += Timer::GetDeltaSeconds();
+			if (m_DeathTimer >= m_DeathTime)
+			{
+				Respawn();
+				m_DeathTimer = .0f;
+			}
+
+			return;
+		}
 
 		if (IsGrounded)
 		{
@@ -262,5 +286,18 @@ namespace dae
 		bubbleComponent->BlowBubble(m_pRenderSpriteComponent->GetFlipX() ? 1 : -1);
 
 		SceneManager::GetInstance().GetActiveScene()->Add(bubble);
+	}
+
+	void PlayerComponent::OnCollision(const GameObject* other)
+	{
+		if (IsDead()) return; // Prevents the player from dying multiple times
+		if (!other || other->GetTag() != "Enemy") return;
+
+		m_pColliderComponent->AddIgnoreTag("Player");
+		m_pColliderComponent->AddIgnoreTag("Enemy");
+
+		GameManager::GetInstance().RemoveLife(m_PlayerId);
+
+		SetState(PlayerState::Death);
 	}
 }
