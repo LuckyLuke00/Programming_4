@@ -150,6 +150,14 @@ namespace dae
 		const auto& level{ GameManager::GetInstance().GetCurrentLevel() };
 		if (!level) return;
 
+		if (GameManager::GetInstance().GetLives(m_PlayerId) < 0)
+		{
+			GetOwner()->SetActive(false);
+			return;
+		}
+
+		m_pRigidbodyComponent->SetIsEnabled(true);
+
 		const float levelScale{ level->GetLevelScale() };
 
 		// Subtract a quarter of the scale, so the player is centered
@@ -178,6 +186,8 @@ namespace dae
 
 	void PlayerComponent::Kill()
 	{
+		m_pRigidbodyComponent->SetIsEnabled(false);
+
 		m_pColliderComponent->AddIgnoreTag("Player");
 		m_pColliderComponent->AddIgnoreTag("Enemy");
 

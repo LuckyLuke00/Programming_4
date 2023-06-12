@@ -76,5 +76,6 @@ namespace dae
 
 		void CreateZenChan(const glm::vec2& pos);
 		void CreateMaita(const glm::vec2& pos);
+		void SaveHighScore();
 	};
 }

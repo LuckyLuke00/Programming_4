@@ -34,6 +34,7 @@ namespace dae
 		void EnableFriction(bool enabled) { m_FrictionEnabled = enabled; }
 		void SetVelocity(const glm::vec2& velocity) { m_Velocity = velocity; }
 		void SetMaxVelocity(const glm::vec2& maxVelocity) { m_MaxVelocity = maxVelocity; }
+		void SetIsEnabled(bool enabled) { m_IsEnabled = enabled; }
 
 		void AddForce(const glm::vec2& force);
 
@@ -41,6 +42,7 @@ namespace dae
 		ColliderComponent* m_pColliderComponent{ nullptr };
 		TransformComponent* m_pTransformComponent{ nullptr };
 
+		bool m_IsEnabled{ true };
 		bool m_FrictionEnabled{ true };
 		bool m_GravityEnabled{ true };
 		bool m_IsGrounded{ false };

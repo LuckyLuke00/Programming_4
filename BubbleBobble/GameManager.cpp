@@ -7,6 +7,11 @@
 #include <algorithm>
 #include "ZenChanBehavior.h"
 #include "MaitaBehavior.h"
+#include <fstream>
+#include <filesystem>
+#include <sstream>
+#include <string>
+#include <iostream>
 
 namespace dae
 {
@@ -17,6 +22,8 @@ namespace dae
 
 	void GameManager::LoadNextLevel()
 	{
+		SaveHighScore();
+
 		if (m_Levels.empty()) return; // No levels added yet
 
 		m_LevelCompleted = false;
@@ -26,11 +33,11 @@ namespace dae
 
 		RemoveAllEnemies();
 
-		//auto bubbles{ SceneManager::GetInstance().GetActiveScene()->FindObjectsWithTag("Bubble") };
-		//for (const auto& pBubble : bubbles) pBubble->MarkForDelete();
+		auto bubbles{ SceneManager::GetInstance().GetActiveScene()->FindObjectsWithTag("Bubble") };
+		for (const auto& pBubble : bubbles) pBubble->MarkForDelete();
 
-		//auto pickups{ SceneManager::GetInstance().GetActiveScene()->FindObjectsWithTag("Pickup") };
-		//for (const auto& pPickup : pickups) pPickup->MarkForDelete();
+		auto pickups{ SceneManager::GetInstance().GetActiveScene()->FindObjectsWithTag("Pickup") };
+		for (const auto& pPickup : pickups) pPickup->MarkForDelete();
 
 		// If we are at the last level, go back to the first
 		m_CurrentLevel = m_CurrentLevel == static_cast<int>(m_Levels.size() - 1) ? 0 : m_CurrentLevel + 1;
@@ -218,5 +225,41 @@ namespace dae
 
 		AddEnemy(maita);
 		SceneManager::GetInstance().GetActiveScene()->Add(std::move(maita));
+	}
+
+	void GameManager::SaveHighScore()
+	{
+		// Save the high score to a file
+		std::ifstream iFile("HighScore.txt", std::ios::app);
+		if (iFile.is_open())
+		{
+			// Read the score
+			std::string line;
+			std::getline(iFile, line);
+
+			// Set the high score if it's higher than the current high score
+			if (std::stoi(line) < m_HighScore)
+			{
+				std::ofstream oFile("HighScore.txt");
+				if (oFile.is_open())
+				{
+					oFile << m_HighScore;
+					oFile.close();
+				}
+				else
+				{
+					std::cout << "Unable to open highscore file";
+				}
+			}
+			else
+			{
+				// Store the high score in the game manager
+				m_HighScore = std::stoi(line);
+			}
+		}
+		else
+		{
+			std::cout << "Unable to open highscore file";
+		}
 	}
 }

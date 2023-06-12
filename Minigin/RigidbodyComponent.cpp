@@ -14,6 +14,8 @@ namespace dae
 
 	void RigidbodyComponent::Update()
 	{
+		if (!m_IsEnabled) return;
+
 		const float dt{ Timer::GetDeltaSeconds() };
 		if (m_GravityEnabled && m_Velocity.y < m_MaxVelocity.y) m_Velocity.y += m_Gravity * dt;
 
