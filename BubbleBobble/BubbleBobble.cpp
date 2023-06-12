@@ -49,8 +49,15 @@ void load()
 	dae::InputManager::GetInstance().GetKeyboard().AddCommand(std::move(toggleMuteCommand), dae::InputState::Pressed, SDL_SCANCODE_M);
 
 	// Green text
+	std::cout << "\033[32m" << "Controls:" << "\033[0m" << '\n';
 	std::cout << "\033[32m" << "Press M to mute all sound" << "\033[0m" << '\n';
 	std::cout << "\033[32m" << "Press F1 to go to the next level" << "\033[0m" << '\n';
+	std::cout << "\033[32m" << "Press ALT + F4 to exit" << "\033[0m" << '\n';
+
+	// Print the controls
+	std::cout << "\033[32m" << "Player One: WASD to move, Space to jump, Left Ctrl to shoot" << "\033[0m" << '\n';
+	std::cout << "\033[32m" << "Player One: DPAD to move, A to jump, X to shoot" << "\033[0m" << '\n';
+	std::cout << "\033[32m" << "Player Two: DPAD to move, A to jump, X to shoot" << "\033[0m" << '\n';
 
 #endif // GAME_SCENE
 
