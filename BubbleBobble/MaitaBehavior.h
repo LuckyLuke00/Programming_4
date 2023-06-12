@@ -34,6 +34,8 @@ namespace dae
 		MaitaState m_State{ -1 };
 
 		float m_JumpThreshold{ 50.f };
+		float m_BoulderCooldownTime{ 5.f };
+		float m_BoulderCooldownTimer{ .0f };
 
 		glm::vec2 m_DirectionToTarget{ .0f, .0f };
 		glm::vec2 m_TargetPos{ .0f, .0f };
@@ -47,5 +49,7 @@ namespace dae
 		void HandleMovement();
 		void FindClosestTarget();
 		void SeekTarget();
+
+		void ThrowBoulder() const;
 	};
 }

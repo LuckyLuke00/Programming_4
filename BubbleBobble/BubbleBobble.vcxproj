@@ -162,6 +162,7 @@
     <ClCompile Include="..\Minigin\MoveCommand.cpp" />
     <ClCompile Include="..\Minigin\RigidbodyMoveCommand.cpp" />
     <ClCompile Include="BlowBubbleCommand.cpp" />
+    <ClCompile Include="BoulderComponent.cpp" />
     <ClCompile Include="BubbleBobble.cpp" />
     <ClCompile Include="BubbleComponent.cpp" />
     <ClCompile Include="EnemyBehavior.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="..\Minigin\MoveCommand.h" />
     <ClInclude Include="..\Minigin\RigidbodyMoveCommand.h" />
     <ClInclude Include="BlowBubbleCommand.h" />
+    <ClInclude Include="BoulderComponent.h" />
     <ClInclude Include="BubbleComponent.h" />
     <ClInclude Include="EnemyBehavior.h" />
     <ClInclude Include="GameManager.h" />

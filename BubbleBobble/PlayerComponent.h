@@ -50,11 +50,12 @@ namespace dae
 		void SetState(PlayerState state);
 
 		void Respawn();
+		void Kill();
 		bool IsDead() const { return m_State == PlayerState::Death; }
 	private:
 		static int m_PlayerCount;
 		int m_PlayerId{ -1 };
-		float m_Speed{ 50.f };
+		float m_Speed{ 65.f };
 		float m_JumpForce{ 130.f };
 
 		float m_DeathTimer{ 0.f };

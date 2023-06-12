@@ -174,6 +174,15 @@ namespace dae
 		SetState(PlayerState::Idle);
 	}
 
+	void PlayerComponent::Kill()
+	{
+		m_pColliderComponent->AddIgnoreTag("Player");
+		m_pColliderComponent->AddIgnoreTag("Enemy");
+
+		GameManager::GetInstance().RemoveLife(m_PlayerId);
+		SetState(PlayerState::Death);
+	}
+
 	void PlayerComponent::HandleState()
 	{
 		const auto& velocity{ m_pRigidbodyComponent->GetVelocity() };
@@ -253,6 +262,8 @@ namespace dae
 
 	void PlayerComponent::BlowBubble()
 	{
+		if (IsDead()) return;
+
 		auto bubble{ std::make_shared<GameObject>() };
 		auto bubbleComponent{ bubble->AddComponent<BubbleComponent>() };
 
@@ -293,11 +304,6 @@ namespace dae
 		if (IsDead()) return; // Prevents the player from dying multiple times
 		if (!other || other->GetTag() != "Enemy") return;
 
-		m_pColliderComponent->AddIgnoreTag("Player");
-		m_pColliderComponent->AddIgnoreTag("Enemy");
-
-		GameManager::GetInstance().RemoveLife(m_PlayerId);
-
-		SetState(PlayerState::Death);
+		Kill();
 	}
 }

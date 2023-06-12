@@ -82,6 +82,9 @@
     <ClCompile Include="ScoreDisplayComponent.cpp">
       <Filter>Core\Components\HUD</Filter>
     </ClCompile>
+    <ClCompile Include="BoulderComponent.cpp">
+      <Filter>Core\Components\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LevelLoader.h">
@@ -134,6 +137,9 @@
     </ClInclude>
     <ClInclude Include="ScoreDisplayComponent.h">
       <Filter>Core\Components\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="BoulderComponent.h">
+      <Filter>Core\Components\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

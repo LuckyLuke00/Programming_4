@@ -6,6 +6,8 @@
 #include "PickupComponent.h"
 #include "GameObject.h"
 #include "Scene.h"
+#include "BoulderComponent.h"
+#include "Timer.h"
 
 namespace dae
 {
@@ -72,6 +74,13 @@ namespace dae
 		}
 
 		HandleSpriteFlip();
+
+		m_BoulderCooldownTimer += Timer::GetDeltaSeconds();
+		if (m_BoulderCooldownTimer >= m_BoulderCooldownTime)
+		{
+			ThrowBoulder();
+			m_BoulderCooldownTimer = .0f;
+		}
 	}
 
 	void MaitaBehavior::SetState(MaitaState state)
@@ -177,5 +186,30 @@ namespace dae
 		{
 			GetRigidbodyComponent()->SetVelocity({ GetRigidbodyComponent()->GetVelocity().x, -GetJumpForce() });
 		}
+	}
+
+	void MaitaBehavior::ThrowBoulder() const
+	{
+		auto boulder{ std::make_shared<GameObject>() };
+		auto boulderComponent{ boulder->AddComponent<BoulderComponent>() };
+
+		// Set the position of the bubble to the player
+		const auto& pos{ GetTransformComponent()->GetWorldPosition() };
+		boulder->GetTransformComponent()->SetPosition(pos);
+
+		// Animation
+		dae::SpriteAnimation boulderAnim;
+		boulderAnim.rows = 1;
+		boulderAnim.cols = 4;
+		boulderAnim.fps = 6;
+		boulderAnim.frames = 4;
+
+		boulderAnim.SetTexture("Sprites/Enemies/Maita/maita_boulder.png");
+
+		boulderComponent->AddAnimation("Boulder", boulderAnim);
+
+		// Set the texture of the bubble
+		SceneManager::GetInstance().GetActiveScene()->Add(boulder);
+		boulderComponent->ThrowBoulder(GetRenderSpriteComponent()->GetFlipX() ? 1 : -1);
 	}
 }
