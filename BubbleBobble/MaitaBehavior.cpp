@@ -8,6 +8,8 @@
 #include "Scene.h"
 #include "BoulderComponent.h"
 #include "Timer.h"
+#include "SoundSystem.h"
+#include "SoundIds.h"
 
 namespace dae
 {
@@ -43,6 +45,9 @@ namespace dae
 	void MaitaBehavior::Kill()
 	{
 		SetState(MaitaState::Death);
+
+		// Play the death sound
+		ServiceLocator<SoundSystem>::GetService().PlaySound(static_cast<unsigned short>(SoundIds::Death), .5f);
 	}
 
 	void MaitaBehavior::SpawnOnDeath() const

@@ -6,6 +6,8 @@
 #include "GameManager.h"
 #include "PickupComponent.h"
 #include "Scene.h"
+#include "SoundSystem.h"
+#include "SoundIds.h"
 
 namespace dae
 {
@@ -41,6 +43,8 @@ namespace dae
 	void ZenChanBehavior::Kill()
 	{
 		SetState(ZenChanState::Death);
+		// Play the death sound
+		ServiceLocator<SoundSystem>::GetService().PlaySound(static_cast<unsigned short>(SoundIds::Death), .5f);
 	}
 
 	void ZenChanBehavior::SpawnOnDeath() const

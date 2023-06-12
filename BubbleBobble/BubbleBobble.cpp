@@ -40,15 +40,17 @@ void load()
 	dae::ServiceLocator<dae::SoundSystem>::GetService().LoadMusic(static_cast<unsigned short>(dae::SoundIds::Music), "../Assets/Sounds/main.mp3");
 	dae::ServiceLocator<dae::SoundSystem>::GetService().LoadSound(static_cast<unsigned short>(dae::SoundIds::Jump), "../Assets/Sounds/jump.wav");
 	dae::ServiceLocator<dae::SoundSystem>::GetService().LoadSound(static_cast<unsigned short>(dae::SoundIds::Bubble), "../Assets/Sounds/bubble.wav");
+	dae::ServiceLocator<dae::SoundSystem>::GetService().LoadSound(static_cast<unsigned short>(dae::SoundIds::Pickup), "../Assets/Sounds/pickup.wav");
+	dae::ServiceLocator<dae::SoundSystem>::GetService().LoadSound(static_cast<unsigned short>(dae::SoundIds::Death), "../Assets/Sounds/death.wav");
+
+	dae::ServiceLocator<dae::SoundSystem>::GetService().PlayMusic(static_cast<unsigned short>(dae::SoundIds::Music), .5f);
 
 	auto toggleMuteCommand{ std::make_unique<dae::MuteCommand>() };
 	dae::InputManager::GetInstance().GetKeyboard().AddCommand(std::move(toggleMuteCommand), dae::InputState::Pressed, SDL_SCANCODE_M);
 
-	//auto playSoundCommand{ std::make_unique<dae::PlaySoundCommand>(soundId, 1.f) };
-	//dae::InputManager::GetInstance().GetKeyboard().AddCommand(std::move(playSoundCommand), dae::InputState::Pressed, SDL_SCANCODE_E);
-
-	//// Green text
-	//std::cout << "\033[32m" << "Press E to play sound" << "\033[0m" << '\n';
+	// Green text
+	std::cout << "\033[32m" << "Press M to mute all sound" << "\033[0m" << '\n';
+	std::cout << "\033[32m" << "Press F1 to go to the next level" << "\033[0m" << '\n';
 
 #endif // GAME_SCENE
 

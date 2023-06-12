@@ -31,6 +31,7 @@ namespace dae
 		m_pColliderComponent->SetIsTrigger(true);
 		m_pColliderComponent->SetTriggerCallback(std::bind_front(&BubbleComponent::OnTrigger, this));
 		m_pColliderComponent->AddIgnoreTag("Player");
+		m_pColliderComponent->AddIgnoreTag("Bubble");
 	}
 
 	void BubbleComponent::Update()
@@ -89,11 +90,11 @@ namespace dae
 
 	void BubbleComponent::PopBubble()
 	{
+		GetOwner()->MarkForDelete();
+
 		if (!m_pTrappedEnemy) return;
 		if (!m_pTrappedEnemy->IsDead()) m_pTrappedEnemy->ExitBubble();
 		m_pTrappedEnemy = nullptr;
-
-		GetOwner()->MarkForDelete();
 	}
 
 	void BubbleComponent::HandleHorizontalMovement()

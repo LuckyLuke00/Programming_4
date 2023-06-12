@@ -6,5 +6,7 @@ namespace dae
 		Music,
 		Jump,
 		Bubble,
+		Pickup,
+		Death,
 	};
 }

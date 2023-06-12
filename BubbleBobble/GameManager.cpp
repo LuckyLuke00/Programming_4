@@ -26,11 +26,11 @@ namespace dae
 
 		RemoveAllEnemies();
 
-		auto bubbles{ SceneManager::GetInstance().GetActiveScene()->FindObjectsWithTag("Bubble") };
-		for (const auto& pBubble : bubbles) pBubble->MarkForDelete();
+		//auto bubbles{ SceneManager::GetInstance().GetActiveScene()->FindObjectsWithTag("Bubble") };
+		//for (const auto& pBubble : bubbles) pBubble->MarkForDelete();
 
-		auto pickups{ SceneManager::GetInstance().GetActiveScene()->FindObjectsWithTag("Pickup") };
-		for (const auto& pPickup : pickups) pPickup->MarkForDelete();
+		//auto pickups{ SceneManager::GetInstance().GetActiveScene()->FindObjectsWithTag("Pickup") };
+		//for (const auto& pPickup : pickups) pPickup->MarkForDelete();
 
 		// If we are at the last level, go back to the first
 		m_CurrentLevel = m_CurrentLevel == static_cast<int>(m_Levels.size() - 1) ? 0 : m_CurrentLevel + 1;

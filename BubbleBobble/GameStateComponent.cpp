@@ -11,14 +11,14 @@ namespace dae
 
 	void GameStateComponent::Update()
 	{
-		if (!GameManager::GetInstance().IsLevelCompleted()) return;
+		//if (!GameManager::GetInstance().IsLevelCompleted()) return;
 
-		m_LevelCompleteTimer += Timer::GetDeltaSeconds();
+		//m_LevelCompleteTimer += Timer::GetDeltaSeconds();
 
-		if (m_LevelCompleteTimer >= m_LevelCompleteTime)
-		{
-			GameManager::GetInstance().LoadNextLevel();
-			m_LevelCompleteTimer = .0f;
-		}
+		//if (m_LevelCompleteTimer >= m_LevelCompleteTime)
+		//{
+		//	GameManager::GetInstance().LoadNextLevel();
+		//	m_LevelCompleteTimer = .0f;
+		//}
 	}
 }

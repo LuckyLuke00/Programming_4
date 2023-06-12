@@ -12,6 +12,8 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "BlowBubbleCommand.h"
+#include "SoundSystem.h"
+#include "SoundIds.h"
 
 namespace dae
 {
@@ -181,6 +183,9 @@ namespace dae
 
 		GameManager::GetInstance().RemoveLife(m_PlayerId);
 		SetState(PlayerState::Death);
+
+		// Play the death sound
+		ServiceLocator<SoundSystem>::GetService().PlaySound(static_cast<unsigned short>(SoundIds::Death), .5f);
 	}
 
 	void PlayerComponent::HandleState()
@@ -289,6 +294,8 @@ namespace dae
 		default:
 			break;
 		}
+
+		ServiceLocator<SoundSystem>::GetService().PlaySound(static_cast<unsigned short>(SoundIds::Bubble), .25f);
 
 		bubbleComponent->AddAnimation("Bubble", bubbleAnim);
 

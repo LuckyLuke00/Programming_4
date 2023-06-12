@@ -82,6 +82,17 @@ namespace dae
 		m_pHighScoreText->SetScoreText(GameManager::GetInstance().GetHighScore());
 		m_pScoreTextBub->SetScoreText(GameManager::GetInstance().GetScore(0));
 		m_pScoreTextBob->SetScoreText(GameManager::GetInstance().GetScore(1));
+
+		m_pHighScoreText->SetPosition(glm::vec2{ .0f, m_Margin });
+		m_pHighScoreText->CenterHorizontally();
+
+		m_pScoreTextBub->SetPosition(glm::vec2{ .0f, m_Margin });
+		m_pScoreTextBub->AlignLeft();
+		m_pScoreTextBub->Offset(glm::vec2{ m_Margin, .0f });
+
+		m_pScoreTextBob->SetPosition(glm::vec2{ .0f, m_Margin });
+		m_pScoreTextBob->AlignRight();
+		m_pScoreTextBob->Offset(glm::vec2{ -m_Margin, .0f });
 	}
 
 	void HUDComponent::OnNotify(PickupType type, int playerId)

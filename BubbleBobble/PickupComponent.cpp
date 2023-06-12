@@ -3,6 +3,8 @@
 #include "GameObject.h"
 #include "RenderTextureComponent.h"
 #include "GameManager.h"
+#include <SoundSystem.h>
+#include "SoundIds.h"
 
 namespace dae
 {
@@ -40,6 +42,7 @@ namespace dae
 		else return;
 
 		GetOwner()->MarkForDelete();
+		ServiceLocator<SoundSystem>::GetService().PlaySound(static_cast<unsigned short>(SoundIds::Pickup), .5f);
 	}
 
 	void PickupComponent::ScaleToLevelSize()
