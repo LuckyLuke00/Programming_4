@@ -13,7 +13,6 @@ namespace dae
 	void GameManager::StartGame()
 	{
 		SpawnPlayers();
-		SpawnEnemies();
 	}
 
 	void GameManager::LoadNextLevel()
@@ -22,12 +21,16 @@ namespace dae
 
 		if (m_CurrentLevel != -1) m_Levels[m_CurrentLevel]->Unload();
 
+		RemoveAllEnemies();
+
 		// If we are at the last level, go back to the first
 		m_CurrentLevel = m_CurrentLevel == static_cast<int>(m_Levels.size() - 1) ? 0 : m_CurrentLevel + 1;
 
 		m_Levels[m_CurrentLevel]->Load();
 
 		for (const auto& pPlayer : m_pPlayerComponents) pPlayer->Respawn();
+
+		SpawnEnemies();
 	}
 
 	void GameManager::LoadPreviousLevel()
@@ -36,12 +39,16 @@ namespace dae
 
 		if (m_CurrentLevel != -1) m_Levels[m_CurrentLevel]->Unload();
 
+		RemoveAllEnemies();
+
 		// If we are at the first level, go to the last
 		m_CurrentLevel = m_CurrentLevel == 0 ? static_cast<int>(m_Levels.size() - 1) : m_CurrentLevel - 1;
 
 		m_Levels[m_CurrentLevel]->Load();
 
 		for (const auto& pPlayer : m_pPlayerComponents) pPlayer->Respawn();
+
+		SpawnEnemies();
 	}
 
 	void GameManager::AddPlayer(std::shared_ptr<GameObject> player)
@@ -55,6 +62,17 @@ namespace dae
 	{
 		m_pEnemies.emplace_back(std::move(enemy));
 		m_pEnemyBehaviors.emplace_back(m_pEnemies.back()->GetComponent<EnemyBehavior>());
+	}
+
+	void GameManager::RemoveAllEnemies()
+	{
+		for (const auto& pEnemy : m_pEnemies)
+		{
+			pEnemy->MarkForDelete();
+		}
+
+		m_pEnemies.clear();
+		m_pEnemyBehaviors.clear();
 	}
 
 	void GameManager::AddScore(int score, int playerId)

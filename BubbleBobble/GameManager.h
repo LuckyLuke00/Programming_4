@@ -26,6 +26,7 @@ namespace dae
 		void AddPlayer(std::shared_ptr<GameObject> player);
 
 		void AddEnemy(std::shared_ptr<GameObject> enemy);
+		void RemoveAllEnemies();
 
 		// Score management
 		void AddScore(int score, int playerId);
