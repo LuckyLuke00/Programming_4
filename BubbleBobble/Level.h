@@ -12,6 +12,12 @@ namespace dae
 	class Scene;
 	class TransformComponent;
 
+	enum class EnemyType
+	{
+		ZenChan,
+		Maita
+	};
+
 	class Level
 	{
 	public:
@@ -34,10 +40,12 @@ namespace dae
 		const std::string& GetLevelName() const { return m_LevelName; }
 		float GetLevelScale() const { return m_Scale; }
 		glm::ivec2 GetPlayerSpawnPosition(int index) const;
+		const std::vector<std::pair<glm::ivec2, EnemyType>>& GetEnemySpawnPositions() const { return m_EnemySpawnPositions; }
 
 		void SetLevelFilePath(const std::string_view& path) { m_LevelFilePath = path; }
 		void SetLevelName(const std::string_view& name) { m_LevelName = name; }
 		void AddPlayerSpawnPosition(const glm::ivec2& position) { m_PlayerSpawnPositions.emplace_back(position); }
+		void AddEnemySpawnPosition(const glm::ivec2& position, EnemyType type) { m_EnemySpawnPositions.emplace_back(position, type); }
 	private:
 		std::string m_LevelName;
 		std::string m_LevelFilePath;
@@ -53,5 +61,6 @@ namespace dae
 
 		std::vector<std::shared_ptr<GameObject>> m_pLevelTiles;
 		std::vector<glm::ivec2> m_PlayerSpawnPositions;
+		std::vector<std::pair<glm::ivec2, EnemyType>> m_EnemySpawnPositions;
 	};
 }

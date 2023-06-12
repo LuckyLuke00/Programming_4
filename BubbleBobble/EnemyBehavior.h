@@ -41,8 +41,8 @@ namespace dae
 		ColliderComponent* GetColliderComponent() const { return m_pColliderComponent; }
 		RigidbodyComponent* GetRigidbodyComponent() const { return m_pRigidbodyComponent; }
 
-	protected:
 		void Spawn(const glm::vec2& spawnPos) const;
+	protected:
 		void WrapAroundScreen();
 
 	private:

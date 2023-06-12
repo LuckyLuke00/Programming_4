@@ -83,6 +83,31 @@ namespace dae
 				continue;
 			}
 
+			if (line.starts_with("<enemy"))
+			{
+				// Split the line into the position
+				std::istringstream iss{ line };
+				std::string token;
+
+				// Enemy spawn points are written like this:
+				// <player, 0, (x, y)>
+				// <player, 1, (0, 0)>
+				int type{};
+				int x{};
+				int y{};
+				char c{};
+
+				// Remove the '<' and 'enemy' from the line
+				iss >> token;
+
+				// Split the line into the position
+				iss >> type >> c >> c >> x >> c >> y;
+
+				// Set the player spawn point
+				level.AddEnemySpawnPosition({ x, y }, static_cast<EnemyType>(type));
+				continue;
+			}
+
 			// Check if the line is a path to a texture
 			if (!line.starts_with('<'))
 			{

@@ -23,5 +23,9 @@
 <player, (24, 216)>
 <player, (220, 216)>
 
+<enemy, 0, (112, 64)>
+<enemy, 1, (128, 80)>
+<enemy, 0, (96, 96)>
+
 1 Sprites/Tiles/Level2/tile_big.png
 2 Sprites/Tiles/Level2/tile_small.png

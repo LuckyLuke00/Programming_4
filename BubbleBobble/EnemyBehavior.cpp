@@ -42,7 +42,12 @@ namespace dae
 
 	void EnemyBehavior::Spawn(const glm::vec2& spawnPos) const
 	{
-		m_pTransformComponent->SetPosition(spawnPos);
+		const auto& level{ GameManager::GetInstance().GetCurrentLevel() };
+		if (!level) return;
+
+		const float levelScale{ level->GetLevelScale() };
+
+		m_pTransformComponent->SetPosition(spawnPos * levelScale);
 
 		// If the players position is over the half of the screen, flip the sprite
 		int width;

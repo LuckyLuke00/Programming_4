@@ -14,7 +14,6 @@ namespace dae
 	MaitaBehavior::MaitaBehavior(GameObject* pOwner) :
 		EnemyBehavior{ pOwner }
 	{
-		Spawn(glm::vec2{ 250.f, 200.f });
 	}
 
 	void MaitaBehavior::Update()

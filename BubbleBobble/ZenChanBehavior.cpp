@@ -12,7 +12,6 @@ namespace dae
 	ZenChanBehavior::ZenChanBehavior(GameObject* pOwner) :
 		EnemyBehavior{ pOwner }
 	{
-		Spawn(glm::vec2{ 200.f, 200.f });
 	}
 
 	void ZenChanBehavior::Update()
