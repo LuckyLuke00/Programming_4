@@ -88,6 +88,9 @@
     <ClCompile Include="GameStateComponent.cpp">
       <Filter>Core\Components</Filter>
     </ClCompile>
+    <ClCompile Include="MuteCommand.cpp">
+      <Filter>Core\Commands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LevelLoader.h">
@@ -146,6 +149,12 @@
     </ClInclude>
     <ClInclude Include="GameStateComponent.h">
       <Filter>Core\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundIds.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="MuteCommand.h">
+      <Filter>Core\Commands</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

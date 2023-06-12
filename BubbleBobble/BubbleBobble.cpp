@@ -22,6 +22,8 @@
 #include "MaitaBehavior.h"
 #include "HUDComponent.h"
 #include "GameStateComponent.h"
+#include "SoundIds.h"
+#include "MuteCommand.h"
 
 #define GAME_SCENE
 #define LEVEL
@@ -34,15 +36,19 @@ void load()
 #ifdef GAME_SCENE
 	auto& gameScene{ dae::SceneManager::GetInstance().CreateScene("Game Scene") };
 
-	const unsigned short soundId{ 0 };
 	dae::ServiceLocator<dae::SoundSystem>::RegisterService(std::make_unique<dae::LoggingSoundSystem>(std::make_unique<dae::SDLSoundSystem>()));
-	dae::ServiceLocator<dae::SoundSystem>::GetService().LoadSound(soundId, "../Assets/Sounds/test.wav");
+	dae::ServiceLocator<dae::SoundSystem>::GetService().LoadMusic(static_cast<unsigned short>(dae::SoundIds::Music), "../Assets/Sounds/main.mp3");
+	dae::ServiceLocator<dae::SoundSystem>::GetService().LoadSound(static_cast<unsigned short>(dae::SoundIds::Jump), "../Assets/Sounds/jump.wav");
+	dae::ServiceLocator<dae::SoundSystem>::GetService().LoadSound(static_cast<unsigned short>(dae::SoundIds::Bubble), "../Assets/Sounds/bubble.wav");
 
-	auto playSoundCommand{ std::make_unique<dae::PlaySoundCommand>(soundId, 1.f) };
-	dae::InputManager::GetInstance().GetKeyboard().AddCommand(std::move(playSoundCommand), dae::InputState::Pressed, SDL_SCANCODE_E);
+	auto toggleMuteCommand{ std::make_unique<dae::MuteCommand>() };
+	dae::InputManager::GetInstance().GetKeyboard().AddCommand(std::move(toggleMuteCommand), dae::InputState::Pressed, SDL_SCANCODE_M);
 
-	// Green text
-	std::cout << "\033[32m" << "Press E to play sound" << "\033[0m" << '\n';
+	//auto playSoundCommand{ std::make_unique<dae::PlaySoundCommand>(soundId, 1.f) };
+	//dae::InputManager::GetInstance().GetKeyboard().AddCommand(std::move(playSoundCommand), dae::InputState::Pressed, SDL_SCANCODE_E);
+
+	//// Green text
+	//std::cout << "\033[32m" << "Press E to play sound" << "\033[0m" << '\n';
 
 #endif // GAME_SCENE
 

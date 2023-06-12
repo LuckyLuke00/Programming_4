@@ -47,6 +47,18 @@ namespace dae
 			std::cout << "StopMusic\n";
 		}
 
+		void Mute() override
+		{
+			m_pSoundSystem->Mute();
+			std::cout << "Mute\n";
+		}
+
+		void Unmute() override
+		{
+			m_pSoundSystem->Unmute();
+			std::cout << "Unmute\n";
+		}
+
 	private:
 		std::unique_ptr<SoundSystem> m_pSoundSystem;
 	};

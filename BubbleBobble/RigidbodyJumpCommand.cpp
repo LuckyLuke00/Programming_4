@@ -1,6 +1,7 @@
 #include "RigidbodyJumpCommand.h"
 #include "RigidbodyComponent.h"
-#include <iostream>
+#include "SoundSystem.h"
+#include "SoundIds.h"
 
 namespace dae
 {
@@ -15,5 +16,6 @@ namespace dae
 		if (!m_pRigidbodyComponent->IsGrounded()) return;
 
 		m_pRigidbodyComponent->SetVelocity(glm::vec2{ m_pRigidbodyComponent->GetVelocity().x, -m_JumpForce });
+		ServiceLocator<SoundSystem>::GetService().PlaySound(static_cast<unsigned short>(SoundIds::Jump), .5f);
 	}
 }

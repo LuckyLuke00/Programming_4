@@ -18,6 +18,9 @@ namespace dae
 		void StopMusic() override;
 		void StopSound(const unsigned short soundId) override;
 
+		void Mute() override;
+		void Unmute() override;
+
 	private:
 		class SDLSoundSystemImpl;
 		SDLSoundSystemImpl* m_pImpl;

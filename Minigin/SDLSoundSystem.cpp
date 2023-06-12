@@ -221,6 +221,18 @@ namespace dae
 		m_pImpl->StopSound(soundId);
 	}
 
+	void SDLSoundSystem::Mute()
+	{
+		Mix_VolumeMusic(0);
+		Mix_Volume(-1, 0);
+	}
+
+	void SDLSoundSystem::Unmute()
+	{
+		Mix_VolumeMusic(MIX_MAX_VOLUME);
+		Mix_Volume(-1, MIX_MAX_VOLUME);
+	}
+
 	void SDLSoundSystem::StopMusic()
 	{
 		m_pImpl->StopMusic();

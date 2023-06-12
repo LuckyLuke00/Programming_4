@@ -18,6 +18,9 @@ namespace dae
 
 		virtual void StopMusic() = 0;
 		virtual void StopSound(const unsigned short soundId) = 0;
+
+		virtual void Mute() = 0;
+		virtual void Unmute() = 0;
 	};
 
 	template<class T>
@@ -39,5 +42,8 @@ namespace dae
 
 		void StopMusic() override { /*Do nothing*/ };
 		void StopSound(const unsigned short) override { /*Do nothing*/ };
+
+		void Mute() override { /*Do nothing*/ };
+		void Unmute() override { /*Do nothing*/ };
 	};
 }

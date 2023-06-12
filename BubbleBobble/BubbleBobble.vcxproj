@@ -173,6 +173,7 @@
     <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="LoadNextLevelCommand.cpp" />
     <ClCompile Include="MaitaBehavior.cpp" />
+    <ClCompile Include="MuteCommand.cpp" />
     <ClCompile Include="PickupComponent.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="PlaySoundCommand.cpp" />
@@ -194,11 +195,13 @@
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="LoadNextLevelCommand.h" />
     <ClInclude Include="MaitaBehavior.h" />
+    <ClInclude Include="MuteCommand.h" />
     <ClInclude Include="PickupComponent.h" />
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="PlaySoundCommand.h" />
     <ClInclude Include="RigidbodyJumpCommand.h" />
     <ClInclude Include="ScoreDisplayComponent.h" />
+    <ClInclude Include="SoundIds.h" />
     <ClInclude Include="ZenChanBehavior.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
