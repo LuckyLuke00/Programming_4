@@ -34,7 +34,7 @@ namespace dae
 		m_pHighScoreText->SetTitleText("HIGHSCORE");
 		m_pHighScoreText->SetTitleColor(SDL_Color{ 255, 0, 0, 255 });
 
-		m_pHighScoreText->SetScoreText(0);
+		m_pHighScoreText->SetScoreText(GameManager::GetInstance().GetHighScore());
 
 		// Position in the middle of the screen
 		m_pHighScoreText->SetPosition(glm::vec2{ .0f, m_Margin });

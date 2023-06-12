@@ -51,6 +51,8 @@ namespace dae
 
 	void GameManager::LoadPreviousLevel()
 	{
+		SaveHighScore();
+
 		if (m_Levels.empty()) return; // No levels added yet
 
 		m_LevelCompleted = false;
@@ -229,37 +231,20 @@ namespace dae
 
 	void GameManager::SaveHighScore()
 	{
-		// Save the high score to a file
-		std::ifstream iFile("HighScore.txt", std::ios::app);
-		if (iFile.is_open())
-		{
-			// Read the score
-			std::string line;
-			std::getline(iFile, line);
+		const std::string filename{ "HighScore.txt" };
+		std::ifstream inputFile(filename);
 
-			// Set the high score if it's higher than the current high score
-			if (std::stoi(line) < m_HighScore)
-			{
-				std::ofstream oFile("HighScore.txt");
-				if (oFile.is_open())
-				{
-					oFile << m_HighScore;
-					oFile.close();
-				}
-				else
-				{
-					std::cout << "Unable to open highscore file";
-				}
-			}
-			else
-			{
-				// Store the high score in the game manager
-				m_HighScore = std::stoi(line);
-			}
-		}
-		else
+		if (inputFile.is_open())
 		{
-			std::cout << "Unable to open highscore file";
+			int highScore{};
+			inputFile >> highScore;
+			inputFile.close();
+
+			m_HighScore = std::max(highScore, m_HighScore);
 		}
+
+		std::ofstream outputFile(filename);
+		outputFile << m_HighScore;
+		outputFile.close();
 	}
 }
