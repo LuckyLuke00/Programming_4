@@ -19,9 +19,18 @@ namespace dae
 	{
 		if (m_Levels.empty()) return; // No levels added yet
 
+		m_LevelCompleted = false;
+		m_DeadEnemies = 0;
+
 		if (m_CurrentLevel != -1) m_Levels[m_CurrentLevel]->Unload();
 
 		RemoveAllEnemies();
+
+		auto bubbles{ SceneManager::GetInstance().GetActiveScene()->FindObjectsWithTag("Bubble") };
+		for (const auto& pBubble : bubbles) pBubble->MarkForDelete();
+
+		auto pickups{ SceneManager::GetInstance().GetActiveScene()->FindObjectsWithTag("Pickup") };
+		for (const auto& pPickup : pickups) pPickup->MarkForDelete();
 
 		// If we are at the last level, go back to the first
 		m_CurrentLevel = m_CurrentLevel == static_cast<int>(m_Levels.size() - 1) ? 0 : m_CurrentLevel + 1;
@@ -36,6 +45,9 @@ namespace dae
 	void GameManager::LoadPreviousLevel()
 	{
 		if (m_Levels.empty()) return; // No levels added yet
+
+		m_LevelCompleted = false;
+		m_DeadEnemies = 0;
 
 		if (m_CurrentLevel != -1) m_Levels[m_CurrentLevel]->Unload();
 
@@ -64,8 +76,27 @@ namespace dae
 		m_pEnemyBehaviors.emplace_back(m_pEnemies.back()->GetComponent<EnemyBehavior>());
 	}
 
+	void GameManager::RemoveEnemy(GameObject*)
+	{
+		//for (int i{ 0 }; i < static_cast<int>(m_pEnemies.size()); ++i)
+		//{
+		//	if (m_pEnemies[i].get() == pEnemy)
+		//	{
+		//		m_pEnemies.erase(m_pEnemies.begin() + i);
+		//		m_pEnemyBehaviors.erase(m_pEnemyBehaviors.begin() + i);
+		//		pEnemy->MarkForDelete();
+		//		if (m_pEnemies.empty()) m_LevelCompleted = true;
+		//		return;
+		//	}
+		//}
+		//++m_DeadEnemies;
+		//if (m_DeadEnemies == static_cast<int>(m_pEnemies.size())) m_LevelCompleted = true;
+	}
+
 	void GameManager::RemoveAllEnemies()
 	{
+		if (m_pEnemies.empty()) return;
+
 		for (const auto& pEnemy : m_pEnemies)
 		{
 			pEnemy->MarkForDelete();
@@ -100,9 +131,9 @@ namespace dae
 	void GameManager::SpawnEnemies()
 	{
 		auto level{ m_Levels[m_CurrentLevel].get() };
-		auto spawnPos{ level->GetEnemySpawnPositions() };
+		const auto& spawnPos{ level->GetEnemySpawnPositions() };
 
-		for (auto spawn : spawnPos)
+		for (const auto& spawn : spawnPos)
 		{
 			if (spawn.second == EnemyType::ZenChan) CreateZenChan(spawn.first);
 			else if (spawn.second == EnemyType::Maita) CreateMaita(spawn.first);
@@ -146,7 +177,7 @@ namespace dae
 		zenChanComponent->AddAnimation("Death", deathZenChan);
 
 		AddEnemy(zenChan);
-		SceneManager::GetInstance().GetActiveScene()->Add(zenChan);
+		SceneManager::GetInstance().GetActiveScene()->Add(std::move(zenChan));
 	}
 
 	void GameManager::CreateMaita(const glm::vec2& pos)
@@ -186,6 +217,6 @@ namespace dae
 		maitaComponent->AddAnimation("Death", deathMaita);
 
 		AddEnemy(maita);
-		SceneManager::GetInstance().GetActiveScene()->Add(maita);
+		SceneManager::GetInstance().GetActiveScene()->Add(std::move(maita));
 	}
 }

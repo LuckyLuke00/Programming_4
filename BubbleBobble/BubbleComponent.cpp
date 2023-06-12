@@ -20,6 +20,8 @@ namespace dae
 		const auto& level{ GameManager::GetInstance().GetCurrentLevel() };
 		if (!level) return;
 
+		pOwner->SetTag("Bubble");
+
 		const float levelScale{ level->GetLevelScale() };
 
 		// Subtract a quarter of the scale, so the player is centered

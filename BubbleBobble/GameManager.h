@@ -26,7 +26,10 @@ namespace dae
 		void AddPlayer(std::shared_ptr<GameObject> player);
 
 		void AddEnemy(std::shared_ptr<GameObject> enemy);
+		void RemoveEnemy(GameObject* pEnemy);
 		void RemoveAllEnemies();
+
+		bool IsLevelCompleted() const { return m_LevelCompleted; }
 
 		// Score management
 		void AddScore(int score, int playerId);
@@ -39,9 +42,12 @@ namespace dae
 
 		const Level* GetCurrentLevel() const;
 		const std::vector<PlayerComponent*>& GetPlayers() const { return m_pPlayerComponents; }
-
 	private:
 		GameMode m_GameMode{ GameMode::SinglePlayer };
+
+		bool m_LevelCompleted{ false };
+
+		int m_DeadEnemies{ 0 };
 
 		// Persistent player data
 		int m_HighScore{ 0 };

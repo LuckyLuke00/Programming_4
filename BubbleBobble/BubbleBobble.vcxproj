@@ -167,6 +167,7 @@
     <ClCompile Include="BubbleComponent.cpp" />
     <ClCompile Include="EnemyBehavior.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GameStateComponent.cpp" />
     <ClCompile Include="HUDComponent.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelLoader.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="BubbleComponent.h" />
     <ClInclude Include="EnemyBehavior.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="GameStateComponent.h" />
     <ClInclude Include="HUDComponent.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelLoader.h" />

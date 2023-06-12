@@ -21,11 +21,11 @@
 #include "ZenChanBehavior.h"
 #include "MaitaBehavior.h"
 #include "HUDComponent.h"
+#include "GameStateComponent.h"
 
 #define GAME_SCENE
 #define LEVEL
 #define PLAYER
-#define ENEMY
 #define HUD
 //#define FPS_COUNTER
 
@@ -69,6 +69,10 @@ void load()
 	// Load the first level
 	dae::GameManager::GetInstance().LoadNextLevel();
 	dae::InputManager::GetInstance().GetKeyboard().AddCommand(std::make_unique<dae::LoadNextLevelCommand>(), dae::InputState::Pressed, SDL_SCANCODE_F1);
+
+	auto gameState{ std::make_unique<dae::GameObject>() };
+	gameState->AddComponent<dae::GameStateComponent>();
+	gameScene.Add(std::move(gameState));
 
 #endif // LEVEL
 
@@ -146,10 +150,6 @@ void load()
 	dae::GameManager::GetInstance().AddPlayer(playerTwo);
 
 #endif // PLAYER
-
-#ifdef ENEMY
-
-#endif // ENEMY
 
 #ifdef HUD
 

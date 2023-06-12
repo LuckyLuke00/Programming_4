@@ -13,7 +13,6 @@ namespace dae
 	void RigidbodyMoveCommand::Execute()
 	{
 		if (!m_pRigidbodyComponent) return;
-
 		m_pRigidbodyComponent->AddForce(m_Direction * m_Speed);
 	}
 }

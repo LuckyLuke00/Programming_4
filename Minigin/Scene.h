@@ -27,6 +27,9 @@ namespace dae
 		Scene& operator=(Scene&& other) = delete;
 
 		void SortObjects();
+
+		// Function that finds all game objects with a certain tag
+		std::vector<std::shared_ptr<GameObject>> FindObjectsWithTag(const std::string& tag) const;
 	private:
 		explicit Scene(const std::string& name);
 

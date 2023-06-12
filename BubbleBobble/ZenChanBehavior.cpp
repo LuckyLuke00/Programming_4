@@ -64,6 +64,7 @@ namespace dae
 			{
 				SpawnOnDeath();
 				GetOwner()->MarkForDelete();
+				GameManager::GetInstance().RemoveEnemy(GetOwner());
 				return;
 			}
 			SetState(ZenChanState::Walk);

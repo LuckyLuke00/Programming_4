@@ -6,6 +6,18 @@ using namespace dae;
 
 unsigned int Scene::m_idCounter = 0;
 
+std::vector<std::shared_ptr<GameObject>> dae::Scene::FindObjectsWithTag(const std::string& tag) const
+{
+	std::vector<std::shared_ptr<GameObject>> objects{};
+
+	for (const auto& object : m_objects)
+	{
+		if (object->GetTag() == tag) objects.emplace_back(object);
+	}
+
+	return objects;
+}
+
 Scene::Scene(const std::string& name) : m_name(name) {}
 
 void dae::Scene::SortObjects()
